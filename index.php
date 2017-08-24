@@ -2,14 +2,14 @@
 
 include realpath( dirname(__FILE__) ) . '/vendor/autoload.php';
 
-use LordDashMe\MailChimp\Utilities\Curl;
+use LordDashMe\MailChimp\Core\Subscriber\SubscriberFacade;
 
-$fname = 'test name 1';
-$lname = 'test last name 1';
-$email = 'testemailaddress1@gmail.com';
+$fname = 'test name 2';
+$lname = 'test last name 2';
+$email = 'testemailaddress2@gmail.com';
 
 // MailChimp API credentials
-$apiKey = '13b2ccb87ad77648c3e875cff78d7248-us16';
+$apiKey = 'dc3d13b3f424542e5ed433fece8cfc4e-us16';
 $listID = '40bd239d57';
 
 // MailChimp API URL
@@ -28,7 +28,11 @@ $json = json_encode([
     ]
 ]);
 
-$url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/' . $listID . '/members'; create($url, $apiKey, $json);
+$response = SubscriberFacade::create($apiKey, $listID, $json);
+echo '<pre>';
+print_r($response);
+
+// $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/' . $listID . '/members'; create($url, $apiKey, $json);
 
 // $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/' . $listID . '/members/' . $memberID; update($url, $apiKey, $json);
 

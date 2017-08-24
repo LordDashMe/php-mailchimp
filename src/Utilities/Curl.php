@@ -72,36 +72,12 @@ class Curl
      *
      * @return void
      */
-    public function __construct($url, $apiKey, $requestMethod, $data)
+    public function __construct($apiKey, $url, $requestMethod, $data)
     {
-    	$this->setUrl($url)
-             ->setApiKey($apiKey)
+    	$this->setApiKey($apiKey)
+             ->setUrl($url)
              ->setRequestMethod($requestMethod)
              ->setData($data);
-    }
-
-    /**
-     * The setter method for url field.
-     *
-     * @param  string  $url
-     *
-     * @return $this
-     */
-    public function setUrl($url)
-    {
-    	$this->url = $url;
-
-    	return $this;
-    }
-
-    /**
-     * The getter method for url field.
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-    	return $this->url;
     }
 
     /**
@@ -126,6 +102,30 @@ class Curl
     public function getApiKey()
     {
     	return $this->apiKey;
+    }
+
+    /**
+     * The setter method for url field.
+     *
+     * @param  string  $url
+     *
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * The getter method for url field.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**
