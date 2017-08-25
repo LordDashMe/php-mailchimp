@@ -9,7 +9,7 @@ $lname = 'test last name 2';
 $email = 'testemailaddress2@gmail.com';
 
 // MailChimp API credentials
-$apiKey = 'dc3d13b3f424542e5ed433fece8cfc4e-us16';
+$apiKey = '436efacaca308f34da871cc93eff3559-us16';
 $listID = '40bd239d57';
 
 // MailChimp API URL
@@ -18,17 +18,57 @@ $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
 
 
 // member information
-$json = json_encode([
-    'email_address' => $email,
-    'status'        => 'subscribed',
-    'merge_fields'  => [
-        'FNAME'     => $fname,
-        'LNAME'     => $lname,
-       	'BIRTHDAY'	=> '06/16'
-    ]
-]);
+// $data = json_encode([
+//     'email_address' => $email,
+//     'status'        => 'subscribed',
+//     'merge_fields'  => [
+//         'FNAME'     => $fname,
+//         'LNAME'     => $lname,
+//        	'BIRTHDAY'	=> '06/16'
+//     ]
+// ]);
 
-$response = SubscriberFacade::create($apiKey, $listID, $json);
+// $response = SubscriberFacade::create($apiKey, $listID, function ($subscriber) {
+	
+// 	$subscriber->email = 'tester1_email@testerlangto.com.ph';
+// 	$subscriber->status = 'subscribed';
+
+// 	$subscriber->firstName = 'Tester1 First Name';
+// 	$subscriber->lastName = 'Tester1 Last Name';
+// 	$subscriber->birthday = '06/16';
+	
+// 	return $subscriber;
+
+// });
+
+// $response = SubscriberFacade::update($apiKey, $listID, 'tester1_email@testerlangto.com.ph', function ($subscriber) {
+	
+// 	$subscriber->email = 'tester1_email@testerlangto.com.ph';
+// 	$subscriber->status = 'subscribed';
+
+// 	$subscriber->firstName = 'Tester BAG First Name';
+// 	$subscriber->lastName = 'Tester BAG Last Name';
+// 	$subscriber->birthday = '06/16';
+	
+// 	return $subscriber;
+
+// });
+
+// $response = SubscriberFacade::delete($apiKey, $listID, 'tester1_email@testerlangto.com.ph');
+
+$response = SubscriberFacade::createOrUpdate($apiKey, $listID, 'tester1_email@testerlangto.com.ph', function ($subscriber) {
+	
+	$subscriber->email = 'tester1_email@testerlangto.com.ph';
+	$subscriber->status = 'subscribed';
+
+	$subscriber->firstName = 'Tester BAG11111 First Name';
+	$subscriber->lastName = 'Tester BAG11111 Last Name';
+	$subscriber->birthday = '06/16';
+	
+	return $subscriber;
+
+});
+
 echo '<pre>';
 print_r($response);
 

@@ -10,24 +10,66 @@
 namespace LordDashMe\MailChimp\Core\Subscriber;
 
 use LordDashMe\MailChimp\Core\Subscriber\SubscriberManager;
-use LordDashMe\MailChimp\Core\Subscriber\API\Create as CreateSubscriber;
+use LordDashMe\MailChimp\Core\Subscriber\API\SubscriberService;
 
 class SubscriberFacade
-{
-	public static function create($apiKey, $listId, $data)
+{	
+	/**
+	 * The mailchimp subscriber create method api.
+	 *
+	 * @param  string   $apiKey
+	 * @param  string   $listId
+	 * @param  closure  $closure
+	 *
+	 * @return json
+	 */
+	public static function create($apiKey, $listId, $closure)
 	{
-		$manager = new SubscriberManager($apiKey, $listId, $data);
-		
-		return $manager->create(new CreateSubscriber());
+		return (new SubscriberManager($closure(new SubscriberService()), $apiKey, $listId))->create();
 	}
 
-	public static function update()
+	/**
+	 * The mailchimp subscriber update method api.
+	 *
+	 * @param  string   $apiKey
+	 * @param  string   $listId
+	 * @param  string   $email
+	 * @param  closure  $closure
+	 *
+	 * @return json
+	 */
+	public static function update($apiKey, $listId, $email, $closure)
 	{
-		// 
+		return (new SubscriberManager($closure(new SubscriberService()), $apiKey, $listId))->update($email);
 	}
 
-	public static function createOrUpdate()
+	/**
+	 * The mailchimp subscriber delete method api.
+	 *
+	 * @param  string  $apiKey
+	 * @param  string  $listId
+	 * @param  string  $email
+	 *
+	 * @return json
+	 */
+	public static function delete($apiKey, $listId, $email)
 	{
-		// 
+		return (new SubscriberManager(new SubscriberService(), $apiKey, $listId))->delete($email);
+	}
+
+
+	/**
+	 * The mailchimp subscriber create or update method api
+	 *
+	 * @param  string   $apiKey
+	 * @param  string   $listId
+	 * @param  string   $email
+	 * @param  closure  $closure
+	 *
+	 * @return json
+	 */
+	public static function createOrUpdate($apiKey, $listId, $email, $closure)
+	{
+		return (new SubscriberManager($closure(new SubscriberService()), $apiKey, $listId))->createOrUpdate($email);
 	}
 }

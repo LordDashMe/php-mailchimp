@@ -1,8 +1,7 @@
 <?php
 
 /**
- * The Curl Utility Class, that will be use 
- *  in requesting webservices using PHP.
+ * The Curl Utility Class, that will be use in requesting webservices using PHP.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
  * @since August 24, 2017
@@ -72,7 +71,7 @@ class Curl
      *
      * @return void
      */
-    public function __construct($apiKey, $url, $requestMethod, $data)
+    public function __construct($apiKey, $url, $requestMethod, $data = null)
     {
     	$this->setApiKey($apiKey)
              ->setUrl($url)
@@ -190,11 +189,12 @@ class Curl
         );
 	    
         $response = curl_exec($curl);
+        
 	    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
 	    curl_close($curl);
 
-	    return $this->parseResponse($response, $httpCode);
+	    return $this->curlResponse($response, $httpCode);
 	}
 
 	/**
@@ -216,8 +216,11 @@ class Curl
 	    	CURLOPT_TIMEOUT 		=> Curl::OPT_TIMEOUT,
 	    	CURLOPT_SSL_VERIFYPEER 	=> Curl::OPT_SSL_VERIFYPEER,
 	    	CURLOPT_CUSTOMREQUEST 	=> $requestMethod,
-	    	CURLOPT_POSTFIELDS 		=> $data
 	   	];
+
+        if ($data) {
+            $options[CURLOPT_POSTFIELDS] = $data;
+        }
 
 	   	curl_setopt_array($curl, $options);
 
@@ -225,44 +228,20 @@ class Curl
 	}
 
 	/**
-	 * The curl parse response function.
+	 * The curl parse response.
 	 *
 	 * @param  json  $response
 	 * @param  int   $httpCode
 	 *
 	 * @return json
 	 */
-	protected function parseResponse($response, $httpCode)
+	private function curlResponse($response, $httpCode)
 	{
-		return $this->encodeResponse([
-			'response' => $this->decodeResponse($response),
+		return json_encode([
+			'response' => json_decode($response, true),
 			'header' => [
 				'http_code' => $httpCode,
 			]
 		]);
-	}
-
-	/**
-	 * The curl json encoder, wrapping here for better flexibility of code.
-	 *
-	 * @param  array  $response
-	 *
-	 * @return json
-	 */
-	protected function encodeResponse($response)
-	{
-		return json_encode($response);
-	}
-
-	/**
-	 * The curl json decoder, wrapping here for better flexibility of code.
-	 *
-	 * @param  json  $response
-	 *
-	 * @return array
-	 */
-	protected function decodeResponse($response)
-	{
-		return json_decode($response, true);
 	}
 }

@@ -12,6 +12,13 @@ namespace LordDashMe\MailChimp\Core\Subscriber;
 abstract class SubscriberAbstract
 {
 	/**
+	 * The subscriber service that manage the interaction in the mailchimp api.
+	 *
+	 * @var \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService
+	 */
+	protected $subscriberService;
+
+	/**
 	 * The mailchimp developer api key field.
 	 *
 	 * @var string
@@ -26,11 +33,28 @@ abstract class SubscriberAbstract
 	protected $listId;
 
 	/**
-	 * The data field.
+	 * The setter method for the subscriber service field.
 	 *
-	 * @var json
+	 * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $subscriberService
+	 *
+	 * @return $this
 	 */
-	protected $data;
+	public function setSubscriberService($subscriberService)
+	{
+		$this->subscriberService = $subscriberService;
+
+		return $this;
+	}
+
+	/**
+	 * The getter method for the subscriber service field.
+	 *
+	 * @return \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService
+	 */
+	public function getSubscriberService()
+	{
+		return $this->subscriberService;
+	}
 
 	/**
 	 * The setter method for the api key field.
@@ -78,29 +102,5 @@ abstract class SubscriberAbstract
 	public function getListId()
 	{
 		return $this->listId;
-	}
-
-	/**
-	 * The setter method for data field.
-	 *
-	 * @param  string  $data
-	 *
-	 * @return $this
-	 */
-	public function setData($data)
-	{
-		$this->data = $data;
-
-		return $this;
-	}
-
-	/**
-	 * The getter method for the data field.
-	 *
-	 * @return string
-	 */
-	public function getData()
-	{
-		return $this->data;
 	}
 }
