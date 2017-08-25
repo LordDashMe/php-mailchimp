@@ -1,0 +1,48 @@
+{
+    "name": "lorddashme/php-mailchimp",
+    "type": "package",
+    "description": "PHP MailChimp",
+    "keywords": ["PHP", "MailChimp"],
+    "license": "MIT",
+
+    "homepage": "https://github.com/LordDashMe/php-mailchimp",
+    "authors": [{
+        "name": "Joshua Clifford Reyes (LordDashMe)",
+        "email": "reyesjoshuaclifford@gmail.com",
+        "homepage": "https://lorddashme.github.io/",
+        "role": "Developer"
+    }],
+
+    "autoload": {
+        "psr-4": {
+            "LordDashMe\\MailChimp\\": "src/"
+        }
+    },
+
+    "minimum-stability": "dev",
+
+    "require": {
+        "php": ">=5.5.12",
+        "lorddashme/php-mailchimp": "dev-master"
+    },
+
+    "repositories": [{
+
+        "type": "package",
+
+        "package": {
+            "name": "lorddashme/php-mailchimp",
+            "version": "master",
+            "source": {
+                "url": "https://github.com/LordDashMe/php-mailchimp",
+                "type": "git",
+                "reference": "master"
+            },
+            "autoload": {
+                "psr-4": {
+                    "LordDashMe\\MailChimp\\": "src/"
+                }
+            }
+        }
+    }]
+}
