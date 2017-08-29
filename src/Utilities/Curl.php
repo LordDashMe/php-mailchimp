@@ -10,41 +10,41 @@
 namespace LordDashMe\MailChimp\Utilities;
 
 class Curl
-{	
-	/**
-	 * Set "true" to return the transfer as a string of the return value of curl_exec() 
-	 *	instead of outputting it out directly
-	 *
-	 * @var boolean
-	 */
-	const OPT_RETURNTRANSFER = true;
+{   
+    /**
+     * Set "true" to return the transfer as a string of the return value of curl_exec() 
+     * instead of outputting it out directly
+     *
+     * @var boolean
+     */
+    const OPT_RETURNTRANSFER = true;
 
-	/**
-	 * The maximum number of seconds to allow cURL functions to execute.
-	 *
-	 * @var int
-	 */
-	const OPT_TIMEOUT = 16;
+    /**
+     * The maximum number of seconds to allow cURL functions to execute.
+     *
+     * @var int
+     */
+    const OPT_TIMEOUT = 16;
 
-	/**
-	 * Set "false" to stop cURL from verifying the peer's certificate. 
-	 *
-	 * @var boolean
-	 */
-	const OPT_SSL_VERIFYPEER = false;
+    /**
+     * Set "false" to stop cURL from verifying the peer's certificate. 
+     *
+     * @var boolean
+     */
+    const OPT_SSL_VERIFYPEER = false;
 
-	/**
-	 * The url field.
-	 *
-	 * @var string
-	 */
-	protected $url;
+    /**
+     * The url field.
+     *
+     * @var string
+     */
+    protected $url;
 
-	/**
-	 * The api key field.
-	 *
-	 * @var string
-	 */
+    /**
+     * The api key field.
+     *
+     * @var string
+     */
     protected $apiKey;
 
     /**
@@ -73,7 +73,7 @@ class Curl
      */
     public function __construct($apiKey, $url, $requestMethod, $data = null)
     {
-    	$this->setApiKey($apiKey)
+        $this->setApiKey($apiKey)
              ->setUrl($url)
              ->setRequestMethod($requestMethod)
              ->setData($data);
@@ -88,9 +88,9 @@ class Curl
      */
     public function setApiKey($apiKey)
     {
-    	$this->apiKey = $apiKey;
+        $this->apiKey = $apiKey;
 
-    	return $this;
+        return $this;
     }
 
     /**
@@ -100,7 +100,7 @@ class Curl
      */
     public function getApiKey()
     {
-    	return $this->apiKey;
+        return $this->apiKey;
     }
 
     /**
@@ -136,9 +136,9 @@ class Curl
      */
     public function setRequestMethod($requestMethod)
     {
-    	$this->requestMethod = $requestMethod;
+        $this->requestMethod = $requestMethod;
 
-    	return $this;
+        return $this;
     }
 
     /**
@@ -148,7 +148,7 @@ class Curl
      */
     public function getRequestMethod()
     {
-    	return $this->requestMethod;
+        return $this->requestMethod;
     }
 
     /**
@@ -160,9 +160,9 @@ class Curl
      */
     public function setData($data)
     {
-    	$this->data = $data;
+        $this->data = $data;
 
-    	return $this;
+        return $this;
     }
 
     /**
@@ -172,7 +172,7 @@ class Curl
      */
     public function getData()
     {
-    	return $this->data;
+        return $this->data;
     }
 
     /**
@@ -180,68 +180,68 @@ class Curl
      *
      * @return json
      */
-	public function execute()
-	{
+    public function execute()
+    {
         $curl = $this->curlOptions(curl_init($this->getUrl()), 
             $this->getApiKey(), 
             $this->getRequestMethod(), 
             $this->getData()
         );
-	    
+        
         $response = curl_exec($curl);
         
-	    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-	    curl_close($curl);
+        curl_close($curl);
 
-	    return $this->curlResponse($response, $httpCode);
-	}
+        return $this->curlResponse($response, $httpCode);
+    }
 
-	/**
-	 * The curl option setter.
-	 *
-	 * @param  curl_setopt  $curl
-	 * @param  string       $api_key
-	 * @param  string       $requestMethod
-	 * @param  json         $data
-	 *
-	 * @return \curl_setopt
-	 */
-	private function curlOptions($curl, $apiKey, $requestMethod, $data)
-	{
-	    $options = [
-	    	CURLOPT_USERPWD 		=> "user:{$apiKey}",
-	    	CURLOPT_HTTPHEADER 		=> ['Content-Type: application/json'],
-	    	CURLOPT_RETURNTRANSFER 	=> Curl::OPT_RETURNTRANSFER,
-	    	CURLOPT_TIMEOUT 		=> Curl::OPT_TIMEOUT,
-	    	CURLOPT_SSL_VERIFYPEER 	=> Curl::OPT_SSL_VERIFYPEER,
-	    	CURLOPT_CUSTOMREQUEST 	=> $requestMethod,
-	   	];
+    /**
+     * The curl option setter.
+     *
+     * @param  curl_setopt  $curl
+     * @param  string       $api_key
+     * @param  string       $requestMethod
+     * @param  json         $data
+     *
+     * @return \curl_setopt
+     */
+    private function curlOptions($curl, $apiKey, $requestMethod, $data)
+    {
+        $options = [
+           CURLOPT_USERPWD              => "user:{$apiKey}",
+           CURLOPT_HTTPHEADER           => ['Content-Type: application/json'],
+           CURLOPT_RETURNTRANSFER       => Curl::OPT_RETURNTRANSFER,
+           CURLOPT_TIMEOUT              => Curl::OPT_TIMEOUT,
+           CURLOPT_SSL_VERIFYPEER       => Curl::OPT_SSL_VERIFYPEER,
+           CURLOPT_CUSTOMREQUEST        => $requestMethod,
+           ];
 
         if ($data) {
             $options[CURLOPT_POSTFIELDS] = $data;
         }
 
-	   	curl_setopt_array($curl, $options);
+           curl_setopt_array($curl, $options);
 
-	    return $curl;
-	}
+        return $curl;
+    }
 
-	/**
-	 * The curl parse response.
-	 *
-	 * @param  json  $response
-	 * @param  int   $httpCode
-	 *
-	 * @return json
-	 */
-	private function curlResponse($response, $httpCode)
-	{
-		return json_encode([
-			'response' => json_decode($response, true),
-			'header' => [
-				'http_code' => $httpCode,
-			]
-		]);
-	}
+    /**
+     * The curl parse response.
+     *
+     * @param  json  $response
+     * @param  int   $httpCode
+     *
+     * @return json
+     */
+    private function curlResponse($response, $httpCode)
+    {
+        return json_encode([
+            'response' => json_decode($response, true),
+            'header' => [
+                'http_code' => $httpCode,
+            ]
+        ]);
+    }
 }

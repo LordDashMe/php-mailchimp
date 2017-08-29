@@ -11,19 +11,19 @@ namespace LordDashMe\MailChimp\Exception;
 
 class SubscriberException extends \Exception
 {
-	/**
-	 * Holds the response output of a thrown exception.
-	 *
-	 * @var mixed
-	 */
+    /**
+     * Holds the response output of a thrown exception.
+     *
+     * @var mixed
+     */
     protected $response = null;
    
     /**
-	 * Initialize the response for exception. 
-	 *
-	 * @param  mixed  $response  Holds the throwable error.
-	 *
-	 * @return void
+     * Initialize the response for exception. 
+     *
+     * @param  mixed  $response  Holds the throwable error.
+     *
+     * @return void
      */
     public function __construct($response = null)
     {
@@ -39,7 +39,7 @@ class SubscriberException extends \Exception
      */
     public function setError($response)
     {
-    	$this->response = $response;
+        $this->response = $response;
     }
 
     /**
@@ -49,7 +49,7 @@ class SubscriberException extends \Exception
      */
     public function getError()
     {
-    	return $this->response;
+        return $this->response;
     }
 
     /**
@@ -59,7 +59,7 @@ class SubscriberException extends \Exception
      */
     public function undefinedPrimaryFields()
     {
-    	$this->setError('The mailchimp primary field(s) not set in the closure.');
+        $this->setError('The mailchimp primary field(s) not set in the closure.');
 
         return $this;
     }
