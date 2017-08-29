@@ -1,15 +1,15 @@
 <?php
 
 /**
- * The Subscriber Service Interface.
+ * The Campaign Service Interface.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 25, 2017
+ * @since August 29, 2017
  */
 
-namespace LordDashMe\MailChimp\Contract\Subscriber\API;
+namespace LordDashMe\MailChimp\Contract\Campaign\API;
 
-interface SubscriberService 
+interface CampaignService 
 {
     /**
      * Execute get method in the given url, this will show all the members 
@@ -29,7 +29,7 @@ interface SubscriberService
 
     /**
      * Execute post method in the given url, this will be the 
-     *  create/add endpoint for mailchimp subscribers.
+     *  create/add endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -37,7 +37,7 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscribers.
+     *  update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -45,17 +45,9 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscribers.
+     *  update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
     public function delete();
-
-    /**
-     * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscribers.
-     *
-     * @return json
-     */
-    public function createOrUpdate();
 }

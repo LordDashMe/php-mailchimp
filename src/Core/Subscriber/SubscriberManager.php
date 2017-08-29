@@ -9,11 +9,11 @@
 
 namespace LordDashMe\MailChimp\Core\Subscriber;
 
-use LordDashMe\MailChimp\Exception\SubscriberException;
-use LordDashMe\MailChimp\Core\Subscriber\SubscriberManagerAbstract;
+use LordDashMe\MailChimp\Exception\MailChimpException;
+use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService as SubscriberServiceInterface;
 
-class SubscriberManager extends SubscriberManagerAbstract
+class SubscriberManager extends MailChimpManagerAbstract
 {
     /**
      * The subscriber manager class constructor.
@@ -26,8 +26,38 @@ class SubscriberManager extends SubscriberManagerAbstract
      */
     public function __construct(SubscriberServiceInterface $subscriberService, $apiKey, $listId)
     {
-        $this->setSubscriberService($subscriberService)
-             ->setSubscriberHeaders($apiKey, $listId);
+        $this->setMailChimpService($subscriberService)
+             ->setMailChimpHeaders($apiKey, $listId);
+    }
+
+    /**
+     * The read all records method for the subscriber list.
+     *
+     * @return json
+     */
+    public function showAll()
+    {
+        $subscriberService = $this->getMailChimpService();
+        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
+
+        return $subscriberService->showAll();
+    }
+
+    /**
+     * The read specific record method for the subscriber list.
+     *
+     * @param  string  $email
+     *
+     * @return json
+     */
+    public function show($email)
+    {
+        $subscriberService = $this->getMailChimpService();
+        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
+
+        $subscriberService->memberId = $this->convertToMemberId($email);
+        
+        return $subscriberService->show();
     }
 
     /**
@@ -37,10 +67,10 @@ class SubscriberManager extends SubscriberManagerAbstract
      */
     public function create()
     {
-        $subscriberService = $this->getSubscriberService();
+        $subscriberService = $this->getMailChimpService();
+        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
 
-        $subscriberService = $this->prepareSubscriberHeaders($subscriberService);
-        $subscriberService = $this->prepareSubscriberFields($subscriberService);
+        $subscriberService = $this->prepareMailChimpFields($subscriberService);
 
         return $subscriberService->create();
     }
@@ -48,19 +78,17 @@ class SubscriberManager extends SubscriberManagerAbstract
     /**
      * The update method for the subscriber.
      *
-     * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $subscriberService
      * @param  string  $email
      *
      * @return json
      */
     public function update($email)
     {
-        $subscriberService = $this->getSubscriberService();
+        $subscriberService = $this->getMailChimpService();
+        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
 
         $subscriberService->memberId = $this->convertToMemberId($email);
-
-        $subscriberService = $this->prepareSubscriberHeaders($subscriberService);
-        $subscriberService = $this->prepareSubscriberFields($subscriberService);
+        $subscriberService = $this->prepareMailChimpFields($subscriberService);
 
         return $subscriberService->update();
     }
@@ -68,17 +96,16 @@ class SubscriberManager extends SubscriberManagerAbstract
     /**
      * The delete method for the subscriber.
      *
-     * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $subscriberService
+     * @param  string  $email
      *
      * @return json
      */
     public function delete($email)
     {
-        $subscriberService = $this->getSubscriberService();
+        $subscriberService = $this->getMailChimpService();
+        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
 
         $subscriberService->memberId = $this->convertToMemberId($email);
-
-        $subscriberService = $this->prepareSubscriberHeaders($subscriberService);
 
         return $subscriberService->delete();
     }
@@ -86,18 +113,17 @@ class SubscriberManager extends SubscriberManagerAbstract
     /**
      * The create or update method for the subscriber.
      *
-     * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $subscriberService
+     * @param  string  $email
      *
      * @return json
      */
     public function createOrUpdate($email)
     {
-        $subscriberService = $this->getSubscriberService();
+        $subscriberService = $this->getMailChimpService();
+        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
 
         $subscriberService->memberId = $this->convertToMemberId($email);
-
-        $subscriberService = $this->prepareSubscriberHeaders($subscriberService);
-        $subscriberService = $this->prepareSubscriberFields($subscriberService);
+        $subscriberService = $this->prepareMailChimpFields($subscriberService);
 
         return $subscriberService->createOrUpdate();
     }
@@ -109,44 +135,9 @@ class SubscriberManager extends SubscriberManagerAbstract
      *
      * @return string
      */
-    protected function convertToMemberId($email)
+    private function convertToMemberId($email)
     {
         return md5(strtolower($email));
-    }
-
-    /**
-     * Prepare the unique fields for mailchimp.
-     *
-     * @param  instance|class  $instance
-     * 
-     * @return instance|class
-     */
-    protected function prepareSubscriberHeaders($instance)
-    {
-        $instance->apiKey = $this->getSubscriberHeaders()['apiKey'];
-        $instance->listId = $this->getSubscriberHeaders()['listId'];
-
-        return $instance;
-    }
-
-    /**
-     * Prepare the required or standard fields of mailchimp for subscriber.
-     *
-     * @param  instance|class  $instance
-     * 
-     * @return instance|class
-     */
-    protected function prepareSubscriberFields($instance)
-    {
-        try {
-            $this->validateSubscriberPrimaryMergeFields($instance);
-        } catch (SubscriberException $e) {
-            echo $e->getError(); exit;
-        }
-
-        $instance = $this->convertToSubscriberFields($instance);
-
-        return $this->removeUnusedSubscriberFields($instance);
     }
 
     /**
@@ -156,9 +147,9 @@ class SubscriberManager extends SubscriberManagerAbstract
      *
      * @param  instance|class  $instance
      *
-     * @return void|LordDashMe\MailChimp\Exception\SubscriberException
+     * @return void|throws LordDashMe\MailChimp\Exception\MailChimpException
      */
-    protected function validateSubscriberPrimaryMergeFields($instance)
+    protected function validateMailChimpPrimaryMergeFields($instance)
     {
         $required = (
             ! isset($instance->subscriber_email) ||
@@ -169,7 +160,7 @@ class SubscriberManager extends SubscriberManagerAbstract
         );
 
         if ($required) {
-            throw (new SubscriberException())->undefinedPrimaryFields();
+            throw new MailChimpException('The mailchimp subscriber primary field(s) not set in the closure.');
         }
     }
 
@@ -182,7 +173,7 @@ class SubscriberManager extends SubscriberManagerAbstract
      * 
      * @return instance|class
      */
-    protected function convertToSubscriberFields($instance)
+    protected function convertToMailChimpFields($instance)
     {
         $instance->email_address = $instance->subscriber_email;
         $instance->status = $instance->subscriber_status;
@@ -204,7 +195,7 @@ class SubscriberManager extends SubscriberManagerAbstract
      *
      * @return instance|class
      */
-    protected function removeUnusedSubscriberFields($instance)
+    protected function removeUnusedMailChimpFields($instance)
     {
         unset($instance->subscriber_email);
         unset($instance->subscriber_status);

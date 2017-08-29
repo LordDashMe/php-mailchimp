@@ -1,20 +1,20 @@
 <?php
 
 /**
- * The Subscriber Service Class.
+ * The Campaign Service Class.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 25, 2017
+ * @since August 29, 2017
  */
 
-namespace LordDashMe\MailChimp\Core\Subscriber\API;
+namespace LordDashMe\MailChimp\Core\Campaign\API;
 
 use LordDashMe\MailChimp\Utilities\Url;
 use LordDashMe\MailChimp\Utilities\Curl;
 use LordDashMe\MailChimp\Utilities\Mutator;
-use LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService as SubscriberServiceInterface;
+use LordDashMe\MailChimp\Contract\Campaign\API\CampaignService as CampaignServiceInterface;
 
-class SubscriberService extends Mutator implements SubscriberServiceInterface
+class CampaignService extends Mutator implements CampaignServiceInterface
 {
     /**
      * Execute get method in the given url, this will show all the members 
@@ -35,14 +35,14 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
      */
     public function show()
     {
-        $memberId = $this->mutatorBag['memberId'];
+        $campaignId = $this->mutatorBag['campaignId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'GET'))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'GET'))->execute();
     }
 
     /**
      * Execute post method in the given url, this will be the 
-     *  create/add endpoint for mailchimp subscriber.
+     *  create/add endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -53,45 +53,32 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscriber.
+     *  update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
     public function update()
     {
-        $memberId = $this->mutatorBag['memberId'];
+        $campaignId = $this->mutatorBag['campaignId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PATCH', $this->prepareResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'PATCH', $this->prepareResources()))->execute();
     }
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscriber.
+     *  update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
     public function delete()
     {
-        $memberId = $this->mutatorBag['memberId'];
+        $campaignId = $this->mutatorBag['campaignId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'DELETE'))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'DELETE'))->execute();
     }
 
     /**
-     * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscriber.
-     *
-     * @return json
-     */
-    public function createOrUpdate()
-    {
-        $memberId = $this->mutatorBag['memberId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PUT', $this->prepareResources()))->execute();
-    }
-
-    /**
-     * The subscriber create endpoint.
+     * The campaign create endpoint.
      *
      * @return string
      */
@@ -102,7 +89,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 
         $mailchimpApiHost = Url::parse($apiKey);
 
-        return "{$mailchimpApiHost}/lists/{$listId}/members"; 
+        return "{$mailchimpApiHost}/campaigns"; 
     }
 
     /**

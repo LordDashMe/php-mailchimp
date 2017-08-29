@@ -3,6 +3,7 @@
 /**
  * The Overloader Utility Class.
  * This also known as "interpreter hooks" for the other people in the PHP community.
+ * "Noop" or no-operation is a style of telling other that the method is overridable by the inheritor or subclass.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
  * @since August 29, 2017
@@ -15,8 +16,6 @@ class Overloader
     /**
      * The __call magic method of PHP.
      * Triggered when invoking inaccessible methods in an object context.
-     * This method required a public function objectClass for the sub-class or inheritor.
-     * @uses $this->objectClass()
      * 
      * @param  string  $name
      * @param  array   $arguments
@@ -31,8 +30,6 @@ class Overloader
     /**
      * The __callStatic magic method of PHP.
      * Triggered when invoking inaccessible methods in a static context.
-     * This method required a public static function staticClass for the sub-class or inheritor.
-     * @uses static::staticClass()
      *
      * @param  string  $name
      * @param  array   $arguments
@@ -43,4 +40,18 @@ class Overloader
     {
         return call_user_func_array(array(static::staticClass(), $name), $arguments);
     }
+
+    /**
+     * Noop for the object class context method.
+     *
+     * @return instance|class
+     */
+    public function objectClass() {}
+
+    /**
+     * Noop for the static class context method.
+     *
+     * @return string
+     */
+    public static function staticClass() {}
 }

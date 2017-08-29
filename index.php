@@ -7,7 +7,8 @@ use LordDashMe\MailChimp\Core\Subscriber\Subscriber;
 $apiKey = '436efacaca308f34da871cc93eff3559-us16';
 $listID = '40bd239d57';
 
-$subscriber = new Subscriber($apiKey, $listID);
+
+    $subscriber = new Subscriber($apiKey, $listID);
 
     $response = $subscriber->create(function ($subscriber) {
          
@@ -86,5 +87,7 @@ $subscriber = new Subscriber($apiKey, $listID);
     });
 */
 
+
 echo '<pre>';
 print_r($response);
+exit;

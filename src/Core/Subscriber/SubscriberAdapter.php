@@ -100,6 +100,30 @@ class SubscriberAdapter
     }
 
     /**
+     * The mailchimp subscriber show all method to be transform.
+     *
+     * @param  string  $email
+     *
+     * @return json
+     */
+    public function showAll()
+    {
+        return SubscriberFacade::showAll($this->getApiKey(), $this->getListId());
+    }
+
+    /**
+     * The mailchimp subscriber show method to be transform.
+     *
+     * @param  string  $email
+     *
+     * @return json
+     */
+    public function show($email)
+    {
+        return SubscriberFacade::show($this->getApiKey(), $this->getListId(), $email);
+    }
+
+    /**
      * The mailchimp subscriber create method to be transform.
      *
      * @param  function  $closure

@@ -1,29 +1,29 @@
 <?php
 
 /**
- * The Subscriber Class.
+ * The Campaign Class.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
  * @since August 29, 2017
  */
 
-namespace LordDashMe\MailChimp\Core\Subscriber;
+namespace LordDashMe\MailChimp\Core\Campaign;
 
 use LordDashMe\MailChimp\Utilities\Overloader;
-use LordDashMe\MailChimp\Core\Subscriber\SubscriberAdapter;
-use LordDashMe\MailChimp\Contract\Subscriber\Subscriber as SubscriberInterface;
+use LordDashMe\MailChimp\Core\Campaign\CampaignAdapter;
+use LordDashMe\MailChimp\Contract\Campaign\Campaign as CampaignInterface;
 
-class Subscriber extends Overloader implements SubscriberInterface
+class Campaign extends Overloader implements CampaignInterface
 {
-    /**
-     * The object class context field representing the subcriber adapter class.
+	/**
+     * The object class context field representing the campaign adapter class.
      *
-     * @var LordDashMe\MailChimp\Core\Subscriber\SubscriberAdapter
+     * @var LordDashMe\MailChimp\Core\Campaign\CampaignAdapter
      */
     protected $objectClass;
 
     /**
-     * The subcriber class constructor.
+     * The campaign class constructor.
      *
      * @param  string  $apiKey
      * @param  string  $listId
@@ -32,14 +32,14 @@ class Subscriber extends Overloader implements SubscriberInterface
      */
     public function __construct($apiKey, $listId)
     {
-        $this->objectClass = new SubscriberAdapter($apiKey, $listId);
+        $this->objectClass = new CampaignAdapter($apiKey, $listId);
     }
 
     /**
      * The object class context, this method will be consumed by overloader utility class for
      *  dynamic calling of methods.
      *
-     * @return LordDashMe\MailChimp\Core\Subscriber\SubscriberAdapter
+     * @return LordDashMe\MailChimp\Core\Campaign\CampaignAdapter
      */
     public function objectClass()
     {
@@ -50,10 +50,10 @@ class Subscriber extends Overloader implements SubscriberInterface
      * The static class context, this method will be consumed by overloader utility class for
      *  dynamic calling of methods.
      *
-     * @return LordDashMe\MailChimp\Core\Subscriber\SubscriberFacade
+     * @return LordDashMe\MailChimp\Core\Campaign\CampaignFacade
      */
     public static function staticClass()
     {
-        return 'LordDashMe\MailChimp\Core\Subscriber\SubscriberFacade';   
-    }   
+        return 'LordDashMe\MailChimp\Core\Campaign\CampaignFacade';   
+    }	
 }

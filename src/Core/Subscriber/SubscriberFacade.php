@@ -13,7 +13,34 @@ use LordDashMe\MailChimp\Core\Subscriber\SubscriberManager;
 use LordDashMe\MailChimp\Core\Subscriber\API\SubscriberService;
 
 class SubscriberFacade
-{   
+{
+    /**
+     * The mailchimp subscriber show all method api.
+     *
+     * @param  string  $apiKey
+     * @param  string  $listId
+     *
+     * @return json
+     */
+    public static function showAll($apiKey, $listId)
+    {
+        return (new SubscriberManager(new SubscriberService(), $apiKey, $listId))->showAll();
+    }
+
+    /**
+     * The mailchimp subscriber show method api.
+     *
+     * @param  string  $apiKey
+     * @param  string  $listId
+     * @param  string  $email
+     *
+     * @return json
+     */
+    public static function show($apiKey, $listId, $email)
+    {
+        return (new SubscriberManager(new SubscriberService(), $apiKey, $listId))->show($email);
+    }
+
     /**
      * The mailchimp subscriber create method api.
      *

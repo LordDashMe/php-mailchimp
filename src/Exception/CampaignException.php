@@ -1,17 +1,17 @@
 <?php
 
 /**
- * The Subscriber Exception Class.
+ * The Campaign Exception Class.
  *
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 24, 2017
+ * @since August 29, 2017
  */
 
 namespace LordDashMe\MailChimp\Exception;
 
 use LordDashMe\MailChimp\Exception\MailChimpExceptionl;
 
-class SubscriberException extends MailChimpException
+class CampaignException extends MailChimpException
 {
     /**
      * Initialize the response for exception. 

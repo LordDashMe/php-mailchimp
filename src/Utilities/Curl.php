@@ -216,7 +216,7 @@ class Curl
            CURLOPT_TIMEOUT              => Curl::OPT_TIMEOUT,
            CURLOPT_SSL_VERIFYPEER       => Curl::OPT_SSL_VERIFYPEER,
            CURLOPT_CUSTOMREQUEST        => $requestMethod,
-           ];
+        ];
 
         if ($data) {
             $options[CURLOPT_POSTFIELDS] = $data;
