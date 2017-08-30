@@ -50,4 +50,20 @@ interface CampaignService
      * @return json
      */
     public function delete();
+
+    /**
+     * Execute put method in the given url, this will add content in
+     *  the campaign selected.
+     *
+     * @return json
+     */
+    public function content();
+
+    /**
+     * Execute post method in the given url, this will send the campaign in
+     *  the specified list of members.
+     *
+     * @return json
+     */
+    public function send();
 }
