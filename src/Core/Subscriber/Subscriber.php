@@ -9,51 +9,31 @@
 
 namespace LordDashMe\MailChimp\Core\Subscriber;
 
-use LordDashMe\MailChimp\Utilities\Overloader;
-use LordDashMe\MailChimp\Core\Subscriber\SubscriberAdapter;
-use LordDashMe\MailChimp\Contract\Subscriber\Subscriber as SubscriberInterface;
+use LordDashMe\MailChimp\Core\MailChimpAbstract;
+use LordDashMe\MailChimp\Core\Subscriber\SubscriberManager;
+use LordDashMe\MailChimp\Core\Subscriber\API\SubscriberService;
 
-class Subscriber extends Overloader implements SubscriberInterface
-{
+class Subscriber extends MailChimpAbstract
+{   
     /**
-     * The object class context field representing the subcriber adapter class.
+     * The subscriber class constructor.
      *
-     * @var LordDashMe\MailChimp\Core\Subscriber\SubscriberAdapter
-     */
-    protected $objectClass;
-
-    /**
-     * The subcriber class constructor.
-     *
-     * @param  string  $apiKey
-     * @param  string  $listId
+     * @param  array  $headers
      *
      * @return void
      */
-    public function __construct($apiKey, $listId)
+    public function __construct($headers = array())
     {
-        $this->objectClass = new SubscriberAdapter($apiKey, $listId);
+        parent::__construct($headers);
     }
 
     /**
-     * The object class context, this method will be consumed by overloader utility class for
-     *  dynamic calling of methods.
+     * Resolve the service injection for the manager and worker.
      *
-     * @return LordDashMe\MailChimp\Core\Subscriber\SubscriberAdapter
+     * @return mixed
      */
-    public function objectClass()
+    protected function resolveService()
     {
-        return $this->objectClass;
+        return (new SubscriberManager(new SubscriberService(), $this->getHeaders()));
     }
-
-    /**
-     * The static class context, this method will be consumed by overloader utility class for
-     *  dynamic calling of methods.
-     *
-     * @return LordDashMe\MailChimp\Core\Subscriber\SubscriberFacade
-     */
-    public static function staticClass()
-    {
-        return 'LordDashMe\MailChimp\Core\Subscriber\SubscriberFacade';   
-    }   
 }

@@ -19,15 +19,16 @@ class CampaignManager extends MailChimpManagerAbstract
      * The campaign manager class constructor.
      *
      * @param  \LordDashMe\MailChimp\Contract\Campaign\API\CampaignService  $campaignService
-     * @param  string  $apiKey
-     * @param  string  $listId
+     * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(CampaignServiceInterface $campaignService, $apiKey, $listId)
+    public function __construct(CampaignServiceInterface $campaignService, $headers)
     {
+        parent::__construct($headers);
+
         $this->setMailChimpService($campaignService)
-             ->setMailChimpHeaders($apiKey, $listId);
+             ->setMailChimpHeaders($headers);
     }
 
 	/**
@@ -38,7 +39,6 @@ class CampaignManager extends MailChimpManagerAbstract
     public function showAll()
     {
         $campaignService = $this->getMailChimpService();
-
         $campaignService = $this->prepareMailChimpHeaders($campaignService);
 
         return $campaignService->showAll();
@@ -54,9 +54,9 @@ class CampaignManager extends MailChimpManagerAbstract
     public function show($campaignId)
     {
         $campaignService = $this->getMailChimpService();
+        $campaignService = $this->prepareMailChimpHeaders($campaignService);
 
         $campaignService->campaignId = $campaignId;
-        $campaignService = $this->prepareMailChimpHeaders($campaignService);
 
         return $campaignService->show();
     }
@@ -64,14 +64,16 @@ class CampaignManager extends MailChimpManagerAbstract
     /**
      * The create method for the campaign.
      *
+     * @param  function  $closure
+     *
      * @return json
      */
-    public function create()
+    public function create($closure)
     {
         $campaignService = $this->getMailChimpService();
 
-        $campaignService = $this->prepareMailChimpHeaders($campaignService);
-        $campaignService = $this->prepareCampaignFields($campaignService);
+        $campaignService = $this->prepareMailChimpHeaders($closure($campaignService));
+        $campaignService = $this->prepareMailChimpFields($campaignService);
 
         return $campaignService->create();
     }
@@ -79,17 +81,18 @@ class CampaignManager extends MailChimpManagerAbstract
     /**
      * The update method for the campaign.
      *
-     * @param  string  $campaignId
+     * @param  string    $campaignId
+     * @param  function  $closure
      *
      * @return json
      */
-    public function update($campaignId)
+    public function update($campaignId, $closure)
     {
         $campaignService = $this->getMailChimpService();
+        $campaignService = $this->prepareMailChimpHeaders($closure($campaignService));
 
         $campaignService->campaignId = $campaignId;
-        $campaignService = $this->prepareMailChimpHeaders($campaignService);
-        $campaignService = $this->prepareCampaignFields($campaignService);
+        $campaignService = $this->prepareMailChimpFields($campaignService);
 
         return $campaignService->update();
     }
@@ -104,11 +107,46 @@ class CampaignManager extends MailChimpManagerAbstract
     public function delete($campaignId)
     {
         $campaignService = $this->getMailChimpService();
+        $campaignService = $this->prepareMailChimpHeaders($campaignService);
+
+        $campaignService->campaignId = $campaignId;
+
+        return $campaignService->delete();
+    }
+
+    /**
+     * The content method for the campaign.
+     *
+     * @param  string    $campaignId
+     * @param  function  $closure
+     *
+     * @return json
+     */
+    public function content($campaignId, $closure)
+    {
+        $campaignService = $this->getMailChimpService();
+        $campaignService = $this->prepareMailChimpHeaders($closure($campaignService));
+
+        $campaignService->campaignId = $campaignId;
+
+        return $campaignService->content();
+    }
+
+    /**
+     * The send action method for the campaign.
+     *
+     * @param  string  $camapaignId
+     *
+     * @return json
+     */
+    public function send($campaignId)
+    {
+        $campaignService = $this->getMailChimpService(); 
 
         $campaignService->campaignId = $campaignId;
         $campaignService = $this->prepareMailChimpHeaders($campaignService);
 
-        return $campaignService->delete();
+        return $campaignService->send();  
     }
 
     /**
@@ -122,33 +160,13 @@ class CampaignManager extends MailChimpManagerAbstract
      */
     protected function validateMailChimpPrimaryMergeFields($instance)
     {
-        
-    }
+        $required = (
+            ! isset($instance->recipients) ||
+            ! isset($instance->settings)
+        );
 
-    /**
-     * This will convert the given fields into MailChimp primary field design
-     *  for more info regarding for the schema.
-     * @see http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/
-     *
-     * @param  instance|class  $instance
-     * 
-     * @return instance|class
-     */
-    protected function convertToMailChimpFields($instance)
-    {
-        
-    }
-
-    /**
-     * Remove the unused class fields in the current objects.
-     * This fields will be unused after the conversion of mail chimp primary fields.
-     *
-     * @param  instance|class  $instance
-     *
-     * @return instance|class
-     */
-    protected function removeUnusedMailChimpFields($instance)
-    {
-        
+        if ($required) {
+            throw new MailChimpException('The mailchimp campaign primary field(s) not set in the closure.');
+        }  
     }
 }

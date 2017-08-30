@@ -12,43 +12,43 @@ namespace LordDashMe\MailChimp\Exception;
 class MailChimpException extends \Exception
 {
     /**
-     * Holds the response output of a thrown exception.
+     * Holds the error response output of a thrown exception.
      *
      * @var mixed
      */
-    protected $response = null;
+    protected $errorResponse = null;
    
     /**
-     * Initialize the response for exception. 
+     * Initialize the error response for exception. 
      *
-     * @param  mixed  $response  Holds the throwable error.
-     *
-     * @return void
-     */
-    public function __construct($response = null)
-    {
-        $this->setError($response);
-    }
-
-    /**
-     * The response field setter.
-     *
-     * @param  mixed  $response
+     * @param  mixed  $errorResponse  Holds the throwable error.
      *
      * @return void
      */
-    public function setError($response)
+    public function __construct($errorResponse = null)
     {
-        $this->response = $response;
+        $this->setErrorResponse($errorResponse);
     }
 
     /**
-     * The reponse field getter.
+     * The error response field setter.
+     *
+     * @param  mixed  $errorResponse
+     *
+     * @return void
+     */
+    public function setErrorResponse($errorResponse)
+    {
+        $this->errorResponse = $errorResponse;
+    }
+
+    /**
+     * The error reponse field getter.
      *
      * @return mixed
      */
-    public function getError()
+    public function getErrorResponse()
     {
-        return $this->response;
+        return $this->errorResponse;
     }
 }

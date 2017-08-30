@@ -43,6 +43,8 @@ class Overloader
 
     /**
      * Noop for the object class context method.
+     * This will be the class instance or object holder that later on will be use
+     *  in call_user_func_array.
      *
      * @return instance|class
      */
@@ -50,6 +52,7 @@ class Overloader
 
     /**
      * Noop for the static class context method.
+     * This will be the namespace holder that later on will be use in call_user_func_array.
      *
      * @return string
      */

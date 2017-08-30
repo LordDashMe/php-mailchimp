@@ -19,15 +19,30 @@ class SubscriberManager extends MailChimpManagerAbstract
      * The subscriber manager class constructor.
      *
      * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $subscriberService
-     * @param  string  $apiKey
-     * @param  string  $listId
+     * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(SubscriberServiceInterface $subscriberService, $apiKey, $listId)
+    public function __construct(SubscriberServiceInterface $subscriberService, $headers)
     {
+        parent::__construct($headers);
+
         $this->setMailChimpService($subscriberService)
-             ->setMailChimpHeaders($apiKey, $listId);
+             ->setMailChimpHeaders($headers);
+    }
+
+    /**
+     * Check the subscriber headers if the required fields are already set.
+     *
+     * @param  array  $headers
+     *
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     */
+    protected function validateHeaders($headers)
+    {
+        if (! isset($headers['apiKey']) || ! isset($headers['listId'])) {
+            throw new MailChimpException('The required header fields not set. (The required fields are apiKey & listId)');
+        }  
     }
 
     /**
@@ -63,12 +78,14 @@ class SubscriberManager extends MailChimpManagerAbstract
     /**
      * The create method for the subscriber.
      *
+     * @param  function  $closure
+     *
      * @return json
      */
-    public function create()
+    public function create($closure)
     {
         $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
+        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
 
         $subscriberService = $this->prepareMailChimpFields($subscriberService);
 
@@ -78,14 +95,15 @@ class SubscriberManager extends MailChimpManagerAbstract
     /**
      * The update method for the subscriber.
      *
-     * @param  string  $email
+     * @param  string    $email
+     * @param  function  $closure
      *
      * @return json
      */
-    public function update($email)
+    public function update($email, $closure)
     {
         $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
+        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
 
         $subscriberService->memberId = $this->convertToMemberId($email);
         $subscriberService = $this->prepareMailChimpFields($subscriberService);
@@ -113,14 +131,15 @@ class SubscriberManager extends MailChimpManagerAbstract
     /**
      * The create or update method for the subscriber.
      *
-     * @param  string  $email
+     * @param  string    $email
+     * @param  function  $closure
      *
      * @return json
      */
-    public function createOrUpdate($email)
+    public function createOrUpdate($email, $closure)
     {
         $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
+        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
 
         $subscriberService->memberId = $this->convertToMemberId($email);
         $subscriberService = $this->prepareMailChimpFields($subscriberService);

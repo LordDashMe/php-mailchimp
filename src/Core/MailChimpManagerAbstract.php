@@ -28,6 +28,24 @@ abstract class MailChimpManagerAbstract
     protected $mailChimpHeaders;
 
     /**
+     * The mailchimp manager abstract constructor.
+     *
+     * @param  array  $headers
+     *
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
+     */
+    public function __construct($headers)
+    {
+        try {
+            $this->validateHeaders($headers);
+        } catch (MailChimpException $e) {
+            echo $e->getErrorResponse(); exit;
+        }
+    }
+
+    /**
      * The setter method for the mailChimp service field.
      *
      * @param  instance|class  $mailChimpService
@@ -54,16 +72,16 @@ abstract class MailChimpManagerAbstract
     /**
      * The setter method for the mailChimp headers field.
      *
-     * @param  string  $apiKey
-     * @param  string  $listId
+     * @param  array  $headers
      *
      * @return $this
      */
-    public function setMailChimpHeaders($apiKey, $listId)
+    public function setMailChimpHeaders($headers)
     {
-        $this->mailChimpHeaders['apiKey'] = $apiKey;
-        $this->mailChimpHeaders['listId'] = $listId;
-
+        foreach ($headers as $field => $value) {
+            $this->mailChimpHeaders[$field] = $value;
+        }
+        
         return $this;
     }
 
@@ -86,8 +104,9 @@ abstract class MailChimpManagerAbstract
      */
     protected function prepareMailChimpHeaders($instance)
     {
-        $instance->apiKey = $this->getMailChimpHeaders()['apiKey'];
-        $instance->listId = $this->getMailChimpHeaders()['listId'];
+        foreach ($this->getMailChimpHeaders() as $field => $value) {
+            $instance->{$field} = $value;
+        }
 
         return $instance;
     }
@@ -104,27 +123,45 @@ abstract class MailChimpManagerAbstract
         try {
             $this->validateMailChimpPrimaryMergeFields($instance);
         } catch (MailChimpException $e) {
-            echo $e->getError(); exit;
+            echo $e->getErrorResponse(); exit;
         }
 
-        $instance = $this->convertToMailChimpFields($instance);
-
-        return $this->removeUnusedMailChimpFields($instance);
+        return $this->removeUnusedMailChimpFields(
+            $this->convertToMailChimpFields($instance)
+        );
     }
 
     /**
-     * Noop method, check if the primary fields of MailChimp are setted in the closure.
+     * "Noop" method, check the subscriber headers if the required fields are already set.
+     *
+     * @param  array  $headers
+     *
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
+     */
+    protected function validateHeaders($headers)
+    {
+        if (! isset($headers['apiKey'])) {
+            throw new MailChimpException('The required header fields not set. (The required fields are apiKey)');
+        }  
+    }
+
+    /**
+     * "Noop" method, check if the primary fields of MailChimp are setted in the closure.
      * This is a custom validation or checking instead of requesting to the mailchimp api
      *  we just validate first for the application side for the speed purpose.
      *
      * @param  instance|class  $instance
      *
-     * @return void|throws LordDashMe\MailChimp\Exception\MailChimpException
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
      */
-    protected function validateMailChimpPrimaryMergeFields($instance) {}
+    protected function validateMailChimpPrimaryMergeFields($instance) { return $instance; }
 
     /**
-     * Noop method, this will convert the given fields into MailChimp primary field design
+     * "Noop" method, this will convert the given fields into MailChimp primary field design
      *  for more info regarding for the schema.
      * @see http://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/
      *
@@ -132,15 +169,15 @@ abstract class MailChimpManagerAbstract
      * 
      * @return instance|class
      */
-    protected function convertToMailChimpFields($instance) {}
+    protected function convertToMailChimpFields($instance) { return $instance; }
 
     /**
-     * Noop method, remove the unused class fields in the current objects.
+     * "Noop" method, remove the unused class fields in the current objects.
      * This fields will be unused after the conversion of mail chimp primary fields.
      *
      * @param  instance|class  $instance
      *
      * @return instance|class
      */
-    protected function removeUnusedMailChimpFields($instance) {}
+    protected function removeUnusedMailChimpFields($instance) { return $instance; }
 }

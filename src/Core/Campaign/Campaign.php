@@ -4,56 +4,36 @@
  * The Campaign Class.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 29, 2017
+ * @since August 30, 2017
  */
 
 namespace LordDashMe\MailChimp\Core\Campaign;
 
-use LordDashMe\MailChimp\Utilities\Overloader;
-use LordDashMe\MailChimp\Core\Campaign\CampaignAdapter;
-use LordDashMe\MailChimp\Contract\Campaign\Campaign as CampaignInterface;
+use LordDashMe\MailChimp\Core\MailChimpAbstract;
+use LordDashMe\MailChimp\Core\Campaign\CampaignManager;
+use LordDashMe\MailChimp\Core\Campaign\API\CampaignService;
 
-class Campaign extends Overloader implements CampaignInterface
-{
-	/**
-     * The object class context field representing the campaign adapter class.
-     *
-     * @var LordDashMe\MailChimp\Core\Campaign\CampaignAdapter
-     */
-    protected $objectClass;
-
+class Campaign extends MailChimpAbstract
+{   
     /**
      * The campaign class constructor.
      *
-     * @param  string  $apiKey
-     * @param  string  $listId
+     * @param  array  $headers
      *
      * @return void
      */
-    public function __construct($apiKey, $listId)
+    public function __construct($headers = array())
     {
-        $this->objectClass = new CampaignAdapter($apiKey, $listId);
+        parent::__construct($headers);
     }
 
     /**
-     * The object class context, this method will be consumed by overloader utility class for
-     *  dynamic calling of methods.
+     * Resolve the service injection for the manager and worker.
      *
-     * @return LordDashMe\MailChimp\Core\Campaign\CampaignAdapter
+     * @return mixed
      */
-    public function objectClass()
+    protected function resolveService()
     {
-        return $this->objectClass;
+        return (new CampaignManager(new CampaignService(), $this->getHeaders()));
     }
-
-    /**
-     * The static class context, this method will be consumed by overloader utility class for
-     *  dynamic calling of methods.
-     *
-     * @return LordDashMe\MailChimp\Core\Campaign\CampaignFacade
-     */
-    public static function staticClass()
-    {
-        return 'LordDashMe\MailChimp\Core\Campaign\CampaignFacade';   
-    }	
 }

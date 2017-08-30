@@ -18,7 +18,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
 {
     /**
      * Execute get method in the given url, this will show all the members 
-     *  in the linked list id.
+     *  in the linked campaign id.
      *
      * @return json
      */
@@ -29,7 +29,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
 
     /**
      * Execute get method in the given url, this will show specific member 
-     *  in the linked list id.
+     *  in the linked campaign id.
      *
      * @return json
      */
@@ -78,6 +78,32 @@ class CampaignService extends Mutator implements CampaignServiceInterface
     }
 
     /**
+     * Execute put method in the given url, this will add content in
+     *  the campaign selected.
+     *
+     * @return json
+     */
+    public function content()
+    {
+        $campaignId = $this->mutatorBag['campaignId'];
+
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/content", 'PUT', $this->prepareResources()))->execute();
+    }
+
+    /**
+     * Execute post method in the given url, this will send the campaign in
+     *  the specified list of members.
+     *
+     * @return json
+     */
+    public function send()
+    {
+        $campaignId = $this->mutatorBag['campaignId'];
+
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/actions/send", 'POST'))->execute();  
+    }
+
+    /**
      * The campaign create endpoint.
      *
      * @return string
@@ -85,7 +111,6 @@ class CampaignService extends Mutator implements CampaignServiceInterface
     protected function baseEndpoint()
     {
         $apiKey = $this->mutatorBag['apiKey'];
-        $listId = $this->mutatorBag['listId'];
 
         $mailchimpApiHost = Url::parse($apiKey);
 
@@ -103,7 +128,6 @@ class CampaignService extends Mutator implements CampaignServiceInterface
         $mutatorBagCached = $this->mutatorBag;
 
         unset($mutatorBagCached['apiKey']);
-        unset($mutatorBagCached['listId']);
 
         return json_encode($mutatorBagCached);
     }
