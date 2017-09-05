@@ -48,7 +48,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
      */
     public function create()
     {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->prepareResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->preparedResources()))->execute();
     }
 
     /**
@@ -61,7 +61,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
     {
         $memberId = $this->mutatorBag['memberId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PATCH', $this->prepareResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PATCH', $this->preparedResources()))->execute();
     }
 
     /**
@@ -87,7 +87,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
     {
         $memberId = $this->mutatorBag['memberId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PUT', $this->prepareResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PUT', $this->preparedResources()))->execute();
     }
 
     /**
@@ -111,7 +111,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
      *
      * @return json
      */
-    protected function prepareResources()
+    protected function preparedResources()
     {
         $mutatorBagCached = $this->mutatorBag;
 

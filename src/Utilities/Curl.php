@@ -188,13 +188,13 @@ class Curl
             $this->getData()
         );
         
-        $response = curl_exec($curl);
+        $responseBody = curl_exec($curl);
         
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
 
-        return $this->curlResponse($response, $httpCode);
+        return $this->curlResponse($responseBody, $httpCode);
     }
 
     /**
@@ -210,19 +210,19 @@ class Curl
     private function curlOptions($curl, $apiKey, $requestMethod, $data)
     {
         $options = [
-           CURLOPT_USERPWD              => "user:{$apiKey}",
-           CURLOPT_HTTPHEADER           => ['Content-Type: application/json'],
-           CURLOPT_RETURNTRANSFER       => Curl::OPT_RETURNTRANSFER,
-           CURLOPT_TIMEOUT              => Curl::OPT_TIMEOUT,
-           CURLOPT_SSL_VERIFYPEER       => Curl::OPT_SSL_VERIFYPEER,
-           CURLOPT_CUSTOMREQUEST        => $requestMethod,
+           CURLOPT_USERPWD          => "user:{$apiKey}",
+           CURLOPT_HTTPHEADER       => ['Content-Type: application/json'],
+           CURLOPT_RETURNTRANSFER   => Curl::OPT_RETURNTRANSFER,
+           CURLOPT_TIMEOUT          => Curl::OPT_TIMEOUT,
+           CURLOPT_SSL_VERIFYPEER   => Curl::OPT_SSL_VERIFYPEER,
+           CURLOPT_CUSTOMREQUEST    => $requestMethod,
         ];
 
         if ($data) {
             $options[CURLOPT_POSTFIELDS] = $data;
         }
 
-           curl_setopt_array($curl, $options);
+        curl_setopt_array($curl, $options);
 
         return $curl;
     }
@@ -230,15 +230,15 @@ class Curl
     /**
      * The curl parse response.
      *
-     * @param  json  $response
+     * @param  json  $responseBody
      * @param  int   $httpCode
      *
      * @return json
      */
-    private function curlResponse($response, $httpCode)
+    private function curlResponse($responseBody, $httpCode)
     {
         return json_encode([
-            'response' => json_decode($response, true),
+            'response_body' => json_decode($responseBody, true),
             'header' => [
                 'http_code' => $httpCode,
             ]

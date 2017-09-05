@@ -9,9 +9,11 @@ $listID = '40bd239d57';
  * SUBSCRIBER FACADE
  */
 
-// use LordDashMe\MailChimp\Core\Subscriber\Facade\Subscriber;
+use LordDashMe\MailChimp\Core\Subscriber\Facade\Subscriber;
 
-// Subscriber::init(['apiKey' => $apiKey, 'listId' => $listID]);
+Subscriber::init(['apiKey' => $apiKey, 'listId' => $listID]);
+
+$response = Subscriber::show('jeffrey.mabazza@nuworks.ph');
 
 /*
 $response = Subscriber::create(function ($subscriber) {
@@ -160,6 +162,6 @@ $response = Campaign::content('3e3c1c7ff8', function($campaign) {
 $response = Campaign::delete('06e830b893');
 */
 
-// echo '<pre>';
-// print_r($response);
-// exit;
+echo '<pre>';
+print_r($response);
+exit;

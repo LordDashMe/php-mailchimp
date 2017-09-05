@@ -48,7 +48,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      */
     public function create()
     {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->prepareResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->preparedResources()))->execute();
     }
 
     /**
@@ -61,7 +61,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
     {
         $campaignId = $this->mutatorBag['campaignId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'PATCH', $this->prepareResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'PATCH', $this->preparedResources()))->execute();
     }
 
     /**
@@ -87,7 +87,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
     {
         $campaignId = $this->mutatorBag['campaignId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/content", 'PUT', $this->prepareResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/content", 'PUT', $this->preparedResources()))->execute();
     }
 
     /**
@@ -123,7 +123,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      *
      * @return json
      */
-    protected function prepareResources()
+    protected function preparedResources()
     {
         $mutatorBagCached = $this->mutatorBag;
 
