@@ -13,7 +13,7 @@ interface SubscriberService
 {
     /**
      * Execute get method in the given url, this will show all the members 
-     *  in the linked list id.
+     * in the linked list id.
      *
      * @return json
      */
@@ -21,7 +21,7 @@ interface SubscriberService
 
     /**
      * Execute get method in the given url, this will show specific member 
-     *  in the linked list id.
+     * in the linked list id.
      *
      * @return json
      */
@@ -29,7 +29,7 @@ interface SubscriberService
 
     /**
      * Execute post method in the given url, this will be the 
-     *  create/add endpoint for mailchimp subscribers.
+     * create/add endpoint for mailchimp subscribers.
      *
      * @return json
      */
@@ -37,7 +37,7 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscribers.
+     * update/modify endpoint for mailchimp subscribers.
      *
      * @return json
      */
@@ -45,7 +45,7 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscribers.
+     * update/modify endpoint for mailchimp subscribers.
      *
      * @return json
      */
@@ -53,7 +53,7 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscribers.
+     * update/modify endpoint for mailchimp subscribers.
      *
      * @return json
      */

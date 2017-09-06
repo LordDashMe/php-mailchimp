@@ -18,7 +18,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
 {
     /**
      * Execute get method in the given url, this will show all the members 
-     *  in the linked campaign id.
+     * in the linked campaign id.
      *
      * @return json
      */
@@ -29,7 +29,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
 
     /**
      * Execute get method in the given url, this will show specific member 
-     *  in the linked campaign id.
+     * in the linked campaign id.
      *
      * @return json
      */
@@ -42,18 +42,18 @@ class CampaignService extends Mutator implements CampaignServiceInterface
 
     /**
      * Execute post method in the given url, this will be the 
-     *  create/add endpoint for mailchimp campaign.
+     * create/add endpoint for mailchimp campaign.
      *
      * @return json
      */
     public function create()
     {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->preparedResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->baseResources()))->execute();
     }
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp campaign.
+     * update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -61,12 +61,12 @@ class CampaignService extends Mutator implements CampaignServiceInterface
     {
         $campaignId = $this->mutatorBag['campaignId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'PATCH', $this->preparedResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'PATCH', $this->baseResources()))->execute();
     }
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp campaign.
+     * update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -79,7 +79,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
 
     /**
      * Execute put method in the given url, this will add content in
-     *  the campaign selected.
+     * the campaign selected.
      *
      * @return json
      */
@@ -87,12 +87,12 @@ class CampaignService extends Mutator implements CampaignServiceInterface
     {
         $campaignId = $this->mutatorBag['campaignId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/content", 'PUT', $this->preparedResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/content", 'PUT', $this->baseResources()))->execute();
     }
 
     /**
      * Execute post method in the given url, this will send the campaign in
-     *  the specified list of members.
+     * the specified list of members.
      *
      * @return json
      */
@@ -112,7 +112,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
     {
         $apiKey = $this->mutatorBag['apiKey'];
 
-        $mailchimpApiHost = Url::parse($apiKey);
+        $mailchimpApiHost = Url::resolve($apiKey);
 
         return "{$mailchimpApiHost}/campaigns"; 
     }
@@ -123,7 +123,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      *
      * @return json
      */
-    protected function preparedResources()
+    protected function baseResources()
     {
         $mutatorBagCached = $this->mutatorBag;
 

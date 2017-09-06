@@ -32,16 +32,16 @@ abstract class MailChimpManagerAbstract
      *
      * @param  array  $headers
      *
-     * @throws LordDashMe\MailChimp\Exception\MailChimpException
-     *
      * @return void
+     *
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
      */
     public function __construct($headers)
     {
         try {
             $this->validateHeaders($headers);
         } catch (MailChimpException $e) {
-            echo $e->getErrorResponse(); exit;
+            echo $e->getResponse(); exit;
         }
     }
 
@@ -121,9 +121,9 @@ abstract class MailChimpManagerAbstract
     protected function prepareMailChimpFields($instance)
     {
         try {
-            $this->validateMailChimpPrimaryMergeFields($instance);
+            $this->validateMailChimpRequiredFields($instance);
         } catch (MailChimpException $e) {
-            echo $e->getErrorResponse(); exit;
+            echo $e->getResponse(); exit;
         }
 
         return $this->removeUnusedMailChimpFields(
@@ -132,13 +132,14 @@ abstract class MailChimpManagerAbstract
     }
 
     /**
-     * "Noop" method, check the subscriber headers if the required fields are already set.
+     * Check the subscriber headers if the required fields are already set.
+     * This function can be override by the sub-class or inheritor.
      *
      * @param  array  $headers
      *
-     * @throws LordDashMe\MailChimp\Exception\MailChimpException
-     *
      * @return void
+     *
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
      */
     protected function validateHeaders($headers)
     {
@@ -150,19 +151,20 @@ abstract class MailChimpManagerAbstract
     /**
      * "Noop" method, check if the primary fields of MailChimp are setted in the closure.
      * This is a custom validation or checking instead of requesting to the mailchimp api
-     *  we just validate first for the application side for the speed purpose.
+     * we just validate first for the application side for the speed purpose.
      *
      * @param  instance|class  $instance
      *
-     * @throws LordDashMe\MailChimp\Exception\MailChimpException
-     *
      * @return void
+     *
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
      */
-    protected function validateMailChimpPrimaryMergeFields($instance) { return $instance; }
+    protected function validateMailChimpRequiredFields($instance) { return $instance; }
 
     /**
      * "Noop" method, this will convert the given fields into MailChimp primary field design
-     *  for more info regarding for the schema.
+     * for more info regarding for the schema.
+     *
      * @see http://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/
      *
      * @param  instance|class  $instance

@@ -48,7 +48,9 @@ abstract class MailChimpAbstract
     {
         if (count($headers) > 0) {
             $this->setHeaders($headers);
-            $this->setService($this->resolveService());
+            $this->setService(
+                $this->concreteService()
+            );
         }
     }
 
@@ -114,9 +116,9 @@ abstract class MailChimpAbstract
     }
 
     /**
-     * "Noop" method, resolve the service injection for the manager and worker.
+     * "Noop" method, get the resolve service injection of the manager and worker.
      *
      * @return mixed
      */
-    protected function resolveService() {}
+    protected function concreteService() {}
 }

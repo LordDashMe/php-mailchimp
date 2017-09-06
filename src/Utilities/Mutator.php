@@ -2,6 +2,9 @@
 
 /**
  * The Mutator Utility Class.
+ *
+ * This class intended for dynamic getter and setter for
+ * the inheritor or sub class or whoever extends this class.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
  * @since August 25, 2017
@@ -29,7 +32,7 @@ class Mutator
      */
     public function __set($key, $value)
     {
-       $this->mutatorBag[$key] = $value;
+        $this->mutatorBag[$key] = $value;
     }
 
     /**
@@ -42,7 +45,7 @@ class Mutator
      */
     public function __get($key)
     {
-       return $this->mutatorBag[$key];
+        return $this->mutatorBag[$key];
     }
 
     /**
@@ -55,7 +58,7 @@ class Mutator
      */
     public function __isset($key)
     {
-       return isset($this->mutatorBag[$key]);
+        return isset($this->mutatorBag[$key]);
     }
 
     /**
@@ -68,6 +71,6 @@ class Mutator
      */
     public function __unset($key)
     {
-       unset($this->mutatorBag[$key]);
+        unset($this->mutatorBag[$key]);
     }
 }

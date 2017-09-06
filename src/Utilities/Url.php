@@ -2,6 +2,10 @@
 
 /**
  * The Url Utility Class.
+ *
+ * The settings for Mailchimp URL structure, by
+ * declaring in the define constant, example the api version of
+ * the url are meant to be change anytime.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
  * @since August 24, 2017
@@ -39,10 +43,25 @@ class Url
      *
      * @return string
      */
-    public static function parse($apiKey)
+    public static function resolve($apiKey)
     {
-        $dataCenter = substr($apiKey, strpos($apiKey, '-') + 1);
+        $host = self::MAILCHIMP_HOST;
+        $api = self::MAILCHIMP_API_VER;
+        $protocol = self::MAILCHIMP_PROTOCOL;
+        $dataCenter = self::parseDataCenter($apiKey);
 
-        return Url::MAILCHIMP_PROTOCOL . "://{$dataCenter}." . Url::MAILCHIMP_HOST . '/' . Url::MAILCHIMP_API_VER; 
+        return "{$protocol}://{$dataCenter}.{$host}/{$api}"; 
+    }
+
+    /**
+     * Determine the mailchimp api data center.
+     *
+     * @param  string  $apiKey
+     *
+     * @return string
+     */
+    protected static function parseDataCenter($apiKey)
+    {
+        return substr($apiKey, strpos($apiKey, '-') + 1);
     }
 }

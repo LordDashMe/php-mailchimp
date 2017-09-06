@@ -13,7 +13,7 @@ interface CampaignService
 {
     /**
      * Execute get method in the given url, this will show all the members 
-     *  in the linked list id.
+     * in the linked list id.
      *
      * @return json
      */
@@ -21,7 +21,7 @@ interface CampaignService
 
     /**
      * Execute get method in the given url, this will show specific member 
-     *  in the linked list id.
+     * in the linked list id.
      *
      * @return json
      */
@@ -29,7 +29,7 @@ interface CampaignService
 
     /**
      * Execute post method in the given url, this will be the 
-     *  create/add endpoint for mailchimp campaign.
+     * create/add endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -37,7 +37,7 @@ interface CampaignService
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp campaign.
+     * update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -45,7 +45,7 @@ interface CampaignService
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp campaign.
+     * update/modify endpoint for mailchimp campaign.
      *
      * @return json
      */
@@ -53,7 +53,7 @@ interface CampaignService
 
     /**
      * Execute put method in the given url, this will add content in
-     *  the campaign selected.
+     * the campaign selected.
      *
      * @return json
      */
@@ -61,7 +61,7 @@ interface CampaignService
 
     /**
      * Execute post method in the given url, this will send the campaign in
-     *  the specified list of members.
+     * the specified list of members.
      *
      * @return json
      */

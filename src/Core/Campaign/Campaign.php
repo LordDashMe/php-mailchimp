@@ -32,7 +32,7 @@ class Campaign extends MailChimpAbstract
      *
      * @return mixed
      */
-    protected function resolveService()
+    protected function concreteService()
     {
         return (new CampaignManager(new CampaignService(), $this->getHeaders()));
     }

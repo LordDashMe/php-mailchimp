@@ -16,30 +16,30 @@ class MailChimpException extends \Exception
      *
      * @var mixed
      */
-    protected $errorResponse = null;
+    protected $response = null;
    
     /**
      * Initialize the error response for exception. 
      *
-     * @param  mixed  $errorResponse  Holds the throwable error.
+     * @param  mixed  $response  Holds the throwable error.
      *
      * @return void
      */
-    public function __construct($errorResponse = null)
+    public function __construct($response = null)
     {
-        $this->setErrorResponse($errorResponse);
+        $this->setResponse($response);
     }
 
     /**
      * The error response field setter.
      *
-     * @param  mixed  $errorResponse
+     * @param  mixed  $response
      *
      * @return void
      */
-    public function setErrorResponse($errorResponse)
+    public function setResponse($response)
     {
-        $this->errorResponse = $errorResponse;
+        $this->response = $response;
     }
 
     /**
@@ -47,8 +47,8 @@ class MailChimpException extends \Exception
      *
      * @return mixed
      */
-    public function getErrorResponse()
+    public function getResponse()
     {
-        return $this->errorResponse;
+        return $this->response;
     }
 }

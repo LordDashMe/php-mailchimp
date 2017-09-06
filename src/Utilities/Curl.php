@@ -1,7 +1,10 @@
 <?php
 
 /**
- * The Curl Utility Class, that will be use in requesting webservices using PHP.
+ * The Curl Utility Class.
+ *
+ * The class used in requestion api or webservices
+ * of mailchimp using PHP curl function.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
  * @since August 24, 2017
@@ -182,11 +185,7 @@ class Curl
      */
     public function execute()
     {
-        $curl = $this->curlOptions(curl_init($this->getUrl()), 
-            $this->getApiKey(), 
-            $this->getRequestMethod(), 
-            $this->getData()
-        );
+        $curl = $this->getCurlOptions(curl_init($this->getUrl()));
         
         $responseBody = curl_exec($curl);
         
@@ -194,28 +193,29 @@ class Curl
 
         curl_close($curl);
 
-        return $this->curlResponse($responseBody, $httpCode);
+        return $this->getCurlResponse($responseBody, $httpCode);
     }
 
     /**
-     * The curl option setter.
+     * Prepare and get the curl options.
      *
      * @param  curl_setopt  $curl
-     * @param  string       $api_key
-     * @param  string       $requestMethod
-     * @param  json         $data
      *
      * @return \curl_setopt
      */
-    private function curlOptions($curl, $apiKey, $requestMethod, $data)
+    private function getCurlOptions($curl)
     {
+        $data = $this->getData();
+        $apiKey = $this->getApiKey();
+        $requestMethod = $this->getRequestMethod();
+
         $options = [
            CURLOPT_USERPWD          => "user:{$apiKey}",
            CURLOPT_HTTPHEADER       => ['Content-Type: application/json'],
-           CURLOPT_RETURNTRANSFER   => Curl::OPT_RETURNTRANSFER,
-           CURLOPT_TIMEOUT          => Curl::OPT_TIMEOUT,
-           CURLOPT_SSL_VERIFYPEER   => Curl::OPT_SSL_VERIFYPEER,
            CURLOPT_CUSTOMREQUEST    => $requestMethod,
+           CURLOPT_TIMEOUT          => self::OPT_TIMEOUT,
+           CURLOPT_RETURNTRANSFER   => self::OPT_RETURNTRANSFER,
+           CURLOPT_SSL_VERIFYPEER   => self::OPT_SSL_VERIFYPEER,
         ];
 
         if ($data) {
@@ -228,14 +228,14 @@ class Curl
     }
 
     /**
-     * The curl parse response.
+     * Get curl parse response.
      *
      * @param  json  $responseBody
      * @param  int   $httpCode
      *
      * @return json
      */
-    private function curlResponse($responseBody, $httpCode)
+    private function getCurlResponse($responseBody, $httpCode)
     {
         return json_encode([
             'response_body' => json_decode($responseBody, true),

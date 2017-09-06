@@ -152,13 +152,15 @@ class CampaignManager extends MailChimpManagerAbstract
     /**
      * Check if the primary fields of MailChimp are setted in the closure.
      * This is a custom validation or checking instead of requesting to the mailchimp api
-     *  we just validate first for the application side for the speed purpose.
+     * we just validate first for the application side for the speed purpose.
      *
      * @param  instance|class  $instance
      *
-     * @return void|throws LordDashMe\MailChimp\Exception\MailChimpException
+     * @return void
+     *
+     * @throws LordDashMe\MailChimp\Exception\MailChimpException
      */
-    protected function validateMailChimpPrimaryMergeFields($instance)
+    protected function validateMailChimpRequiredFields($instance)
     {
         $required = (
             ! isset($instance->recipients) ||

@@ -18,7 +18,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 {
     /**
      * Execute get method in the given url, this will show all the members 
-     *  in the linked list id.
+     * in the linked list id.
      *
      * @return json
      */
@@ -29,7 +29,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 
     /**
      * Execute get method in the given url, this will show specific member 
-     *  in the linked list id.
+     * in the linked list id.
      *
      * @return json
      */
@@ -42,18 +42,18 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 
     /**
      * Execute post method in the given url, this will be the 
-     *  create/add endpoint for mailchimp subscriber.
+     * create/add endpoint for mailchimp subscriber.
      *
      * @return json
      */
     public function create()
     {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->preparedResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->baseResources()))->execute();
     }
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscriber.
+     * update/modify endpoint for mailchimp subscriber.
      *
      * @return json
      */
@@ -61,12 +61,12 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
     {
         $memberId = $this->mutatorBag['memberId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PATCH', $this->preparedResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PATCH', $this->baseResources()))->execute();
     }
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscriber.
+     * update/modify endpoint for mailchimp subscriber.
      *
      * @return json
      */
@@ -79,7 +79,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 
     /**
      * Execute patch method in the given url, this will be the 
-     *  update/modify endpoint for mailchimp subscriber.
+     * update/modify endpoint for mailchimp subscriber.
      *
      * @return json
      */
@@ -87,7 +87,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
     {
         $memberId = $this->mutatorBag['memberId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PUT', $this->preparedResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PUT', $this->baseResources()))->execute();
     }
 
     /**
@@ -100,7 +100,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
         $apiKey = $this->mutatorBag['apiKey'];
         $listId = $this->mutatorBag['listId'];
 
-        $mailchimpApiHost = Url::parse($apiKey);
+        $mailchimpApiHost = Url::resolve($apiKey);
 
         return "{$mailchimpApiHost}/lists/{$listId}/members"; 
     }
@@ -111,7 +111,7 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
      *
      * @return json
      */
-    protected function preparedResources()
+    protected function baseResources()
     {
         $mutatorBagCached = $this->mutatorBag;
 

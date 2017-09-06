@@ -32,8 +32,8 @@ class Subscriber extends MailChimpAbstract
      *
      * @return mixed
      */
-    protected function resolveService()
+    protected function concreteService()
     {
-        return (new SubscriberManager(new SubscriberService(), $this->getHeaders()));
+        return new SubscriberManager(new SubscriberService(), $this->getHeaders());
     }
 }
