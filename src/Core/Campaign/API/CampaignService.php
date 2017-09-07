@@ -22,7 +22,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      *
      * @return json
      */
-    public function showAll()
+    public function select()
     {
         return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'GET'))->execute();
     }
@@ -33,7 +33,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      *
      * @return json
      */
-    public function show()
+    public function find()
     {
         $campaignId = $this->mutatorBag['campaignId'];
 

@@ -41,7 +41,7 @@ abstract class MailChimpManagerAbstract
         try {
             $this->validateHeaders($headers);
         } catch (MailChimpException $e) {
-            echo $e->getResponse(); exit;
+            exit($e->getResponse());
         }
     }
 
@@ -123,7 +123,7 @@ abstract class MailChimpManagerAbstract
         try {
             $this->validateMailChimpRequiredFields($instance);
         } catch (MailChimpException $e) {
-            echo $e->getResponse(); exit;
+            exit($e->getResponse());
         }
 
         return $this->removeUnusedMailChimpFields(

@@ -17,7 +17,7 @@ interface SubscriberService
      *
      * @return json
      */
-    public function showAll();
+    public function select();
 
     /**
      * Execute get method in the given url, this will show specific member 
@@ -25,11 +25,11 @@ interface SubscriberService
      *
      * @return json
      */
-    public function show();
+    public function find();
 
     /**
      * Execute post method in the given url, this will be the 
-     * create/add endpoint for mailchimp subscribers.
+     * create/add endpoint for mailchimp subscriber.
      *
      * @return json
      */
@@ -37,7 +37,7 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp subscribers.
+     * update/modify endpoint for mailchimp subscriber.
      *
      * @return json
      */
@@ -45,7 +45,7 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp subscribers.
+     * update/modify endpoint for mailchimp subscriber.
      *
      * @return json
      */
@@ -53,7 +53,7 @@ interface SubscriberService
 
     /**
      * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp subscribers.
+     * update/modify endpoint for mailchimp subscriber.
      *
      * @return json
      */

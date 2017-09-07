@@ -112,7 +112,11 @@ abstract class MailChimpAbstract
      */
     public function __call($method, $args)
     {
-        return $this->getService()->$method(...$args);
+        if ($this->getService()) {
+            return $this->getService()->$method(...$args);    
+        }
+
+        exit('The class not initiated properly!');
     }
 
     /**

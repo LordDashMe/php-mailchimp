@@ -9,11 +9,13 @@ $listID = '40bd239d57';
  * SUBSCRIBER FACADE
  */
 
-use LordDashMe\MailChimp\Core\Subscriber\Facade\Subscriber;
+// use LordDashMe\MailChimp\Core\Subscriber\Facade\Subscriber;
 
-Subscriber::init(['apiKey' => $apiKey, 'listId' => $listID]);
+// Subscriber::init(['apiKey' => $apiKey, 'listId' => $listID]);
 
+/*
 $response = Subscriber::show('jeffrey.mabazza@nuworks.ph');
+*/
 
 /*
 $response = Subscriber::create(function ($subscriber) {
@@ -162,6 +164,52 @@ $response = Campaign::content('3e3c1c7ff8', function($campaign) {
 $response = Campaign::delete('06e830b893');
 */
 
-echo '<pre>';
-print_r($response);
-exit;
+/**
+ * TEMPLATE FOLDER FACADE
+ */
+
+// use LordDashMe\MailChimp\Core\TemplateFolder\Facade\TemplateFolder;
+
+// TemplateFolder::init(['apiKey' => $apiKey]);
+
+// $response = TemplateFolder::create(function($templateFolder) {
+//     $templateFolder->name = 'Test Lang na Folder Template';
+//     return $templateFolder;
+// });
+
+// $response = TemplateFolder::update('46a9e5bad0', function($templateFolder) {
+//     $templateFolder->name = 'This is a new Folder Name';
+//     return $templateFolder;
+// });
+
+// $response = TemplateFolder::select(function($templateFolder) {
+//     $templateFolder->field = [
+//         'name' => 'Test Lang na Folder Template'
+//     ];
+//     return $templateFolder;
+// });
+
+// $response = TemplateFolder::delete('46a9e5bad0');
+
+/**
+ * TEMPLATE FACADE
+ */
+
+// use LordDashMe\MailChimp\Core\Template\Facade\Template;
+
+// Template::init(['apiKey' => $apiKey]);
+
+/*
+$response = Template::create(function($template) {
+
+    $template->name = 'This is a sample template';
+
+    $template->html = '<b> This is a Test Template </b>';
+
+    return $template;
+});
+*/
+
+// echo '<pre>';
+// print_r($response);
+// exit;

@@ -48,31 +48,34 @@ class SubscriberManager extends MailChimpManagerAbstract
     /**
      * The read all records method for the subscriber list.
      *
+     * @param  function  $closure
+     *
      * @return json
      */
-    public function showAll()
+    public function select($closure)
     {
         $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
+        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
 
-        return $subscriberService->showAll();
+        return $subscriberService->select();
     }
 
     /**
      * The read specific record method for the subscriber list.
      *
      * @param  string  $email
+     * @param  function  $closure
      *
      * @return json
      */
-    public function show($email)
+    public function find($email, $closure)
     {
         $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
+        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
 
         $subscriberService->memberId = $this->convertToMemberId($email);
         
-        return $subscriberService->show();
+        return $subscriberService->find();
     }
 
     /**

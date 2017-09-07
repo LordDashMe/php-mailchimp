@@ -1,15 +1,15 @@
 <?php
 
 /**
- * The Campaign Service Interface.
+ * The Template Service Interface.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 29, 2017
+ * @since September 07, 2017
  */
 
-namespace LordDashMe\MailChimp\Contract\Campaign\API;
+namespace LordDashMe\MailChimp\Contract\Template\API;
 
-interface CampaignService 
+interface TemplateService 
 {
     /**
      * Execute get method in the given url, this will show all the members 
@@ -29,7 +29,7 @@ interface CampaignService
 
     /**
      * Execute post method in the given url, this will be the 
-     * create/add endpoint for mailchimp campaign.
+     * create/add endpoint for mailchimp template.
      *
      * @return json
      */
@@ -37,7 +37,7 @@ interface CampaignService
 
     /**
      * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp campaign.
+     * update/modify endpoint for mailchimp template.
      *
      * @return json
      */
@@ -45,25 +45,9 @@ interface CampaignService
 
     /**
      * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp campaign.
+     * update/modify endpoint for mailchimp template.
      *
      * @return json
      */
     public function delete();
-
-    /**
-     * Execute put method in the given url, this will add content in
-     * the campaign selected.
-     *
-     * @return json
-     */
-    public function content();
-
-    /**
-     * Execute post method in the given url, this will send the campaign in
-     * the specified list of members.
-     *
-     * @return json
-     */
-    public function send();
 }

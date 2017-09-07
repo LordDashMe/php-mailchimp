@@ -34,31 +34,34 @@ class CampaignManager extends MailChimpManagerAbstract
 	/**
      * The read all records method for the campaign list.
      *
+     * @param  function  $closure
+     *
      * @return json
      */
-    public function showAll()
+    public function select($closure)
     {
         $campaignService = $this->getMailChimpService();
         $campaignService = $this->prepareMailChimpHeaders($campaignService);
 
-        return $campaignService->showAll();
+        return $campaignService->select();
     }
 
     /**
      * The read specific record method for the campaign list.
      *
      * @param  string  $campaignId
+     * @param  function  $closure
      *
      * @return json
      */
-    public function show($campaignId)
+    public function find($campaignId, $closure)
     {
         $campaignService = $this->getMailChimpService();
         $campaignService = $this->prepareMailChimpHeaders($campaignService);
 
         $campaignService->campaignId = $campaignId;
 
-        return $campaignService->show();
+        return $campaignService->find();
     }
 
     /**

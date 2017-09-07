@@ -1,24 +1,24 @@
 <?php
 
 /**
- * The Subscriber Service Class.
+ * The Template Service Class.
  * 
  * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 25, 2017
+ * @since September 07, 2017
  */
 
-namespace LordDashMe\MailChimp\Core\Subscriber\API;
+namespace LordDashMe\MailChimp\Core\Template\API;
 
 use LordDashMe\MailChimp\Utilities\Url;
 use LordDashMe\MailChimp\Utilities\Curl;
 use LordDashMe\MailChimp\Utilities\Mutator;
-use LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService as SubscriberServiceInterface;
+use LordDashMe\MailChimp\Contract\Template\API\TemplateService as TemplateServiceInterface;
 
-class SubscriberService extends Mutator implements SubscriberServiceInterface
+class TemplateService extends Mutator implements TemplateServiceInterface
 {
     /**
      * Execute get method in the given url, this will show all the members 
-     * in the linked list id.
+     * in the linked template id.
      *
      * @return json
      */
@@ -29,20 +29,20 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 
     /**
      * Execute get method in the given url, this will show specific member 
-     * in the linked list id.
+     * in the linked template id.
      *
      * @return json
      */
     public function find()
     {
-        $memberId = $this->mutatorBag['memberId'];
+        $templateId = $this->mutatorBag['templateId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'GET'))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$templateId}", 'GET'))->execute();
     }
 
     /**
      * Execute post method in the given url, this will be the 
-     * create/add endpoint for mailchimp subscriber.
+     * create/add endpoint for mailchimp template.
      *
      * @return json
      */
@@ -53,56 +53,42 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
 
     /**
      * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp subscriber.
+     * update/modify endpoint for mailchimp template.
      *
      * @return json
      */
     public function update()
     {
-        $memberId = $this->mutatorBag['memberId'];
+        $templateId = $this->mutatorBag['templateId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PATCH', $this->baseResources()))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$templateId}", 'PATCH', $this->baseResources()))->execute();
     }
 
     /**
      * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp subscriber.
+     * update/modify endpoint for mailchimp template.
      *
      * @return json
      */
     public function delete()
     {
-        $memberId = $this->mutatorBag['memberId'];
+        $templateId = $this->mutatorBag['templateId'];
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'DELETE'))->execute();
+        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$templateId}", 'DELETE'))->execute();
     }
 
     /**
-     * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp subscriber.
-     *
-     * @return json
-     */
-    public function createOrUpdate()
-    {
-        $memberId = $this->mutatorBag['memberId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$memberId}", 'PUT', $this->baseResources()))->execute();
-    }
-
-    /**
-     * The subscriber create endpoint.
+     * The template create endpoint.
      *
      * @return string
      */
     protected function baseEndpoint()
     {
         $apiKey = $this->mutatorBag['apiKey'];
-        $listId = $this->mutatorBag['listId'];
 
         $mailchimpApiHost = Url::resolve($apiKey);
 
-        return "{$mailchimpApiHost}/lists/{$listId}/members"; 
+        return "{$mailchimpApiHost}/templates"; 
     }
 
     /**
@@ -116,7 +102,6 @@ class SubscriberService extends Mutator implements SubscriberServiceInterface
         $mutatorBagCached = $this->mutatorBag;
 
         unset($mutatorBagCached['apiKey']);
-        unset($mutatorBagCached['listId']);
 
         return json_encode($mutatorBagCached);
     }
