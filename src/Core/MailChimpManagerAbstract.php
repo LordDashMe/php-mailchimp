@@ -280,9 +280,7 @@ abstract class MailChimpManagerAbstract
             exit($e->getResponse());
         }
 
-        return $this->removeUnusedMailChimpFields(
-            $this->convertToMailChimpFields($instance)
-        );
+        return $this->removeUnusedMailChimpFields($this->convertToMailChimpFields($instance));
     }
 
     /**

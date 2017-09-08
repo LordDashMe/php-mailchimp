@@ -9,7 +9,6 @@
 
 namespace LordDashMe\MailChimp\Core\TemplateFolder;
 
-use LordDashMe\MailChimp\Exception\TemplateFolderException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\TemplateFolder\API\TemplateFolderService as TemplateFolderServiceInterface;
 

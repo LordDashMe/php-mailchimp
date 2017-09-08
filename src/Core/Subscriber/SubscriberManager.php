@@ -9,7 +9,6 @@
 
 namespace LordDashMe\MailChimp\Core\Subscriber;
 
-use LordDashMe\MailChimp\Exception\MailChimpException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService as SubscriberServiceInterface;
 

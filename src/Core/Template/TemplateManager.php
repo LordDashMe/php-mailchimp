@@ -9,7 +9,6 @@
 
 namespace LordDashMe\MailChimp\Core\Template;
 
-use LordDashMe\MailChimp\Exception\TemplateException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\Template\API\TemplateService as TemplateServiceInterface;
 

@@ -9,7 +9,6 @@
 
 namespace LordDashMe\MailChimp\Core\Campaign;
 
-use LordDashMe\MailChimp\Exception\CampaignException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\Campaign\API\CampaignService as CampaignServiceInterface;
 

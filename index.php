@@ -71,6 +71,11 @@ $response = Subscriber::delete('tester1_email@testerlangto.com.ph');
 
 // $subscriber = new Subscriber(['apiKey' => $apiKey, 'listId' => $listID]);
 
+// $response = $subscriber->all(function($subscriber){
+//     $subscriber->count = 1;
+//     return $subscriber;
+// });
+
 /*
 $response = $subscriber->create(function ($subscriber) {
        
