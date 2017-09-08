@@ -9,6 +9,8 @@
 
 namespace LordDashMe\MailChimp\Core;
 
+use RuntimeException;
+
 abstract class MailChimpAbstract
 {
 	/**
@@ -46,12 +48,10 @@ abstract class MailChimpAbstract
      */
     public function init($headers)
     {
-        if (count($headers) > 0) {
-            $this->setHeaders($headers);
-            $this->setService(
-                $this->concreteService()
-            );
-        }
+        if (empty($headers)) { return; }
+
+        $this->setHeaders($headers);
+        $this->setService($this->concreteService());
     }
 
     /**
@@ -112,11 +112,13 @@ abstract class MailChimpAbstract
      */
     public function __call($method, $args)
     {
-        if ($this->getService()) {
-            return $this->getService()->$method(...$args);    
+        $instance = $this->getService();
+
+        if (! $instance) {
+            throw new RuntimeException('The class not initiated properly!');      
         }
 
-        exit('The class not initiated properly!');
+        return $instance->$method(...$args);  
     }
 
     /**

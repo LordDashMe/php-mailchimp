@@ -18,11 +18,37 @@ use RuntimeException;
 class Facade
 {
     /**
-     * Holds the first instance of the dynamic class.
+     * Holds the first instance of the dynamic classes.
      *
-     * @var object
+     * @var array
      */
-    protected static $class;
+    protected static $class = [];
+
+    /**
+     * Set the class instance in the class field array
+     * for caching and will be use later.
+     *
+     * @param  string  $classNamespace
+     * @param  mixed   $instance
+     *
+     * @return void
+     */
+    public static function setClass($classNamespace, $instance)
+    {
+        self::$class[$classNamespace] = $instance;
+    }
+
+    /**
+     * Get the class instance.
+     *
+     * @param  string  $classNamespace
+     *
+     * @return mixed
+     */
+    public static function getClass($classNamespace)
+    {
+        return isset(self::$class[$classNamespace]) ? self::$class[$classNamespace] : false;
+    }
 
     /**
      * Resolves the dynamic to static call to the object.
@@ -36,7 +62,7 @@ class Facade
      */
     public static function __callStatic($method, $args)
     {
-        $instance = static::resolveFacadeClass();
+        $instance = self::resolveFacadeClass();
 
         if (! $instance) {
             throw new RuntimeException('Facade instance has not been set.');
@@ -52,33 +78,36 @@ class Facade
      */
     protected static function resolveFacadeClass()
     {
-        /**
-         * When "static::$class" already set then use the old one,
-         *  this will retain the first initialization of the class.
-         */ 
-        if (is_object(static::$class)) {
-            return static::$class;
-        }
-
-        static::$class = static::resolveClassNameSpace();
-
-        return static::$class;
-    }
-
-    /**
-     * Resolver for dynamic class namespace.
-     *
-     * @return mixed
-     */
-    protected static function resolveClassNameSpace()
-    {
         $classNamespace = static::getFacadeClass();
 
-        return new $classNamespace;
+        $classInstance = self::getClass($classNamespace);
+    
+        if ($classInstance) {
+            return $classInstance;
+        }
+
+        return self::resolveClassNameSpace($classNamespace);
     }
 
     /**
-     * Get the dynamic class namespace that will be convert to static class.
+     * Resolver for dynamic class namespace and
+     * set or cache the resolved dynamic class to the class field.
+     *
+     * @param  string  $classNamespace
+     *
+     * @return void
+     */
+    protected static function resolveClassNameSpace($classNamespace)
+    {
+        $classInstance = new $classNamespace;
+
+        self::setClass($classNamespace, $classInstance);
+
+        return $classInstance;
+    }
+
+    /**
+     * "Noop" method, get the dynamic class namespace that will be convert to static class.
      *
      * @return string
      * 

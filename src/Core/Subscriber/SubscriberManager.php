@@ -18,16 +18,16 @@ class SubscriberManager extends MailChimpManagerAbstract
     /**
      * The subscriber manager class constructor.
      *
-     * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $subscriberService
+     * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $instance
      * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(SubscriberServiceInterface $subscriberService, $headers)
+    public function __construct(SubscriberServiceInterface $instance, $headers)
     {
         parent::__construct($headers);
 
-        $this->setMailChimpService($subscriberService)
+        $this->setMailChimpService($instance)
              ->setMailChimpHeaders($headers);
     }
 
@@ -46,92 +46,6 @@ class SubscriberManager extends MailChimpManagerAbstract
     }
 
     /**
-     * The read all records method for the subscriber list.
-     *
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function select($closure)
-    {
-        $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
-
-        return $subscriberService->select();
-    }
-
-    /**
-     * The read specific record method for the subscriber list.
-     *
-     * @param  string  $email
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function find($email, $closure)
-    {
-        $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
-
-        $subscriberService->memberId = $this->convertToMemberId($email);
-        
-        return $subscriberService->find();
-    }
-
-    /**
-     * The create method for the subscriber.
-     *
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function create($closure)
-    {
-        $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
-
-        $subscriberService = $this->prepareMailChimpFields($subscriberService);
-
-        return $subscriberService->create();
-    }
-
-    /**
-     * The update method for the subscriber.
-     *
-     * @param  string    $email
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function update($email, $closure)
-    {
-        $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
-
-        $subscriberService->memberId = $this->convertToMemberId($email);
-        $subscriberService = $this->prepareMailChimpFields($subscriberService);
-
-        return $subscriberService->update();
-    }
-
-    /**
-     * The delete method for the subscriber.
-     *
-     * @param  string  $email
-     *
-     * @return json
-     */
-    public function delete($email)
-    {
-        $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($subscriberService);
-
-        $subscriberService->memberId = $this->convertToMemberId($email);
-
-        return $subscriberService->delete();
-    }
-
-    /**
      * The create or update method for the subscriber.
      *
      * @param  string    $email
@@ -139,15 +53,28 @@ class SubscriberManager extends MailChimpManagerAbstract
      *
      * @return json
      */
-    public function createOrUpdate($email, $closure)
+    public function createOrUpdate($email, $closure = null)
     {
-        $subscriberService = $this->getMailChimpService();
-        $subscriberService = $this->prepareMailChimpHeaders($closure($subscriberService));
+        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
+        $instance = $this->prepareMailChimpFields($this->prepareMailChimpHeaders($instance));
+        $instance = $this->resourceId($instance, $email);
 
-        $subscriberService->memberId = $this->convertToMemberId($email);
-        $subscriberService = $this->prepareMailChimpFields($subscriberService);
+        return $instance->createOrUpdate();
+    }
 
-        return $subscriberService->createOrUpdate();
+    /**
+     * The resource id for the current instance.
+     *
+     * @param  mixed  $instance
+     * @param  int    $resourceId
+     *
+     * @return mixed
+     */
+    protected function resourceId($instance, $resourceId) 
+    { 
+        $instance->memberId = $this->convertToMemberId($resourceId);
+
+        return $instance; 
     }
 
     /**
@@ -167,7 +94,7 @@ class SubscriberManager extends MailChimpManagerAbstract
      * This is a custom validation or checking instead of requesting to the mailchimp api
      * we just validate first for the application side for the speed purpose.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      *
      * @return void
      *
@@ -194,9 +121,9 @@ class SubscriberManager extends MailChimpManagerAbstract
      *
      * @see http://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      * 
-     * @return instance|class
+     * @return mixed
      */
     protected function convertToMailChimpFields($instance)
     {
@@ -216,9 +143,9 @@ class SubscriberManager extends MailChimpManagerAbstract
      * Remove the unused class fields in the current objects.
      * This fields will be unused after the conversion of mail chimp primary fields.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      *
-     * @return instance|class
+     * @return mixed
      */
     protected function removeUnusedMailChimpFields($instance)
     {

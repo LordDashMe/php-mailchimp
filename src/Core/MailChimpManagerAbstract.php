@@ -16,7 +16,7 @@ abstract class MailChimpManagerAbstract
     /**
      * The mailChimp service that manage the interaction in the mailchimp api.
      *
-     * @var instance|class
+     * @var mixed
      */
     protected $mailChimpService;
 
@@ -48,7 +48,7 @@ abstract class MailChimpManagerAbstract
     /**
      * The setter method for the mailChimp service field.
      *
-     * @param  instance|class  $mailChimpService
+     * @param  mixed  $mailChimpService
      *
      * @return $this
      */
@@ -62,7 +62,7 @@ abstract class MailChimpManagerAbstract
     /**
      * The getter method for the mailChimp service field.
      *
-     * @return instance|class
+     * @return mixed
      */
     public function getMailChimpService()
     {
@@ -96,16 +96,170 @@ abstract class MailChimpManagerAbstract
     }
 
     /**
+     * The read all records method for the campaign list.
+     *
+     * @param  mixed  $closure
+     *
+     * @return json
+     */
+    public function all($closure = null)
+    {
+        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
+        $instance = $this->prepareMailChimpHeaders($instance);
+
+        return $instance->all();
+    }
+
+    /**
+     * The read specific record method for the campaign list.
+     *
+     * @param  string  $resourceId
+     * @param  mixed   $closure
+     *
+     * @return json
+     */
+    public function find($resourceId, $closure = null)
+    {
+        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
+        $instance = $this->prepareMailChimpHeaders($instance);
+        $instance = $this->resourceId($instance, $resourceId);
+
+        return $instance->find();
+    }
+
+    /**
+     * The create method for the campaign.
+     *
+     * @param  mixed  $closure
+     *
+     * @return json
+     */
+    public function create($closure = null)
+    {
+        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
+        $instance = $this->prepareMailChimpFields($this->prepareMailChimpHeaders($instance));
+
+        return $instance->create();
+    }
+
+    /**
+     * The update method for the campaign.
+     *
+     * @param  string  $resourceId
+     * @param  mixed   $closure
+     *
+     * @return json
+     */
+    public function update($resourceId, $closure = null)
+    {
+        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
+        $instance = $this->prepareMailChimpFields($this->prepareMailChimpHeaders($instance));
+        $instance = $this->resourceId($instance, $resourceId);
+
+        return $instance->update();
+    }
+
+    /**
+     * The delete method for the campaign.
+     *
+     * @param  string  $resourceId
+     *
+     * @return json
+     */
+    public function delete($resourceId)
+    {
+        $instance = $this->getMailChimpService();
+        $instance = $this->prepareMailChimpHeaders($instance);
+        $instance = $this->resourceId($instance, $resourceId);
+
+        return $instance->delete();
+    }
+
+    /**
+     * "Noop" method, the resource id for the current instance.
+     *
+     * @param  mixed  $instance
+     * @param  int    $resourceId
+     *
+     * @return mixed
+     */
+    protected function resourceId($instance, $resourceId)  { return $instance; }
+
+    /**
+     * Validate the used arguments in the endpoint method.
+     *
+     * @param  mixed  $args
+     * @param  mixed  $class
+     *
+     * @return mixed
+     */
+    protected function validateMailChimpArguments($args, $class)
+    {
+        try {
+            return $this->resolveMailChimpArguments($args, $class);
+        } catch (MailChimpException $e) {
+            exit($e->getResponse());
+        }
+    }
+
+    /**
+     * Resolver for the dynamic endpoint arguments, it can be
+     * a closure or a array declaration and if the array is selected
+     * it will automatically converted to worker class property.
+     *
+     * @param  mixed  args
+     * @param  mixed  $class
+     *
+     * @return mixed
+     */
+    protected function resolveMailChimpArguments($args, $class)
+    {
+        /**
+         * Check if the $args is a closure type
+         * then procceed to mutating all the properties.
+         */
+        if ($args instanceof \Closure) {
+
+            return $args($class);
+
+        /**
+         * Check if the $args is an array type 
+         * then convert it to closure type
+         * to procceed in mutating all the properties 
+         * in the selected instance.
+         */
+        } else if (is_array($args)) {
+
+            foreach ($args as $property => $value) {
+                $class->{$property} = $value;
+            }
+
+            return $class;
+
+        /**
+         * Notify there's no request parameter matches
+         * the required type (Closure and Array).
+         */
+        } else {
+
+            throw new MailChimpException('
+                There\'s no request parameter(s) detected. use closure or array 
+                to specify the request parameter of the endpoint.     
+            ');
+        }
+    }
+
+    /**
      * Prepare the unique fields for mailchimp.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      * 
-     * @return instance|class
+     * @return mixed
      */
     protected function prepareMailChimpHeaders($instance)
     {
-        foreach ($this->getMailChimpHeaders() as $field => $value) {
-            $instance->{$field} = $value;
+        foreach ($this->getMailChimpHeaders() as $property => $value) {
+            $instance->{$property} = $value;
         }
 
         return $instance;
@@ -114,9 +268,9 @@ abstract class MailChimpManagerAbstract
     /**
      * Prepare the required or standard fields of mailchimp for subscriber.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      * 
-     * @return instance|class
+     * @return mixed
      */
     protected function prepareMailChimpFields($instance)
     {
@@ -153,7 +307,7 @@ abstract class MailChimpManagerAbstract
      * This is a custom validation or checking instead of requesting to the mailchimp api
      * we just validate first for the application side for the speed purpose.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      *
      * @return void
      *
@@ -167,9 +321,9 @@ abstract class MailChimpManagerAbstract
      *
      * @see http://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      * 
-     * @return instance|class
+     * @return mixed
      */
     protected function convertToMailChimpFields($instance) { return $instance; }
 
@@ -177,9 +331,9 @@ abstract class MailChimpManagerAbstract
      * "Noop" method, remove the unused class fields in the current objects.
      * This fields will be unused after the conversion of mail chimp primary fields.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      *
-     * @return instance|class
+     * @return mixed
      */
     protected function removeUnusedMailChimpFields($instance) { return $instance; }
 }

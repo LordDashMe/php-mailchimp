@@ -9,72 +9,19 @@
 
 namespace LordDashMe\MailChimp\Core\Template\API;
 
-use LordDashMe\MailChimp\Utilities\Url;
-use LordDashMe\MailChimp\Utilities\Curl;
-use LordDashMe\MailChimp\Utilities\Mutator;
+use LordDashMe\MailChimp\Core\MailChimpServiceAbstract;
 use LordDashMe\MailChimp\Contract\Template\API\TemplateService as TemplateServiceInterface;
 
-class TemplateService extends Mutator implements TemplateServiceInterface
+class TemplateService extends MailChimpServiceAbstract implements TemplateServiceInterface
 {
     /**
-     * Execute get method in the given url, this will show all the members 
-     * in the linked template id.
+     * The base resource id for the endpoit.
      *
-     * @return json
+     * @return int
      */
-    public function select()
+    protected function baseResouceId() 
     {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'GET'))->execute();
-    }
-
-    /**
-     * Execute get method in the given url, this will show specific member 
-     * in the linked template id.
-     *
-     * @return json
-     */
-    public function find()
-    {
-        $templateId = $this->mutatorBag['templateId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$templateId}", 'GET'))->execute();
-    }
-
-    /**
-     * Execute post method in the given url, this will be the 
-     * create/add endpoint for mailchimp template.
-     *
-     * @return json
-     */
-    public function create()
-    {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->baseResources()))->execute();
-    }
-
-    /**
-     * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp template.
-     *
-     * @return json
-     */
-    public function update()
-    {
-        $templateId = $this->mutatorBag['templateId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$templateId}", 'PATCH', $this->baseResources()))->execute();
-    }
-
-    /**
-     * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp template.
-     *
-     * @return json
-     */
-    public function delete()
-    {
-        $templateId = $this->mutatorBag['templateId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$templateId}", 'DELETE'))->execute();
+        return $this->mutatorBag['templateId'];
     }
 
     /**
@@ -84,9 +31,7 @@ class TemplateService extends Mutator implements TemplateServiceInterface
      */
     protected function baseEndpoint()
     {
-        $apiKey = $this->mutatorBag['apiKey'];
-
-        $mailchimpApiHost = Url::resolve($apiKey);
+        $mailchimpApiHost = $this->resolveHostUrl();
 
         return "{$mailchimpApiHost}/templates"; 
     }

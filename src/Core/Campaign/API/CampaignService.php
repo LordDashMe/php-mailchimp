@@ -9,74 +9,11 @@
 
 namespace LordDashMe\MailChimp\Core\Campaign\API;
 
-use LordDashMe\MailChimp\Utilities\Url;
-use LordDashMe\MailChimp\Utilities\Curl;
-use LordDashMe\MailChimp\Utilities\Mutator;
+use LordDashMe\MailChimp\Core\MailChimpServiceAbstract;
 use LordDashMe\MailChimp\Contract\Campaign\API\CampaignService as CampaignServiceInterface;
 
-class CampaignService extends Mutator implements CampaignServiceInterface
+class CampaignService extends MailChimpServiceAbstract implements CampaignServiceInterface
 {
-    /**
-     * Execute get method in the given url, this will show all the members 
-     * in the linked campaign id.
-     *
-     * @return json
-     */
-    public function select()
-    {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'GET'))->execute();
-    }
-
-    /**
-     * Execute get method in the given url, this will show specific member 
-     * in the linked campaign id.
-     *
-     * @return json
-     */
-    public function find()
-    {
-        $campaignId = $this->mutatorBag['campaignId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'GET'))->execute();
-    }
-
-    /**
-     * Execute post method in the given url, this will be the 
-     * create/add endpoint for mailchimp campaign.
-     *
-     * @return json
-     */
-    public function create()
-    {
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint(), 'POST', $this->baseResources()))->execute();
-    }
-
-    /**
-     * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp campaign.
-     *
-     * @return json
-     */
-    public function update()
-    {
-        $campaignId = $this->mutatorBag['campaignId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'PATCH', $this->baseResources()))->execute();
-    }
-
-    /**
-     * Execute patch method in the given url, this will be the 
-     * update/modify endpoint for mailchimp campaign.
-     *
-     * @return json
-     */
-    public function delete()
-    {
-        $campaignId = $this->mutatorBag['campaignId'];
-
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}", 'DELETE'))->execute();
-    }
-
     /**
      * Execute put method in the given url, this will add content in
      * the campaign selected.
@@ -85,9 +22,9 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      */
     public function content()
     {
-        $campaignId = $this->mutatorBag['campaignId'];
+        $resourceId = $this->baseResouceId();
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/content", 'PUT', $this->baseResources()))->execute();
+        return (new Curl($this->baseApiKey(), $this->baseEndpoint() . "/{$resourceId}/content", 'PUT', $this->baseResources()))->execute();
     }
 
     /**
@@ -98,9 +35,19 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      */
     public function send()
     {
-        $campaignId = $this->mutatorBag['campaignId'];
+        $resourceId = $this->baseResouceId();
 
-        return (new Curl($this->mutatorBag['apiKey'], $this->baseEndpoint() . "/{$campaignId}/actions/send", 'POST'))->execute();  
+        return (new Curl($this->baseApiKey(), $this->baseEndpoint() . "/{$resourceId}/actions/send", 'POST'))->execute();  
+    }
+
+    /**
+     * The base resource id for the endpoit.
+     *
+     * @return int
+     */
+    protected function baseResouceId() 
+    {
+        return $this->mutatorBag['campaignId'];
     }
 
     /**
@@ -110,9 +57,7 @@ class CampaignService extends Mutator implements CampaignServiceInterface
      */
     protected function baseEndpoint()
     {
-        $apiKey = $this->mutatorBag['apiKey'];
-
-        $mailchimpApiHost = Url::resolve($apiKey);
+        $mailchimpApiHost = $this->resolveHostUrl();
 
         return "{$mailchimpApiHost}/campaigns"; 
     }

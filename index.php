@@ -182,12 +182,24 @@ $response = Campaign::delete('06e830b893');
 //     return $templateFolder;
 // });
 
-// $response = TemplateFolder::select(function($templateFolder) {
-//     $templateFolder->field = [
-//         'name' => 'Test Lang na Folder Template'
-//     ];
+// $response = TemplateFolder::all(function($templateFolder) {
+//     $templateFolder->fields = 'folders.name,folders.id';
+//     $templateFolder->count = 2;
 //     return $templateFolder;
 // });
+
+// [
+//     'fields' => 'folders.name,folders.id',
+//     'count' => 2
+// ]
+
+
+// function($templateFolder) {
+//     $templateFolder->fields = 'folders.name,folders.id';
+//     $templateFolder->count = 2;
+//     return $templateFolder;
+// }
+
 
 // $response = TemplateFolder::delete('46a9e5bad0');
 
@@ -209,6 +221,22 @@ $response = Template::create(function($template) {
     return $template;
 });
 */
+
+/*
+$response = Template::update('43089', function($template) {
+    
+    $template->name = 'This is an updated template';
+    $template->html = '<b> New Content </b>';
+    
+    return $template;
+});
+*/
+
+
+// $response = Template::select(function($template) {
+//     return $template;
+// });
+
 
 // echo '<pre>';
 // print_r($response);

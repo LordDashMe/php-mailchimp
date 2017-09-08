@@ -11,110 +11,39 @@ namespace LordDashMe\MailChimp\Core\TemplateFolder;
 
 use LordDashMe\MailChimp\Exception\TemplateFolderException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
-use LordDashMe\MailChimp\Contract\TemplateFolder\API\templateFolderService as TemplateFolderServiceInterface;
+use LordDashMe\MailChimp\Contract\TemplateFolder\API\TemplateFolderService as TemplateFolderServiceInterface;
 
 class TemplateFolderManager extends MailChimpManagerAbstract
 {
     /**
      * The templateFolder manager class constructor.
      *
-     * @param  \LordDashMe\MailChimp\Contract\TemplateFolder\API\TemplateFolderService  $templateFolderService
+     * @param  \LordDashMe\MailChimp\Contract\TemplateFolder\API\TemplateFolderService  $instance
      * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(TemplateFolderServiceInterface $templateFolderService, $headers)
+    public function __construct(TemplateFolderServiceInterface $instance, $headers)
     {
         parent::__construct($headers);
 
-        $this->setMailChimpService($templateFolderService)
+        $this->setMailChimpService($instance)
              ->setMailChimpHeaders($headers);
     }
 
     /**
-     * The read all records method for the template folder list.
+     * The resource id for the current instance.
      *
-     * @param  function  $closure
+     * @param  mixed  $instance
+     * @param  int    $resourceId
      *
-     * @return json
+     * @return mixed
      */
-    public function select($closure)
-    {
-        $templateFolderService = $this->getMailChimpService();
-        $templateFolderService = $this->prepareMailChimpHeaders($closure($templateFolderService));
+    protected function resourceId($instance, $resourceId) 
+    { 
+        $instance->templateFolderId = $resourceId;
 
-        return $templateFolderService->select();
-    }
-
-    /**
-     * The read specific record method for the template folder list.
-     *
-     * @param  string    $templateFolderId
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function find($templateFolderId, $closure)
-    {
-        $templateFolderService = $this->getMailChimpService();
-        $templateFolderService = $this->prepareMailChimpHeaders($closure($templateFolderService));
-
-        $templateFolderService->templateFolderId = $templateFolderId;
-
-        return $templateFolderService->find();
-    }
-
-    /**
-     * The create method for the template folder.
-     *
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function create($closure)
-    {
-        $templateFolderService = $this->getMailChimpService();
-
-        $templateFolderService = $this->prepareMailChimpHeaders($closure($templateFolderService));
-        $templateFolderService = $this->prepareMailChimpFields($templateFolderService);
-
-        return $templateFolderService->create();
-    }
-
-    /**
-     * The update method for the template folder.
-     *
-     * @param  string    $templateFolderId
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function update($templateFolderId, $closure)
-    {
-        $templateFolderService = $this->getMailChimpService();
-        $templateFolderService = $this->prepareMailChimpHeaders($closure($templateFolderService));
-
-        $templateFolderService->templateFolderId = $templateFolderId;
-        $templateFolderService = $this->prepareMailChimpFields($templateFolderService);
-
-        return $templateFolderService->update();
-    }
-
-    /**
-     * The delete method for the template folder.
-     *
-     * @param  string  $templateFolderId
-     *
-     * @return json
-     */
-    public function delete($templateFolderId)
-    {
-        $templateFolderService = $this->getMailChimpService();
-        $templateFolderService = $this->prepareMailChimpHeaders($templateFolderService);
-
-        $templateFolderService->templateFolderId = $templateFolderId;
-
-        return $templateFolderService->delete();
+        return $instance; 
     }
 
     /**
@@ -122,7 +51,7 @@ class TemplateFolderManager extends MailChimpManagerAbstract
      * This is a custom validation or checking instead of requesting to the mailchimp api
      * we just validate first for the application side for the speed purpose.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      *
      * @return void
      *

@@ -185,7 +185,7 @@ class Curl
      */
     public function execute()
     {
-        $curl = $this->getCurlOptions(curl_init($this->getUrl()));
+        $curl = $this->getCurlOptions(curl_init());
         
         $responseBody = curl_exec($curl);
         
@@ -205,26 +205,57 @@ class Curl
      */
     private function getCurlOptions($curl)
     {
+        $url = $this->getUrl();
         $data = $this->getData();
         $apiKey = $this->getApiKey();
         $requestMethod = $this->getRequestMethod();
 
         $options = [
-           CURLOPT_USERPWD          => "user:{$apiKey}",
-           CURLOPT_HTTPHEADER       => ['Content-Type: application/json'],
-           CURLOPT_CUSTOMREQUEST    => $requestMethod,
-           CURLOPT_TIMEOUT          => self::OPT_TIMEOUT,
-           CURLOPT_RETURNTRANSFER   => self::OPT_RETURNTRANSFER,
-           CURLOPT_SSL_VERIFYPEER   => self::OPT_SSL_VERIFYPEER,
+            CURLOPT_URL              => $url,
+            CURLOPT_USERPWD          => "user:{$apiKey}",
+            CURLOPT_HTTPHEADER       => ['Content-Type: application/json'],
+            CURLOPT_CUSTOMREQUEST    => $requestMethod,
+            CURLOPT_TIMEOUT          => self::OPT_TIMEOUT,
+            CURLOPT_RETURNTRANSFER   => self::OPT_RETURNTRANSFER,
+            CURLOPT_SSL_VERIFYPEER   => self::OPT_SSL_VERIFYPEER,
         ];
 
         if ($data) {
-            $options[CURLOPT_POSTFIELDS] = $data;
+            $options = $this->resolveRequestData($options, $requestMethod, $data);
         }
 
         curl_setopt_array($curl, $options);
 
         return $curl;
+    }
+
+    /**
+     * Resolve the request data depending on the request method type.
+     *
+     * @param  array   $options
+     * @param  string  $requestMethod
+     * @param  mixed   $data
+     *
+     * @return array
+     */
+    private function resolveRequestData($options, $requestMethod, $data)
+    {
+        switch ($requestMethod) {
+            case 'PUT':
+            case 'POST':
+                $options[CURLOPT_POSTFIELDS] = $data;
+                break;
+
+            case 'GET':
+                $parameters = http_build_query(json_decode($data, true));
+                $options[CURLOPT_URL] = "{$options[CURLOPT_URL]}?{$parameters}";
+                break;
+
+            default:
+                break;
+        } 
+
+        return $options;
     }
 
     /**

@@ -11,110 +11,39 @@ namespace LordDashMe\MailChimp\Core\Template;
 
 use LordDashMe\MailChimp\Exception\TemplateException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
-use LordDashMe\MailChimp\Contract\Template\API\templateService as TemplateServiceInterface;
+use LordDashMe\MailChimp\Contract\Template\API\TemplateService as TemplateServiceInterface;
 
 class TemplateManager extends MailChimpManagerAbstract
 {
     /**
      * The template manager class constructor.
      *
-     * @param  \LordDashMe\MailChimp\Contract\Template\API\TemplateService  $templateService
+     * @param  \LordDashMe\MailChimp\Contract\Template\API\TemplateService  $instance
      * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(TemplateServiceInterface $templateService, $headers)
+    public function __construct(TemplateServiceInterface $instance, $headers)
     {
         parent::__construct($headers);
 
-        $this->setMailChimpService($templateService)
+        $this->setMailChimpService($instance)
              ->setMailChimpHeaders($headers);
     }
 
     /**
-     * The read all records method for the template list.
+     * The resource id for the current instance.
      *
-     * @param  function  $closure
+     * @param  mixed  $instance
+     * @param  int    $resourceId
      *
-     * @return json
+     * @return mixed
      */
-    public function select($closure)
-    {
-        $templateService = $this->getMailChimpService();
-        $templateService = $this->prepareMailChimpHeaders($closure($templateService));
+    protected function resourceId($instance, $resourceId) 
+    { 
+        $instance->templateId = $resourceId;
 
-        return $templateService->select();
-    }
-
-    /**
-     * The read specific record method for the template list.
-     *
-     * @param  string    $templateId
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function find($templateId, $closure)
-    {
-        $templateService = $this->getMailChimpService();
-        $templateService = $this->prepareMailChimpHeaders($closure($templateService));
-
-        $templateService->templateId = $templateId;
-
-        return $templateService->find();
-    }
-
-    /**
-     * The create method for the template.
-     *
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function create($closure)
-    {
-        $templateService = $this->getMailChimpService();
-
-        $templateService = $this->prepareMailChimpHeaders($closure($templateService));
-        $templateService = $this->prepareMailChimpFields($templateService);
-
-        return $templateService->create();
-    }
-
-    /**
-     * The update method for the template.
-     *
-     * @param  string    $templateId
-     * @param  function  $closure
-     *
-     * @return json
-     */
-    public function update($templateId, $closure)
-    {
-        $templateService = $this->getMailChimpService();
-        $templateService = $this->prepareMailChimpHeaders($closure($templateService));
-
-        $templateService->templateId = $templateId;
-        $templateService = $this->prepareMailChimpFields($templateService);
-
-        return $templateService->update();
-    }
-
-    /**
-     * The delete method for the template.
-     *
-     * @param  string  $templateId
-     *
-     * @return json
-     */
-    public function delete($templateId)
-    {
-        $templateService = $this->getMailChimpService();
-        $templateService = $this->prepareMailChimpHeaders($templateService);
-
-        $templateService->templateId = $templateId;
-
-        return $templateService->delete();
+        return $instance; 
     }
 
     /**
@@ -122,7 +51,7 @@ class TemplateManager extends MailChimpManagerAbstract
      * This is a custom validation or checking instead of requesting to the mailchimp api
      * we just validate first for the application side for the speed purpose.
      *
-     * @param  instance|class  $instance
+     * @param  mixed  $instance
      *
      * @return void
      *
