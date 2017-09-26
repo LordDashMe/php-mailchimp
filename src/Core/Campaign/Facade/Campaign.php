@@ -13,13 +13,13 @@ use LordDashMe\MailChimp\Utilities\Facade;
 
 class Campaign extends Facade
 {   
-	/**
-	 * Set the namespace for the dynamic class.
-	 *
-	 * @return string
-	 */
-	public static function getFacadeClass()
-	{
-		return 'LordDashMe\MailChimp\Core\Campaign\Campaign';
-	}
+    /**
+     * Set the namespace for the dynamic class.
+     *
+     * @return string
+     */
+    public static function getFacadeClass()
+    {
+        return 'LordDashMe\MailChimp\Core\Campaign\Campaign';
+    }
 }

@@ -14,7 +14,7 @@ use LordDashMe\MailChimp\Contract\Campaign\API\CampaignService as CampaignServic
 
 class CampaignManager extends MailChimpManagerAbstract
 {
-	/**
+    /**
      * The campaign manager class constructor.
      *
      * @param  \LordDashMe\MailChimp\Contract\Campaign\API\CampaignService  $instance

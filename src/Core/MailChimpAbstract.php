@@ -13,7 +13,7 @@ use RuntimeException;
 
 abstract class MailChimpAbstract
 {
-	/**
+    /**
      * The headers field.
      *
      * @var array
@@ -102,7 +102,7 @@ abstract class MailChimpAbstract
         return $this->service;
     }
 
-	/**
+    /**
      * Resolver for the dynamic call method.
      *
      * @param  string  $method
