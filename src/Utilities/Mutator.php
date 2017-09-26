@@ -12,7 +12,7 @@
 
 namespace LordDashMe\MailChimp\Utilities;
 
-class Mutator
+class Mutator extends \ArrayAccess
 {
     /**
      * The mutator bag field holds the key value pair.
@@ -70,6 +70,59 @@ class Mutator
      * @return void
      */
     public function __unset($key)
+    {
+        unset($this->mutatorBag[$key]);
+    }
+
+    /**
+     * The offsetSet method is the required method in the ArrayAccess interface.
+     * Assign a value to the specified offset.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     *
+     * @return void
+     */
+    public function offsetSet($key, $value) 
+    {
+        $this->mutatorBag[$key] = $value;
+    }
+    
+    /**
+     * The offsetGet method is the required method in the ArrayAccess interface.
+     * Offset to retrieve.
+     *
+     * @param  string  $key
+     *
+     * @return mixed
+     */
+    public function offsetGet($key) 
+    {
+        return $this->mutatorBag[$key];
+    }
+
+    /**
+     * The offsetExists method is the required method in the ArrayAccess interface.
+     * Whether an offset exists.
+     *
+     * @param  string  $key
+     *
+     * @return boolean
+     */
+    public function offsetExists($key) 
+    {
+        return isset($this->mutatorBag[$key]);
+    }
+
+    /**
+     * The offsetUnset method is the required method in the ArrayAccess interface.
+     * Unset an offset.
+     *
+     * @param  string  $key
+     *
+     * @return void
+     */
+    public function offsetUnset($key) 
     {
         unset($this->mutatorBag[$key]);
     }
