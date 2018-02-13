@@ -9,6 +9,7 @@
 
 namespace LordDashMe\MailChimp\Core\Campaign;
 
+use LordDashMe\MailChimp\Exception\MailChimpException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\Campaign\API\CampaignService as CampaignServiceInterface;
 
@@ -17,16 +18,16 @@ class CampaignManager extends MailChimpManagerAbstract
     /**
      * The campaign manager class constructor.
      *
-     * @param  \LordDashMe\MailChimp\Contract\Campaign\API\CampaignService  $instance
+     * @param  \LordDashMe\MailChimp\Contract\Campaign\API\CampaignService  $service
      * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(CampaignServiceInterface $instance, $headers)
+    public function __construct(CampaignServiceInterface $service, $headers)
     {
         parent::__construct($headers);
 
-        $this->setMailChimpService($instance)
+        $this->setMailChimpService($service)
              ->setMailChimpHeaders($headers);
     }
 
@@ -40,11 +41,13 @@ class CampaignManager extends MailChimpManagerAbstract
      */
     public function content($campaignId, $closure = null)
     {
-        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
-        $instance = $this->prepareMailChimpHeaders($instance);
-        $instance = $this->resourceId($instance, $campaignId);
+        $service = $this->resourceId(
+            $this->prepareMailChimpHeaders(
+                $this->validateMailChimpArguments($closure, $this->getMailChimpService())
+            ), $campaignId
+        );
 
-        return $instance->content();
+        return $service->content();
     }
 
     /**
@@ -56,26 +59,28 @@ class CampaignManager extends MailChimpManagerAbstract
      */
     public function send($campaignId)
     {
-        $instance = $this->getMailChimpService(); 
-        $instance = $this->prepareMailChimpHeaders($instance);
-        $instance = $this->resourceId($instance, $campaignId);
+        $service = $this->resourceId(
+            $this->prepareMailChimpHeaders(
+                $this->getMailChimpService()
+            ), $campaignId
+        );
         
-        return $instance->send();  
+        return $service->send();  
     }
 
     /**
-     * The resource id for the current instance.
+     * The resource id for the current service.
      *
-     * @param  mixed  $instance
+     * @param  mixed  $service
      * @param  int    $resourceId
      *
      * @return mixed
      */
-    protected function resourceId($instance, $resourceId) 
+    protected function resourceId($service, $resourceId) 
     { 
-        $instance->campaignId = $resourceId;
+        $service->campaignId = $resourceId;
 
-        return $instance; 
+        return $service; 
     }
 
     /**
@@ -83,21 +88,23 @@ class CampaignManager extends MailChimpManagerAbstract
      * This is a custom validation or checking instead of requesting to the mailchimp api
      * we just validate first for the application side for the speed purpose.
      *
-     * @param  mixed  $instance
-     *
-     * @return void
+     * @param  mixed  $service
      *
      * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     * 
+     * @return void
      */
-    protected function validateMailChimpRequiredFields($instance)
+    protected function validateMailChimpRequiredFields($service)
     {
         $required = (
-            ! isset($instance->recipients) ||
-            ! isset($instance->settings)
+            ! isset($service->recipients) ||
+            ! isset($service->settings)
         );
 
         if ($required) {
-            throw new MailChimpException('The mailchimp campaign primary field(s) not set in the closure.');
+            throw new MailChimpException(
+                'The mailchimp campaign endpoint primary field(s) not set in the closure.'
+            );
         }  
     }
 }

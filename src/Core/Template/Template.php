@@ -34,6 +34,8 @@ class Template extends MailChimpAbstract
      */
     protected function concreteService()
     {
-        return new TemplateManager(new TemplateService(), $this->getHeaders());
+        return new TemplateManager(
+            new TemplateService(), $this->getHeaders()
+        );
     }
 }

@@ -48,7 +48,8 @@ class Url
         $host = self::MAILCHIMP_HOST;
         $api = self::MAILCHIMP_API_VER;
         $protocol = self::MAILCHIMP_PROTOCOL;
-        $dataCenter = self::parseDataCenter($apiKey);
+
+        $dataCenter = self::getDataCenter($apiKey);
 
         return "{$protocol}://{$dataCenter}.{$host}/{$api}"; 
     }
@@ -60,7 +61,7 @@ class Url
      *
      * @return string
      */
-    protected static function parseDataCenter($apiKey)
+    protected static function getDataCenter($apiKey)
     {
         return substr($apiKey, strpos($apiKey, '-') + 1);
     }

@@ -104,8 +104,9 @@ abstract class MailChimpManagerAbstract
      */
     public function all($closure = null)
     {
-        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
-        $instance = $this->prepareMailChimpHeaders($instance);
+        $instance = $this->prepareMailChimpHeaders(
+            $this->validateMailChimpArguments($closure, $this->getMailChimpService())
+        );
 
         return $instance->all();
     }
@@ -120,9 +121,11 @@ abstract class MailChimpManagerAbstract
      */
     public function find($resourceId, $closure = null)
     {
-        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
-        $instance = $this->prepareMailChimpHeaders($instance);
-        $instance = $this->resourceId($instance, $resourceId);
+        $instance = $this->resourceId(
+            $this->prepareMailChimpHeaders(
+                $this->validateMailChimpArguments($closure, $this->getMailChimpService())
+            ), $resourceId
+        );
 
         return $instance->find();
     }
@@ -136,8 +139,11 @@ abstract class MailChimpManagerAbstract
      */
     public function create($closure = null)
     {
-        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
-        $instance = $this->prepareMailChimpFields($this->prepareMailChimpHeaders($instance));
+        $instance = $this->prepareMailChimpFields(
+            $this->prepareMailChimpHeaders(
+                $this->validateMailChimpArguments($closure, $this->getMailChimpService())
+            )
+        );
 
         return $instance->create();
     }
@@ -152,9 +158,13 @@ abstract class MailChimpManagerAbstract
      */
     public function update($resourceId, $closure = null)
     {
-        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
-        $instance = $this->prepareMailChimpFields($this->prepareMailChimpHeaders($instance));
-        $instance = $this->resourceId($instance, $resourceId);
+        $instance = $this->resourceId(
+            $this->prepareMailChimpFields(
+                $this->prepareMailChimpHeaders(
+                    $this->validateMailChimpArguments($closure, $this->getMailChimpService())
+                )
+            ), $resourceId
+        );
 
         return $instance->update();
     }
@@ -168,9 +178,10 @@ abstract class MailChimpManagerAbstract
      */
     public function delete($resourceId)
     {
-        $instance = $this->getMailChimpService();
-        $instance = $this->prepareMailChimpHeaders($instance);
-        $instance = $this->resourceId($instance, $resourceId);
+        $instance = $this->resourceId(
+            $this->prepareMailChimpHeaders(
+                $this->getMailChimpService()), $resourceId
+        );
 
         return $instance->delete();
     }
@@ -289,14 +300,16 @@ abstract class MailChimpManagerAbstract
      *
      * @param  array  $headers
      *
-     * @return void
-     *
      * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
      */
     protected function validateHeaders($headers)
     {
         if (! isset($headers['apiKey'])) {
-            throw new MailChimpException('The required header fields not set. (The required fields are apiKey)');
+            throw new MailChimpException(
+                'The required header fields not set. (The required fields are apiKey)'
+            );
         }  
     }
 
@@ -307,17 +320,15 @@ abstract class MailChimpManagerAbstract
      *
      * @param  mixed  $instance
      *
-     * @return void
-     *
      * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
      */
     protected function validateMailChimpRequiredFields($instance) { return $instance; }
 
     /**
      * "Noop" method, this will convert the given fields into MailChimp primary field design
      * for more info regarding for the schema.
-     *
-     * @see http://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/
      *
      * @param  mixed  $instance
      * 

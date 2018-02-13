@@ -34,6 +34,8 @@ class Campaign extends MailChimpAbstract
      */
     protected function concreteService()
     {
-        return (new CampaignManager(new CampaignService(), $this->getHeaders()));
+        return new CampaignManager(
+            new CampaignService(), $this->getHeaders()
+        );
     }
 }

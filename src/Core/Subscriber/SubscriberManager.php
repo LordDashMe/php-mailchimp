@@ -9,6 +9,7 @@
 
 namespace LordDashMe\MailChimp\Core\Subscriber;
 
+use LordDashMe\MailChimp\Exception\MailChimpException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService as SubscriberServiceInterface;
 
@@ -17,16 +18,16 @@ class SubscriberManager extends MailChimpManagerAbstract
     /**
      * The subscriber manager class constructor.
      *
-     * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $instance
+     * @param  \LordDashMe\MailChimp\Contract\Subscriber\API\SubscriberService  $service
      * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(SubscriberServiceInterface $instance, $headers)
+    public function __construct(SubscriberServiceInterface $service, $headers)
     {
         parent::__construct($headers);
 
-        $this->setMailChimpService($instance)
+        $this->setMailChimpService($service)
              ->setMailChimpHeaders($headers);
     }
 
@@ -34,13 +35,17 @@ class SubscriberManager extends MailChimpManagerAbstract
      * Check the subscriber headers if the required fields are already set.
      *
      * @param  array  $headers
-     *
+     * 
      * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
      */
     protected function validateHeaders($headers)
     {
         if (! isset($headers['apiKey']) || ! isset($headers['listId'])) {
-            throw new MailChimpException('The required header fields not set. (The required fields are apiKey & listId)');
+            throw new MailChimpException(
+                'The required header fields not set. (The required fields are apiKey & listId)'
+            );
         }  
     }
 
@@ -54,26 +59,30 @@ class SubscriberManager extends MailChimpManagerAbstract
      */
     public function createOrUpdate($email, $closure = null)
     {
-        $instance = $this->validateMailChimpArguments($closure, $this->getMailChimpService());
-        $instance = $this->prepareMailChimpFields($this->prepareMailChimpHeaders($instance));
-        $instance = $this->resourceId($instance, $email);
+        $service = $this->resourceId(
+            $this->prepareMailChimpFields(
+                $this->prepareMailChimpHeaders(
+                    $this->validateMailChimpArguments($closure, $this->getMailChimpService())
+                )
+            ), $email
+        );
 
-        return $instance->createOrUpdate();
+        return $service->createOrUpdate();
     }
 
     /**
-     * The resource id for the current instance.
+     * The resource id for the current service.
      *
-     * @param  mixed  $instance
+     * @param  mixed  $service
      * @param  int    $resourceId
      *
      * @return mixed
      */
-    protected function resourceId($instance, $resourceId) 
+    protected function resourceId($service, $resourceId) 
     { 
-        $instance->memberId = $this->convertToMemberId($resourceId);
+        $service->memberId = $this->convertToMemberId($resourceId);
 
-        return $instance; 
+        return $service; 
     }
 
     /**
@@ -93,24 +102,26 @@ class SubscriberManager extends MailChimpManagerAbstract
      * This is a custom validation or checking instead of requesting to the mailchimp api
      * we just validate first for the application side for the speed purpose.
      *
-     * @param  mixed  $instance
-     *
-     * @return void
+     * @param  mixed  $service
      *
      * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
      */
-    protected function validateMailChimpRequiredFields($instance)
+    protected function validateMailChimpRequiredFields($service)
     {
         $required = (
-            ! isset($instance->subscriber_email) ||
-            ! isset($instance->subscriber_status) ||
-            ! isset($instance->subscriber_firstname) || 
-            ! isset($instance->subscriber_lastname) || 
-            ! isset($instance->subscriber_birthday)
+            ! isset($service->subscriber_email) ||
+            ! isset($service->subscriber_status) ||
+            ! isset($service->subscriber_firstname) || 
+            ! isset($service->subscriber_lastname) || 
+            ! isset($service->subscriber_birthday)
         );
 
         if ($required) {
-            throw new MailChimpException('The mailchimp subscriber primary field(s) not set in the closure.');
+            throw new MailChimpException(
+                'The mailchimp subscriber primary field(s) not set in the closure.'
+            );
         }
     }
 
@@ -120,40 +131,40 @@ class SubscriberManager extends MailChimpManagerAbstract
      *
      * @see http://developer.mailchimp.com/documentation/mailchimp/guides/manage-subscribers-with-the-mailchimp-api/
      *
-     * @param  mixed  $instance
+     * @param  mixed  $service
      * 
      * @return mixed
      */
-    protected function convertToMailChimpFields($instance)
+    protected function convertToMailChimpFields($service)
     {
-        $instance->email_address = $instance->subscriber_email;
-        $instance->status = $instance->subscriber_status;
+        $service->email_address = $service->subscriber_email;
+        $service->status = $service->subscriber_status;
 
-        $instance->merge_fields = [
-            'FNAME'    => $instance->subscriber_firstname,
-            'LNAME'    => $instance->subscriber_lastname,
-            'BIRTHDAY' => $instance->subscriber_birthday,
+        $service->merge_fields = [
+            'FNAME'    => $service->subscriber_firstname,
+            'LNAME'    => $service->subscriber_lastname,
+            'BIRTHDAY' => $service->subscriber_birthday,
         ];
 
-        return $instance;
+        return $service;
     }
 
     /**
      * Remove the unused class fields in the current objects.
      * This fields will be unused after the conversion of mail chimp primary fields.
      *
-     * @param  mixed  $instance
+     * @param  mixed  $service
      *
      * @return mixed
      */
-    protected function removeUnusedMailChimpFields($instance)
+    protected function removeUnusedMailChimpFields($service)
     {
-        unset($instance->subscriber_email);
-        unset($instance->subscriber_status);
-        unset($instance->subscriber_firstname);
-        unset($instance->subscriber_lastname);
-        unset($instance->subscriber_birthday);
+        unset($service->subscriber_email);
+        unset($service->subscriber_status);
+        unset($service->subscriber_firstname);
+        unset($service->subscriber_lastname);
+        unset($service->subscriber_birthday);
 
-        return $instance;
+        return $service;
     }
 }

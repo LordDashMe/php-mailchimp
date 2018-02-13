@@ -34,6 +34,8 @@ class TemplateFolder extends MailChimpAbstract
      */
     protected function concreteService()
     {
-        return new TemplateFolderManager(new TemplateFolderService(), $this->getHeaders());
+        return new TemplateFolderManager(
+            new TemplateFolderService(), $this->getHeaders()
+        );
     }
 }

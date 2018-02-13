@@ -9,6 +9,7 @@
 
 namespace LordDashMe\MailChimp\Core\TemplateFolder;
 
+use LordDashMe\MailChimp\Exception\MailChimpException;
 use LordDashMe\MailChimp\Core\MailChimpManagerAbstract;
 use LordDashMe\MailChimp\Contract\TemplateFolder\API\TemplateFolderService as TemplateFolderServiceInterface;
 
@@ -17,32 +18,32 @@ class TemplateFolderManager extends MailChimpManagerAbstract
     /**
      * The templateFolder manager class constructor.
      *
-     * @param  \LordDashMe\MailChimp\Contract\TemplateFolder\API\TemplateFolderService  $instance
+     * @param  \LordDashMe\MailChimp\Contract\TemplateFolder\API\TemplateFolderService  $service
      * @param  array  $headers
      *
      * @return void
      */
-    public function __construct(TemplateFolderServiceInterface $instance, $headers)
+    public function __construct(TemplateFolderServiceInterface $service, $headers)
     {
         parent::__construct($headers);
 
-        $this->setMailChimpService($instance)
+        $this->setMailChimpService($service)
              ->setMailChimpHeaders($headers);
     }
 
     /**
-     * The resource id for the current instance.
+     * The resource id for the current service.
      *
-     * @param  mixed  $instance
+     * @param  mixed  $service
      * @param  int    $resourceId
      *
      * @return mixed
      */
-    protected function resourceId($instance, $resourceId) 
+    protected function resourceId($service, $resourceId) 
     { 
-        $instance->templateFolderId = $resourceId;
+        $service->templateFolderId = $resourceId;
 
-        return $instance; 
+        return $service; 
     }
 
     /**
@@ -50,20 +51,22 @@ class TemplateFolderManager extends MailChimpManagerAbstract
      * This is a custom validation or checking instead of requesting to the mailchimp api
      * we just validate first for the application side for the speed purpose.
      *
-     * @param  mixed  $instance
-     *
-     * @return void
+     * @param  mixed  $service
      *
      * @throws LordDashMe\MailChimp\Exception\MailChimpException
+     *
+     * @return void
      */
-    protected function validateMailChimpRequiredFields($instance)
+    protected function validateMailChimpRequiredFields($service)
     {
         $required = (
-            ! isset($instance->name)
+            ! isset($service->name)
         );
 
         if ($required) {
-            throw new MailChimpException('The mailchimp template folder primary field(s) not set in the closure.');
+            throw new MailChimpException(
+                'The mailchimp template folder primary field(s) not set in the closure.'
+            );
         }  
     }
 }

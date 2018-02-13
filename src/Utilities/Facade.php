@@ -55,10 +55,10 @@ class Facade
      *
      * @param  string  $method
      * @param  array   $args
-     * 
-     * @return mixed
      *
      * @throws \RuntimeException
+     * 
+     * @return mixed
      */
     public static function __callStatic($method, $args)
     {
@@ -109,12 +109,14 @@ class Facade
     /**
      * "Noop" method, get the dynamic class namespace that will be convert to static class.
      *
-     * @return string
-     * 
      * @throws \RuntimeException
+     * 
+     * @return string
      */
     protected static function getFacadeClass()
     {
-        throw new RuntimeException('Facade needs getFacadeClass to be declared or override in the inheritor or subclass class.');
+        throw new RuntimeException(
+            'Facade needs getFacadeClass to be declared or override in the inheritor or subclass class.'
+        );
     }
 }

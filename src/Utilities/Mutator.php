@@ -12,7 +12,7 @@
 
 namespace LordDashMe\MailChimp\Utilities;
 
-class Mutator extends \ArrayAccess
+class Mutator implements \ArrayAccess
 {
     /**
      * The mutator bag field holds the key value pair.
