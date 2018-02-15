@@ -1,17 +1,15 @@
 <?php
 
+namespace PHPMailChimp\Supports;
+
 /**
- * The Mutator Utility Class.
+ * The Mutator Class.
  *
  * This class intended for dynamic getter and setter for
  * the inheritor or sub class or whoever extends this class.
  * 
- * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 25, 2017
+ * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-
-namespace LordDashMe\MailChimp\Utilities;
-
 class Mutator implements \ArrayAccess
 {
     /**

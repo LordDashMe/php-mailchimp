@@ -1,18 +1,16 @@
 <?php
 
+namespace PHPMailChimp\Core;
+
 /**
- * The Curl Utility Class.
+ * The MailChimp Client Url.
  *
  * The class used in requestion api or webservices
  * of mailchimp using PHP curl function.
  * 
- * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since August 24, 2017
+ * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-
-namespace LordDashMe\MailChimp\Utilities;
-
-class Curl
+class MailChimpClientUrl
 {   
     /**
      * Set "true" to return the transfer as a string of the return value of curl_exec() 
@@ -23,18 +21,18 @@ class Curl
     const OPT_RETURNTRANSFER = true;
 
     /**
-     * The maximum number of seconds to allow cURL functions to execute.
-     *
-     * @var int
-     */
-    const OPT_TIMEOUT = 16;
-
-    /**
      * Set "false" to stop cURL from verifying the peer's certificate. 
      *
      * @var boolean
      */
     const OPT_SSL_VERIFYPEER = false;
+
+    /**
+     * The maximum number of seconds to allow cURL functions to execute.
+     *
+     * @var int
+     */
+    const OPT_TIMEOUT = 16;
 
     /**
      * The url field.

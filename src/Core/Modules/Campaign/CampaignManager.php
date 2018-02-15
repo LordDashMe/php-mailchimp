@@ -25,10 +25,7 @@ class CampaignManager extends MailChimpManagerAbstract
      */
     public function __construct(CampaignServiceInterface $service, $headers)
     {
-        parent::__construct($headers);
-
-        $this->setMailChimpService($service)
-             ->setMailChimpHeaders($headers);
+        parent::__construct($service, $headers);
     }
 
     /**
