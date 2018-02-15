@@ -7,7 +7,4 @@ namespace PHPMailChimp\Core\Exceptions;
  *
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-class MailChimpException extends \Exception
-{
-    
-}
+class MailChimpException extends \Exception {}
