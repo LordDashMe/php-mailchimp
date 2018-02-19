@@ -21,6 +21,6 @@
         "phpunit/phpunit": "6.0.*"
     },
     "autoload": {
-        "psr-4": { "PhpMailChimp": "src/" }
+        "psr-4": { "PHPMailChimp\\": "src/" }
     }
 }

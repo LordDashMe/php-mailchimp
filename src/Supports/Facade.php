@@ -100,7 +100,7 @@ class Facade
     }
 
     /**
-     * (No-op method)
+     * ( NOOP method )
      * 
      * Get the normal class namespace that will be convert to static class.
      *

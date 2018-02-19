@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPMailChimp\Core;
+namespace PHPMailChimp\Core\Utilities;
 
-use PHPMailChimp\Core\MailChimpConfig;
+use PHPMailChimp\Core\Utilities\MailChimpConfig;
 
 /**
  * The MailChimp Host.

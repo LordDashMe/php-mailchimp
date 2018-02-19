@@ -5,6 +5,92 @@ include realpath( dirname(__FILE__) ) . '/vendor/autoload.php';
 $apiKey = '436efacaca308f34da871cc93eff3559-us16';
 $listID = '40bd239d57';
 
+// use PHPMailChimp\Core\Modules\Lists\Facade\Lists;
+
+// Lists::init(['apiKey' => $apiKey]);
+
+// $response = Lists::create(function($requestBody) {
+//     $requestBody->name = 'This is a sample';
+//     $requestBody->contact = [
+//         'company' => 'This is Sample Company',
+//         'address1' => 'This is sample address 1',
+//         'city' => 'Sample City',
+//         'state' => 'Sample State',
+//         'zip' => '3022',
+//         'country' => 'PH'
+//     ];
+//     $requestBody->permission_reminder = 'Please make sure your profile info.';
+//     $requestBody->campaign_defaults = [
+//         'from_name' => 'Dash Reyes',
+//         'from_email' => 'reyesjoshuaclifford@gmail.com',
+//         'subject' => 'This is a sample subject.',
+//         'language' => 'english'
+//     ];
+//     $requestBody->email_type_option = false;
+//     return $requestBody;
+// });
+
+use PHPMailChimp\Core\Modules\Lists\Lists;
+
+$lists = new Lists(['apiKey' => $apiKey]);
+
+// $response = $lists->create(function($requestBody) {
+//     $requestBody->name = 'This is a sample';
+//     $requestBody->contact = [
+//         'company' => 'This is Sample Company',
+//         'address1' => 'This is sample address 1',
+//         'city' => 'Sample City',
+//         'state' => 'Sample State',
+//         'zip' => '3022',
+//         'country' => 'PH'
+//     ];
+//     $requestBody->permission_reminder = 'Please make sure your profile info.';
+//     $requestBody->campaign_defaults = [
+//         'from_name' => 'Dash Reyes',
+//         'from_email' => 'reyesjoshuaclifford@gmail.com',
+//         'subject' => 'This is a sample subject.',
+//         'language' => 'english'
+//     ];
+//     $requestBody->email_type_option = false;
+//     return $requestBody;
+// });
+// 
+
+// $response = $lists->update(function($requestBody) {
+//     $requestBody->name = 'This is a sample 1';
+//     $requestBody->contact = [
+//         'company' => 'This is Sample Company',
+//         'address1' => 'This is sample address 1',
+//         'city' => 'Sample City',
+//         'state' => 'Sample State',
+//         'zip' => '3022',
+//         'country' => 'PH'
+//     ];
+//     $requestBody->permission_reminder = 'Please make sure your profile info.';
+//     $requestBody->campaign_defaults = [
+//         'from_name' => 'Dash Reyes',
+//         'from_email' => 'reyesjoshuaclifford@gmail.com',
+//         'subject' => 'This is a sample subject.',
+//         'language' => 'english'
+//     ];
+//     $requestBody->email_type_option = false;
+//     return $requestBody;
+// }, function ($requestPath) {
+//     $requestPath->list_id = 'ad82910b36';
+//     return $requestPath;
+// });
+
+// $response = $lists->delete(function ($requestBody) { 
+//     return $requestBody; 
+// }, function($requestPath) { 
+//     $requestPath->list_id = 'ad82910b36'; return $requestPath; 
+// });
+
+// var_dump($response);
+
+// exit;
+
+
 /**
  * SUBSCRIBER FACADE
  */

@@ -1,15 +1,13 @@
 <?php
 
+namespace PHPMailChimp\Contracts\Base;
+
 /**
- * The MailChimp Service Abstract Interface.
+ * The MailChimp Service Interface.
  * 
- * @author Joshua Clifford Reyes<reyesjoshuaclifford@gmail.com>
- * @since September 08, 2017
+ * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-
-namespace LordDashMe\MailChimp\Contract;
-
-interface MailChimpServiceAbstract 
+interface MailChimpService
 {
     /**
      * Execute get method in the given url, this will show all the records 

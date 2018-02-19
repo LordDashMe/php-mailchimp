@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPMailChimp\Core;
+namespace PHPMailChimp\Core\Utilities;
 
 /**
  * The MailChimp Client Url.
@@ -12,6 +12,13 @@ namespace PHPMailChimp\Core;
  */
 class MailChimpClientUrl
 {   
+    /**
+     * The maximum number of seconds to allow cURL functions to execute.
+     *
+     * @var int
+     */
+    const OPT_TIMEOUT = 16;
+
     /**
      * Set "true" to return the transfer as a string of the return value of curl_exec() 
      * instead of outputting it out directly
@@ -26,13 +33,6 @@ class MailChimpClientUrl
      * @var boolean
      */
     const OPT_SSL_VERIFYPEER = false;
-
-    /**
-     * The maximum number of seconds to allow cURL functions to execute.
-     *
-     * @var int
-     */
-    const OPT_TIMEOUT = 16;
 
     /**
      * The url field.
@@ -209,13 +209,13 @@ class MailChimpClientUrl
         $requestMethod = $this->getRequestMethod();
 
         $options = [
-            CURLOPT_URL              => $url,
-            CURLOPT_USERPWD          => "user:{$apiKey}",
-            CURLOPT_HTTPHEADER       => ['Content-Type: application/json'],
-            CURLOPT_CUSTOMREQUEST    => $requestMethod,
-            CURLOPT_TIMEOUT          => self::OPT_TIMEOUT,
-            CURLOPT_RETURNTRANSFER   => self::OPT_RETURNTRANSFER,
-            CURLOPT_SSL_VERIFYPEER   => self::OPT_SSL_VERIFYPEER,
+            CURLOPT_URL             => $url,
+            CURLOPT_USERPWD         => "user:{$apiKey}",
+            CURLOPT_HTTPHEADER      => [ 'Content-Type: application/json' ],
+            CURLOPT_CUSTOMREQUEST   => $requestMethod,
+            CURLOPT_TIMEOUT         => self::OPT_TIMEOUT,
+            CURLOPT_RETURNTRANSFER  => self::OPT_RETURNTRANSFER,
+            CURLOPT_SSL_VERIFYPEER  => self::OPT_SSL_VERIFYPEER,
         ];
 
         if ($data) {
@@ -241,15 +241,12 @@ class MailChimpClientUrl
         switch ($requestMethod) {
             case 'PUT':
             case 'POST':
+            case 'PATCH':
                 $options[CURLOPT_POSTFIELDS] = $data;
                 break;
-
             case 'GET':
                 $parameters = http_build_query(json_decode($data, true));
                 $options[CURLOPT_URL] = "{$options[CURLOPT_URL]}?{$parameters}";
-                break;
-
-            default:
                 break;
         } 
 
@@ -268,9 +265,7 @@ class MailChimpClientUrl
     {
         return json_encode([
             'response_body' => json_decode($responseBody, true),
-            'header' => [
-                'http_code' => $httpCode,
-            ]
+            'header' => [ 'http_code' => $httpCode ]
         ]);
     }
 }

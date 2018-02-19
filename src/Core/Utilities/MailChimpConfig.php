@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPMailChimp\Core;
+namespace PHPMailChimp\Core\Utilities;
 
 /**
  * The MailChimp Config.
@@ -28,5 +28,5 @@ class MailChimpConfig
      *
      * @var string
      */
-    const MAILCHIMP_API_VER = '3.0';
+    const MAILCHIMP_API_VERSION = '3.0';
 }
