@@ -1,5 +1,9 @@
 # Package PHP MailChimp
-- A straight forward php package for Mailchimp API.
+- A straight forward php package for Mailchimp API v3.0
+
+### Modules Supported:
+1. 
+
 ### Quick Usage:
 
 #### Subscriber or Member Management
@@ -150,5 +154,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMDA3ODEwNTVdfQ==
+eyJoaXN0b3J5IjpbLTE1NDE5NjE0OTddfQ==
 -->
