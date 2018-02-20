@@ -96,17 +96,20 @@ $response = Lists::create(['name' => 'Lists Name', ...], []);
 ```php
 <?php
 
-$response = Subscriber::update('sample@email.ph', function ($subscriber) {
+// Closure Style
+$response = Lists::create(
+	function($requestBody) {
+		$requestBody->name = 'Lists Name';
+		...
+		return $requestBody;
+	}, 
+	function($requestPath){
+		return $requestPath;
+	}
+);
 
-    $subscriber->subscriber_email = 'sample_modified@email.ph';
-    $subscriber->subscriber_status = 'subscribed';
-
-    $subscriber->subscriber_firstname = 'Sample Modified First Name';
-    $subscriber->subscriber_lastname = 'Sample Modified Last Name';
-    $subscriber->subscriber_birthday = '06/16';
-
-    return $subscriber;
-});
+// Array Style
+$response = Lists::create(['name' => 'Lists Name', ...], []);
 
 ```
 - Delete record.
@@ -204,5 +207,5 @@ $response = Subscriber::update('sample@email.ph', function ($subscriber) {
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg5MDMzOTI1OF19
+eyJoaXN0b3J5IjpbLTEwODY5MTU0NzddfQ==
 -->
