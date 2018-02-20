@@ -31,7 +31,7 @@
 <?php
 
 // Closure Style
-$response = Lists::find([], ['list_id' => 'a31gbd...']);
+$response = Lists::find(function() {}, ['list_id' => 'a31gbd...']);
 
 // Array Style
 $response = Lists::find([], ['list_id' => 'a31gbd...']);
@@ -166,5 +166,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjg0OTUyNzZdfQ==
+eyJoaXN0b3J5IjpbLTE2MjUyMTY4MDFdfQ==
 -->
