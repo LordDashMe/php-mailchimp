@@ -72,23 +72,23 @@ $response = Lists::find(
 $response = Lists::find([], ['list_id' => 'a31gbd...']);
 
 ```
-- Create record.
-    ```php
-    <?php
+#### Create record.
+```php
+<?php
 
-    $response = Subscriber::create(function ($subscriber) {
+$response = Subscriber::create(function ($subscriber) {
 
-        $subscriber->subscriber_email = 'sample@email.ph';
-        $subscriber->subscriber_status = 'subscribed';
+    $subscriber->subscriber_email = 'sample@email.ph';
+    $subscriber->subscriber_status = 'subscribed';
 
-        $subscriber->subscriber_firstname = 'Sample First Name';
-        $subscriber->subscriber_lastname = 'Sample Last Name';
-        $subscriber->subscriber_birthday = '06/16';
+    $subscriber->subscriber_firstname = 'Sample First Name';
+    $subscriber->subscriber_lastname = 'Sample Last Name';
+    $subscriber->subscriber_birthday = '06/16';
 
-        return $subscriber;
-    });
+    return $subscriber;
+});
 
-    ```
+```
 - Update record.
     ```php
     <?php
@@ -201,5 +201,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI5NDIwNjMwNF19
+eyJoaXN0b3J5IjpbMTU0MTMzNjMxXX0=
 -->
