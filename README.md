@@ -19,9 +19,13 @@
 // Initialize Module
 Module::init(['apiKey' => 'abcde1234...', ...]);
 
-// Use the default module action
-// Request Body and Request Path 
+// Use the default module action.
+// Request Body and Request Path can be declare in two ways
+// by using Closure or Array
 $response = Module::create(Request Body, Request Path);
+
+// Closure
+$response = Module::create(function )
 
 
 ```
@@ -188,5 +192,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc4NDIyNDU4MV19
+eyJoaXN0b3J5IjpbMTIyNjk2MzUxMV19
 -->
