@@ -1,3 +1,4 @@
+
 # PHP MailChimp
 - A straight forward php package for Mailchimp API v3.0
 
@@ -26,11 +27,11 @@ $response = Module::create(Request Body, Request Path);
 
 // Closure
 $response = Module::create(
-	function($requestBody) {
-		return $requestBody;
-	}, 
+    function($requestBody) {
+        return $requestBody;
+    }, 
 	function($requestPath){
-		return $requestPath;
+        return $requestPath;
 	}
 );
 
@@ -43,14 +44,14 @@ $response = Module::create([...], [...]);
 ---
 - First initialize the Lists Module Primary Class and provide the API Key.
 	- API Key can get in the Mailchimp Account Settings > Extras.
-    ```php
-    <?php
+```php
+<?php
 
-    use PHPMailChimp\Core\Modules\Lists\Facade\Lists;
+use PHPMailChimp\Core\Modules\Lists\Facade\Lists;
 
-    Lists::init(['apiKey' => 'qwxz123...']);
+Lists::init(['apiKey' => 'qwxz123...']);
 
-    ```
+```
 - After the initialization of the primary class, we can now use the default methods or action for the API.
 
 ##### Show Record
@@ -59,13 +60,13 @@ $response = Module::create([...], [...]);
 
 // Closure Style
 $response = Lists::find(
-   function($requestBody) {
-	  return $requestBody;
-	}, 
-	function($requestPath){
-		$requestPath->list_id = 'a31gbd...';
-		return $requestPath;
-	}
+    function($requestBody) {
+        return $requestBody;
+    }, 
+    function($requestPath){
+        $requestPath->list_id = 'a31gbd...';
+        return $requestPath;
+    }
 );
 
 // Array Style
@@ -78,14 +79,14 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
 
 // Closure Style
 $response = Lists::create(
-   function($requestBody) {
-	  $requestBody->name = 'Lists Name';
-	  ...
-	  return $requestBody;
-   }, 
-   function($requestPath){
-	  return $requestPath;
-   }
+    function($requestBody) {
+        $requestBody->name = 'Lists Name';
+        ...
+        return $requestBody;
+    }, 
+    function($requestPath){
+        return $requestPath;
+    }
 );
 
 // Array Style
@@ -98,15 +99,15 @@ $response = Lists::create(['name' => 'Lists Name', ...], []);
 
 // Closure Style
 $response = Lists::update(
-   function($requestBody) {
-      $requestBody->name = 'Lists Name';
-	  ...
-	  return $requestBody;
-   }, 
-   function($requestPath){
-	  $requestPath->list_id = 'a31gbd...';
-	  return $requestPath;
-   }
+    function($requestBody) {
+        $requestBody->name = 'Lists Name';
+        ...
+        return $requestBody;
+    }, 
+    function($requestPath){
+        $requestPath->list_id = 'a31gbd...';
+        return $requestPath;
+    }
 );
 
 // Array Style
@@ -119,18 +120,17 @@ $response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd..
 
 // Closure Style
 $response = Lists::delete(
-   function($requestBody) {
-      return $requestBody;
-   }, 
-   function($requestPath){
-      $requestPath->list_id = 'a31gbd...';
-	   return $requestPath;
-   }
+    function($requestBody) {
+        return $requestBody;
+    }, 
+    function($requestPath){
+        $requestPath->list_id = 'a31gbd...';
+        return $requestPath;
+    }
 );
 
 // Array Style
 $response = Lists::delete([], ['list_id' => 'a31gbd...']);
-
 
 ```
 ---
@@ -139,5 +139,5 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 	- reyesjoshuaclifford@gmail.com
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4MTI2MDQyMzRdfQ==
+eyJoaXN0b3J5IjpbLTIzNzIyNDU1MF19
 -->
