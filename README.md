@@ -37,7 +37,6 @@ $response = Module::create(
 // Array
 $response = Module::create([...], [...]);
 
-
 ```
 
 ### Lists Module
@@ -54,7 +53,7 @@ $response = Module::create([...], [...]);
     ```
 - After the initialization of the primary class, we can now use the default methods or action for the API.
 
-### Show record
+#### Show record
 ```php
 <?php
 
@@ -202,5 +201,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMTAwNjg3MDVdfQ==
+eyJoaXN0b3J5IjpbMTI3MTkyNTAwXX0=
 -->
