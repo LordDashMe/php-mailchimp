@@ -17,7 +17,10 @@
 ```php
 <?php
 
-// Initialize Module
+// Load the module class
+use PHPMailChimp\Core\Modules\<Module>\Facade\<Module>;
+
+// Initialize module class
 Module::init(['apiKey' => 'abcde1234...', ...]);
 
 // Use the default module action.
