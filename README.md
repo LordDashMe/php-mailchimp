@@ -79,7 +79,8 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
 // Closure Style
 $response = Lists::create(
 	function($requestBody) {
-		$requestBody->name = 'Lists Name...';
+		$requestBody->name = 'Lists Name';
+		...
 		return $requestBody;
 	}, 
 	function($requestPath){
@@ -88,26 +89,26 @@ $response = Lists::create(
 );
 
 // Array Style
-$response = Lists::find([], ['list_id' => 'a31gbd...']);
+$response = Lists::create(['name' => 'Lists Name', ...], []);
 
 ```
-- Update record.
-    ```php
-    <?php
+#### Update record.
+```php
+<?php
 
-    $response = Subscriber::update('sample@email.ph', function ($subscriber) {
+$response = Subscriber::update('sample@email.ph', function ($subscriber) {
 
-        $subscriber->subscriber_email = 'sample_modified@email.ph';
-        $subscriber->subscriber_status = 'subscribed';
+    $subscriber->subscriber_email = 'sample_modified@email.ph';
+    $subscriber->subscriber_status = 'subscribed';
 
-        $subscriber->subscriber_firstname = 'Sample Modified First Name';
-        $subscriber->subscriber_lastname = 'Sample Modified Last Name';
-        $subscriber->subscriber_birthday = '06/16';
+    $subscriber->subscriber_firstname = 'Sample Modified First Name';
+    $subscriber->subscriber_lastname = 'Sample Modified Last Name';
+    $subscriber->subscriber_birthday = '06/16';
 
-        return $subscriber;
-    });
+    return $subscriber;
+});
 
-    ```
+```
 - Delete record.
     ```php
     <?php
@@ -203,5 +204,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MTM2NzUyMzldfQ==
+eyJoaXN0b3J5IjpbMTg5MDMzOTI1OF19
 -->
