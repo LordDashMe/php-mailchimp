@@ -9,7 +9,7 @@
 ---
 ### Quick Usage:
 - The PHP MailChimp usage are generic to all supported modules, meaning the example below will apply also to the other modules.
-- The ```request body parameters``` and ```request path parameters``` are also the same as stated to the mailchimp api documentation.
+- The ```request body parameters``` and ```request path parameters```  structure are also the same to the mailchimp api documentation.
 - Recommended to check the actual mailchimp api documentation.
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
 - The module primary class structure consist only of ```request body``` and ```request path```, see example below:
@@ -201,5 +201,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI3MTkyNTAwXX0=
+eyJoaXN0b3J5IjpbLTExNzAyMTU1MDRdfQ==
 -->
