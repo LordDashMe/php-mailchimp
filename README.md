@@ -97,19 +97,20 @@ $response = Lists::create(['name' => 'Lists Name', ...], []);
 <?php
 
 // Closure Style
-$response = Lists::create(
+$response = Lists::update(
 	function($requestBody) {
 		$requestBody->name = 'Lists Name';
 		...
 		return $requestBody;
 	}, 
 	function($requestPath){
+		$requestPath->list_id = 'a31gbd...';
 		return $requestPath;
 	}
 );
 
 // Array Style
-$response = Lists::create(['name' => 'Lists Name', ...], []);
+$response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
 
 ```
 - Delete record.
@@ -117,23 +118,6 @@ $response = Lists::create(['name' => 'Lists Name', ...], []);
     <?php
 
     $response = Subscriber::delete('sample@email.ph');
-
-    ```
-- Create or Update record.
-    ```php
-    <?php
-
-    $response = Subscriber::createOrUpdate('sample@email.ph', function ($subscriber) {
-
-        $subscriber->subscriber_email = 'sample_modified@email.ph';
-        $subscriber->subscriber_status = 'subscribed';
-
-        $subscriber->subscriber_firstname = 'Sample Modified First Name';
-        $subscriber->subscriber_lastname = 'Sample Modified Last Name';
-        $subscriber->subscriber_birthday = '06/16';
-
-        return $subscriber;
-    });
 
     ```
 #### Campaign Management
@@ -207,5 +191,5 @@ $response = Lists::create(['name' => 'Lists Name', ...], []);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwODY5MTU0NzddfQ==
+eyJoaXN0b3J5IjpbMTk0OTgwMDk3MV19
 -->
