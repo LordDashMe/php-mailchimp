@@ -119,13 +119,13 @@ $response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd..
 
 // Closure Style
 $response = Lists::delete(
-	function($requestBody) {
-		return $requestBody;
-	}, 
-	function($requestPath){
-		$requestPath->list_id = 'a31gbd...';
-		return $requestPath;
-	}
+   function($requestBody) {
+      return $requestBody;
+   }, 
+   function($requestPath){
+      $requestPath->list_id = 'a31gbd...';
+	   return $requestPath;
+   }
 );
 
 // Array Style
@@ -139,5 +139,5 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 	- reyesjoshuaclifford@gmail.com
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUzOTUxNjM1MF19
+eyJoaXN0b3J5IjpbLTQyNzQzODEyNl19
 -->
