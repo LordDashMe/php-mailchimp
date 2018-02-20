@@ -43,7 +43,7 @@ $response = Module::create([...], [...]);
 ### Lists Module
 ---
 - First initialize the Lists Module Primary Class and provide the API Key.
-	- API Key can get in the Mailchimp Account Settings > Extras.
+	- API Key can get in the Mailchimp Account > Extras > API Keys.
 ```php
 <?php
 
@@ -139,5 +139,5 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 	- reyesjoshuaclifford@gmail.com
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzOTgwMzUwNDhdfQ==
+eyJoaXN0b3J5IjpbLTEzODMxMjE1NTVdfQ==
 -->
