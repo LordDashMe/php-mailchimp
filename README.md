@@ -135,9 +135,9 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 ```
 ---
 ### Support
-- If you have any quFeel free to contact me just drop a mail to this email address:
+- If you have any question Feel free to contact me just drop a mail to this email address:
 	- reyesjoshuaclifford@gmail.com
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk2NDQ1MTAxNF19
+eyJoaXN0b3J5IjpbMTExOTA5MDY2NF19
 -->
