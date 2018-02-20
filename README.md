@@ -7,7 +7,7 @@
 
 ### Quick Usage:
 - The PHP MailChimp usage are generic to all supported modules, meaning the example below will apply also to the other modules.
-- The request body parameters and request path parameters are also the same as stated 
+- The request body parameters and request path parameters are also the same as stated to the mailc
 
 ##### Lists Module
 - Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
@@ -157,5 +157,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwODk2Nzg3NTJdfQ==
+eyJoaXN0b3J5IjpbMTg4MzI2NzczNl19
 -->
