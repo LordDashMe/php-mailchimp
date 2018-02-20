@@ -59,7 +59,7 @@ $response = Module::create([...], [...]);
 
 // Closure Style
 $response = Lists::find(
-	function($requestBody) {
+   function($requestBody) {
 		return $requestBody;
 	}, 
 	function($requestPath){
@@ -78,14 +78,14 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
 
 // Closure Style
 $response = Lists::create(
-	function($requestBody) {
-		$requestBody->name = 'Lists Name';
-		...
-		return $requestBody;
-	}, 
-	function($requestPath){
-		return $requestPath;
-	}
+   function($requestBody) {
+	  $requestBody->name = 'Lists Name';
+	  ...
+	  return $requestBody;
+   }, 
+   function($requestPath){
+	  return $requestPath;
+   }
 );
 
 // Array Style
@@ -98,15 +98,15 @@ $response = Lists::create(['name' => 'Lists Name', ...], []);
 
 // Closure Style
 $response = Lists::update(
-	function($requestBody) {
-		$requestBody->name = 'Lists Name';
-		...
-		return $requestBody;
-	}, 
-	function($requestPath){
-		$requestPath->list_id = 'a31gbd...';
-		return $requestPath;
-	}
+   function($requestBody) {
+      $requestBody->name = 'Lists Name';
+	  ...
+	  return $requestBody;
+   }, 
+   function($requestPath){
+	  $requestPath->list_id = 'a31gbd...';
+	  return $requestPath;
+   }
 );
 
 // Array Style
@@ -139,5 +139,5 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 	- reyesjoshuaclifford@gmail.com
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQyNzQzODEyNl19
+eyJoaXN0b3J5IjpbMTk3Njg4Njg2Ml19
 -->
