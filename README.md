@@ -1,6 +1,12 @@
 
-# PHP MailChimp [![Build Status](https://travis-ci.org/lorddashme-php-packages/php-mailchimp.svg?branch=v2.0.0)](https://travis-ci.org/lorddashme-php-packages/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/lorddashme-php-packages/php-mailchimp/badge.svg?branch=v2.0.0)](https://coveralls.io/github/lorddashme-php-packages/php-mailchimp?branch=v2.0.0)
+# PHP MailChimp [![Build Status](https://travis-ci.org/lorddashme-php-packages/php-mailchimp.svg?branch=master)](https://travis-ci.org/lorddashme-php-packages/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/lorddashme-php-packages/php-mailchimp/badge.svg?branch=master)](https://coveralls.io/github/lorddashme-php-packages/php-mailchimp?branch=master)
 - A straight forward php package for Mailchimp API v3.0
+
+### Install
+Use the composer command below:
+```
+composer require lorddashme-php-packages/php-mailchimp:v2.0.0
+```
 
 ### Modules Supported:
 1. Lists
@@ -140,6 +146,3 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 ### Support
 - If you have any question feel free to contact me:
     - reyesjoshuaclifford@gmail.com
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMTgzMjcwNjVdfQ==
--->
