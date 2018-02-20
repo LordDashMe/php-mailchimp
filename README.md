@@ -3,8 +3,9 @@
 
 ### Modules Supported:
 1. Lists
-	- Main Class Namespace: 
+	- Main Class Namespace: ```PHPMailChimp\Core\Modules\Lists\Facade\Lists```
 2. Members
+	- Main Class Namespace: ```PHPMailChimp\Core\Modules\Members\Facade\Members```
 
 ### Quick Usage:
 - The PHP MailChimp usage are generic to all supported modules, meaning the example below will apply also to the other modules.
@@ -12,7 +13,8 @@
 - Recommended to check the actual mailchimp api documentation.
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
 ##### Lists Module
-- First initialize the Lists Module Primary Class and provide the API Key and List ID.
+- First initialize the Lists Module Primary Class and provide the API Key.
+	- API Key can get in the mailchi
     ```php
     <?php
 
@@ -157,5 +159,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MTU1Mjk3MjddfQ==
+eyJoaXN0b3J5IjpbLTEwOTIwMjg2MzFdfQ==
 -->
