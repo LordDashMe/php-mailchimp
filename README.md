@@ -28,10 +28,8 @@
 
 ### Show record
 ```php
-   
- <?php
-
-    $response = Subscriber::find('sample@email.ph');
+<?php
+$response = Subscriber::find('sample@email.ph');
 
     ```
 - Create record.
@@ -163,5 +161,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNjUzODY2ODNdfQ==
+eyJoaXN0b3J5IjpbLTgwOTAxMjM4M119
 -->
