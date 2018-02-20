@@ -1,4 +1,4 @@
-# PHP Package MailChimp
+# PHP MailChimp
 - A straight forward php package for Mailchimp API v3.0
 
 ### Modules Supported:
@@ -6,7 +6,7 @@
 2. Members
 
 ### Quick Usage:
-- The 
+- The PHP MailChimp usage are generic to all supported modules so the example below will apply also to the other modules.
 #### Subscriber or Member Management
 - Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 - The request body parameters of the Subscriber Class are also the same with the Mailchimp Structure, just convert it to php array.
@@ -155,5 +155,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTExODczNjkxOV19
+eyJoaXN0b3J5IjpbLTY4Mzc0ODcwMl19
 -->
