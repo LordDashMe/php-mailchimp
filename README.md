@@ -25,7 +25,7 @@ Module::init(['apiKey' => 'abcde1234...', ...]);
 $response = Module::create(Request Body, Request Path);
 
 // Closure
-$response = Module::create(function() {}, func)
+$response = Module::create(function() {}, function(){});
 
 
 ```
@@ -192,5 +192,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMjEwOTQxMTRdfQ==
+eyJoaXN0b3J5IjpbLTUzODY1NTY0Nl19
 -->
