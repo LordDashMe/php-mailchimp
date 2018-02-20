@@ -53,7 +53,7 @@ $response = Module::create([...], [...]);
     ```
 - After the initialization of the primary class, we can now use the default methods or action for the API.
 
-#### Show record
+#### Show
 ```php
 <?php
 
@@ -72,7 +72,7 @@ $response = Lists::find(
 $response = Lists::find([], ['list_id' => 'a31gbd...']);
 
 ```
-#### Create record.
+#### Create
 ```php
 <?php
 
@@ -92,7 +92,7 @@ $response = Lists::create(
 $response = Lists::create(['name' => 'Lists Name', ...], []);
 
 ```
-#### Update record.
+#### Update
 ```php
 <?php
 
@@ -113,83 +113,28 @@ $response = Lists::update(
 $response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
 
 ```
-- Delete record.
-    ```php
-    <?php
+#### Delete
+```php
+<?php
 
-    $response = Subscriber::delete('sample@email.ph');
+// Closure Style
+$response = Lists::update(
+	function($requestBody) {
+		$requestBody->name = 'Lists Name';
+		...
+		return $requestBody;
+	}, 
+	function($requestPath){
+		$requestPath->list_id = 'a31gbd...';
+		return $requestPath;
+	}
+);
 
-    ```
-#### Campaign Management
-- Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/
-- The request body parameters of Campaign Class are also the same with the Mailchimp Structure, just convert it to php array.
-- First initialize the Campaign Class and provide the API Key.
-    ```php
-    <?php
+// Array Style
+$response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
 
-    use LordDashMe\MailChimp\Core\Campaign\Facade\Campaign;
 
-    Campaign::init(['apiKey' => $apiKey]);
-
-    ```
-- Show record.
-    ```php
-    <?php
-
-    $response = Campaign::find('3e3c1c...');
-
-    ```
-- Create record.
-    ```php
-    <?php
-    
-    $response = Campaign::create(function($campaign) {
-
-        $campaign->recipients = [
-            'list_id' => '40bd...',
-        ];
-
-        $campaign->type = 'regular';
-
-        $campaign->settings = [
-            'subject_line' => 'First Launch of MailChimp PHP Package',
-            'reply_to' => 'support_sample@email.ph',
-            'from_name' => 'MailChimp PHP Package',
-        ];
-
-        return $campaign;
-    });
-    
-    ```
-- Update record.
-    ```php
-    <?php
-    
-    $response = Campaign::update('3e3c1c...', function($campaign) {
-
-        $campaign->recipients = [
-            'list_id' => '40bd...',
-        ];
-
-        $campaign->type = 'regular';
-
-        $campaign->settings = [
-            'subject_line' => 'First Launch of MailChimp PHP Package Updated',
-            'reply_to' => 'support_sample@email.ph',
-            'from_name' => 'MailChimp PHP Package Updated',
-        ];
-
-        return $campaign;
-    });
-    
-    ```
-- Delete record.
-    ```php
-    <?php
-    
-    $response = Campaign::delete('3e3c1c...');
-    
-    ```
+```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk0OTgwMDk3MV19
+eyJoaXN0b3J5IjpbMjExNzA5MTAxM119
 -->
