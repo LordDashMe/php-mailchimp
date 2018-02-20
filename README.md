@@ -79,7 +79,7 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
 // Closure Style
 $response = Lists::create(
 	function($requestBody) {
-		$requestBody->name = '';
+		$requestBody->name = 'Lists Name...';
 		return $requestBody;
 	}, 
 	function($requestPath){
@@ -203,5 +203,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzMjUxNzI2MTddfQ==
+eyJoaXN0b3J5IjpbLTE5MTM2NzUyMzldfQ==
 -->
