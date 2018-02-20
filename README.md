@@ -14,6 +14,11 @@
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
 - The modules primary class structure consist only of ```request body parameters``` and ```request path parameters```, see example below:
 ```php
+<?php
+
+Module::init(['apiKey' => 'abcde1234...', ...]);
+$response = Module::create(The);
+
 
 ```
 
@@ -179,5 +184,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODM5NDk1ODA4XX0=
+eyJoaXN0b3J5IjpbMTQ4NzQwNTc3MV19
 -->
