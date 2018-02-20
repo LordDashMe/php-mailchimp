@@ -53,7 +53,7 @@ $response = Module::create([...], [...]);
     ```
 - After the initialization of the primary class, we can now use the default methods or action for the API.
 
-#### Show
+##### Show Record
 ```php
 <?php
 
@@ -72,7 +72,7 @@ $response = Lists::find(
 $response = Lists::find([], ['list_id' => 'a31gbd...']);
 
 ```
-#### Create
+##### Create Record
 ```php
 <?php
 
@@ -92,7 +92,7 @@ $response = Lists::create(
 $response = Lists::create(['name' => 'Lists Name', ...], []);
 
 ```
-#### Update
+##### Update Record
 ```php
 <?php
 
@@ -113,7 +113,7 @@ $response = Lists::update(
 $response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
 
 ```
-#### Delete
+##### Delete Record
 ```php
 <?php
 
@@ -135,9 +135,9 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 ```
 ---
 ### Support
-- Feel free to contact me just drop a mail to this email address 
+- Feel free to contact me just drop a mail to this email address:
 	- reyesjoshuaclifford@gmail.com
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNDQ3Nzc4MDJdfQ==
+eyJoaXN0b3J5IjpbLTE3ODg3MzI0Ml19
 -->
