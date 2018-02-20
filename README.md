@@ -4,15 +4,25 @@
 
 ### Modules Supported:
 1. Lists
+<<<<<<< HEAD
     - Main Class Namespace: ```PHPMailChimp\Core\Modules\Lists\Facade\Lists```
 2. Members
     - Main Class Namespace: ```PHPMailChimp\Core\Modules\Members\Facade\Members```
+=======
+	- Main Class Namespace: ```PHPMailChimp\Core\Modules\Lists\Facade\Lists```
+2. Members
+	- Main Class Namespace: ```PHPMailChimp\Core\Modules\Members\Facade\Members```
+>>>>>>> db9a58ba368d1082e550218961200e7d8492d269
 ---
 ### Quick Usage:
 - The ```PHP MailChimp``` usage are generic to all supported modules, meaning the example below will apply also to the other modules.
 - The ```request body parameters``` and ```request path parameters```  structure are also the same to the mailchimp api documentation.
 - Recommended to check the actual mailchimp api documentation.
+<<<<<<< HEAD
     - http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
+=======
+	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
+>>>>>>> db9a58ba368d1082e550218961200e7d8492d269
 - The module primary class structure consist only of ```request body``` and ```request path```, see example below:
 ```php
 <?php
@@ -43,7 +53,11 @@ $response = Module::create([...], [...]);
 ### Lists Module
 ---
 - First initialize the Lists Module Primary Class and provide the API Key.
+<<<<<<< HEAD
     - API Key can get in the Mailchimp Account > Extras > API Keys.
+=======
+	- API Key can get in the Mailchimp Account > Extras > API Keys.
+>>>>>>> db9a58ba368d1082e550218961200e7d8492d269
 ```php
 <?php
 
@@ -136,4 +150,12 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 ---
 ### Support
 - If you have any question feel free to contact me:
+<<<<<<< HEAD
     - reyesjoshuaclifford@gmail.com
+=======
+	- reyesjoshuaclifford@gmail.com
+
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTEzODMxMjE1NTVdfQ==
+-->
+>>>>>>> db9a58ba368d1082e550218961200e7d8492d269
