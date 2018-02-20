@@ -76,17 +76,19 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
 ```php
 <?php
 
-$response = Subscriber::create(function ($subscriber) {
+// Closure Style
+$response = Lists::create(
+	function($requestBody) {
+		$
+		return $requestBody;
+	}, 
+	function($requestPath){
+		return $requestPath;
+	}
+);
 
-    $subscriber->subscriber_email = 'sample@email.ph';
-    $subscriber->subscriber_status = 'subscribed';
-
-    $subscriber->subscriber_firstname = 'Sample First Name';
-    $subscriber->subscriber_lastname = 'Sample Last Name';
-    $subscriber->subscriber_birthday = '06/16';
-
-    return $subscriber;
-});
+// Array Style
+$response = Lists::find([], ['list_id' => 'a31gbd...']);
 
 ```
 - Update record.
@@ -201,5 +203,5 @@ $response = Subscriber::create(function ($subscriber) {
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU0MTMzNjMxXX0=
+eyJoaXN0b3J5IjpbMTc2NzExMDg2OF19
 -->
