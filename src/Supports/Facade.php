@@ -59,7 +59,7 @@ class Facade
         $classContext = self::resolveFacadeClass();
 
         if (! $classContext) {
-            throw new \RuntimeException('The facade class context not set.');
+            throw new \RuntimeException('The facade class context is not set properly.');
         }
 
        return $classContext->{$method}(...$args);

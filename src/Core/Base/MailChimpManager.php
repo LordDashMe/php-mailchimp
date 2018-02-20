@@ -3,6 +3,7 @@
 namespace PHPMailChimp\Core\Base;
 
 use PHPMailChimp\Core\Exceptions\MailChimpException;
+use PHPMailChimp\Contracts\Base\MailChimpService as MailChimpServiceInterface;
 
 /**
  * The MailChimp Manager Abstract Class.
@@ -12,13 +13,6 @@ use PHPMailChimp\Core\Exceptions\MailChimpException;
 abstract class MailChimpManager
 {
     /**
-     * The request header, it holds the api key and etc.
-     *
-     * @var array
-     */
-    protected $headers = [];
-
-    /**
      * The service that manage the interaction to the mailchimp api.
      *
      * @var mixed
@@ -26,15 +20,69 @@ abstract class MailChimpManager
     protected $service = null;
 
     /**
+     * The request header, it holds the api key and etc.
+     *
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
      * The mailchimp manager abstract constructor.
      *
      * @param  array  $headers
      * @param  mixed  $service
      */
-    public function __construct($headers = [], $service = null)
+    public function __construct($headers = [])
     {
+        $this->init($headers);
+    }
+
+    /**
+     * The mailchimp manager abstract init method for static call compatibility.
+     *
+     * @param  array  $headers
+     *
+     * @return void
+     */
+    public function init($headers = [])
+    {  
+        /**
+         * To escape the first initialization process
+         * of the Facade support class.
+         */
+        if (empty($headers)) { return; }
+
+        $this->setService(static::registerModule());
+
         $this->setHeaders($headers);
+    }
+
+    /**
+     * ( NOOP method )
+     *
+     * The register module method that will provide the manager and service bindings.
+     *
+     * @throws PHPMailChimp\Core\Exceptions\MailChimpException
+     * 
+     * @return mixed
+     */
+    protected function registerModule() 
+    {
+        throw MailChimpException::cannotResolveRegisterModuleMethod();
+    }
+
+    /**
+     * The setter method for the mailchimp service.
+     *
+     * @param  mixed  $service
+     *
+     * @return $this
+     */
+    protected function setService($service) 
+    {
         $this->service = $service;
+
+        return $this;
     }
 
     /**
@@ -42,14 +90,14 @@ abstract class MailChimpManager
      *
      * @param  array  $headers
      *
+     * @throws PHPMailChimp\Core\Exceptions\MailChimpException
+     * 
      * @return $this
      */
-    public function setHeaders($headers)
+    protected function setHeaders($headers)
     {
         if (! is_array($headers)) {
-            throw new MailChimpException(
-                'The headers is not set properly, please use array to declare required headers.'
-            );
+            throw MailChimpException::cannotResolveModuleHeaders();
         }
 
         $this->validateHeaders($headers);
@@ -74,20 +122,8 @@ abstract class MailChimpManager
     protected function validateHeaders($headers)
     {
         if (! isset($headers['apiKey'])) {
-            throw new MailChimpException(
-                'The required header fields not set. (The required fields is apiKey)'
-            );
+            throw MailChimpException::cannotResolveHeadersResources();
         }
-    }
-
-    /**
-     * The getter method for the mailchimp headers.
-     *
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return $this->headers;
     }
 
     /**
@@ -103,20 +139,12 @@ abstract class MailChimpManager
     public function __call($method, $args)
     {
         $this->requestBaseProcess(...$args);
-
-        $service = null;
-
+        
         try {
-            $service = $this->requestActionProcess($method);
+            return ($this->requestActionProcess($method))->{$method}();
         } catch (MailChimpException $e) {
             exit($e->getMessage());
         }  
-
-        if ($service) {
-            return $service->{$method}(); 
-        }
-
-        throw new MailChimpException('The given method can\'t be process.');
     }
 
     /**
@@ -127,7 +155,7 @@ abstract class MailChimpManager
      *
      * @return $this
      */
-    private function requestBaseProcess($requestBodyParameters, $requestPathParameters = null)
+    private function requestBaseProcess($requestBodyParameters = null, $requestPathParameters = null)
     {
         $this->requestHeaders()
              ->requestBodyParameters($requestBodyParameters)
@@ -189,7 +217,7 @@ abstract class MailChimpManager
     {   
         $properties = [];
 
-        foreach ($this->getHeaders() as $property => $value) {
+        foreach ($this->headers as $property => $value) {
             $properties[$property] = $value;
         }
 
@@ -211,7 +239,8 @@ abstract class MailChimpManager
     {
         return $this->parametersConverter($args, 'request_body_parameters', 
             'There\'s no request body parameter(s) detected. use closure or array 
-            to specify the request body parameter of the endpoint.'
+            to specify the request body parameter of the endpoint. If request body parameter(s) are
+            not applicable to the method then provide atleast empty array or closure.'
         );
     }
 

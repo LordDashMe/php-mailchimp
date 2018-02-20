@@ -2,7 +2,7 @@
 <phpunit 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-    bootstrap="tests/tests-bootstrap.php"
+    bootstrap="tests/bootstrap.php"
     backupGlobals="false"
     backupStaticAttributes="false"
     beStrictAboutTestsThatDoNotTestAnything="false"
@@ -20,11 +20,13 @@
     </php>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
             <exclude>
+                <directory suffix=".php">src/Contracts</directory>
+                <directory suffix=".php">src/Supports</directory>
                 <directory>tests</directory>
                 <directory>vendor</directory>
             </exclude>
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
     <testsuites>
@@ -33,6 +35,7 @@
         </testsuite>
     </testsuites>
     <logging>
+        <log type="coverage-html" target="build/logs/html/"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
         <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
     </logging>

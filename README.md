@@ -1,151 +1,139 @@
-# Package PHP MailChimp
-- A straight forward php package for Mailchimp API.
+
+# PHP MailChimp
+- A straight forward php package for Mailchimp API v3.0
+
+### Modules Supported:
+1. Lists
+    - Main Class Namespace: ```PHPMailChimp\Core\Modules\Lists\Facade\Lists```
+2. Members
+    - Main Class Namespace: ```PHPMailChimp\Core\Modules\Members\Facade\Members```
+---
 ### Quick Usage:
+- The ```PHP MailChimp``` usage are generic to all supported modules, meaning the example below will apply also to the other modules.
+- The ```request body parameters``` and ```request path parameters```  structure are also the same to the mailchimp api documentation.
+- Recommended to check the actual mailchimp api documentation.
+    - http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
+- The module primary class structure consist only of ```request body``` and ```request path```, see example below:
+```php
+<?php
 
-#### Subscriber or Member Management
-- Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
-- The request body parameters of the Subscriber Class are also the same with the Mailchimp Structure, just convert it to php array.
-- First initialize the Subscriber Class and provide the API Key and List ID.
-    ```php
-    <?php
+// Initialize Module
+Module::init(['apiKey' => 'abcde1234...', ...]);
 
-    use LordDashMe\MailChimp\Core\Subscriber\Facade\Subscriber;
+// Use the default module action.
+// Request Body and Request Path can be declare in two ways
+// by using Closure or Array
+$response = Module::create(Request Body, Request Path);
 
-    Subscriber::init(['apiKey' => 'qwxz123...', 'listId' => '40bd...']);
+// Closure
+$response = Module::create(
+    function($requestBody) {
+        return $requestBody;
+    }, 
+    function($requestPath){
+        return $requestPath;
+    }
+);
 
-    ```
-- Show record.
-    ```php
-    <?php
+// Array
+$response = Module::create([...], [...]);
 
-    $response = Subscriber::find('sample@email.ph');
+```
 
-    ```
-- Create record.
-    ```php
-    <?php
+### Lists Module
+---
+- First initialize the Lists Module Primary Class and provide the API Key.
+    - API Key can get in the Mailchimp Account > Extras > API Keys.
+```php
+<?php
 
-    $response = Subscriber::create(function ($subscriber) {
+use PHPMailChimp\Core\Modules\Lists\Facade\Lists;
 
-        $subscriber->subscriber_email = 'sample@email.ph';
-        $subscriber->subscriber_status = 'subscribed';
+Lists::init(['apiKey' => 'qwxz123...']);
 
-        $subscriber->subscriber_firstname = 'Sample First Name';
-        $subscriber->subscriber_lastname = 'Sample Last Name';
-        $subscriber->subscriber_birthday = '06/16';
+```
+- After the initialization of the primary class, we can now use the default methods or action for the API.
 
-        return $subscriber;
-    });
+##### Show Record
+```php
+<?php
 
-    ```
-- Update record.
-    ```php
-    <?php
+// Closure
+$response = Lists::find(
+    function($requestBody) {
+        return $requestBody;
+    }, 
+    function($requestPath){
+        $requestPath->list_id = 'a31gbd...';
+        return $requestPath;
+    }
+);
 
-    $response = Subscriber::update('sample@email.ph', function ($subscriber) {
+// Array
+$response = Lists::find([], ['list_id' => 'a31gbd...']);
 
-        $subscriber->subscriber_email = 'sample_modified@email.ph';
-        $subscriber->subscriber_status = 'subscribed';
+```
+##### Create Record
+```php
+<?php
 
-        $subscriber->subscriber_firstname = 'Sample Modified First Name';
-        $subscriber->subscriber_lastname = 'Sample Modified Last Name';
-        $subscriber->subscriber_birthday = '06/16';
+// Closure
+$response = Lists::create(
+    function($requestBody) {
+        $requestBody->name = 'Lists Name';
+        ...
+        return $requestBody;
+    }, 
+    function($requestPath){
+        return $requestPath;
+    }
+);
 
-        return $subscriber;
-    });
+// Array
+$response = Lists::create(['name' => 'Lists Name', ...], []);
 
-    ```
-- Delete record.
-    ```php
-    <?php
+```
+##### Update Record
+```php
+<?php
 
-    $response = Subscriber::delete('sample@email.ph');
+// Closure
+$response = Lists::update(
+    function($requestBody) {
+        $requestBody->name = 'Lists Name';
+        ...
+        return $requestBody;
+    }, 
+    function($requestPath){
+        $requestPath->list_id = 'a31gbd...';
+        return $requestPath;
+    }
+);
 
-    ```
-- Create or Update record.
-    ```php
-    <?php
+// Array
+$response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
 
-    $response = Subscriber::createOrUpdate('sample@email.ph', function ($subscriber) {
+```
+##### Delete Record
+```php
+<?php
 
-        $subscriber->subscriber_email = 'sample_modified@email.ph';
-        $subscriber->subscriber_status = 'subscribed';
+// Closure
+$response = Lists::delete(
+    function($requestBody) {
+        return $requestBody;
+    }, 
+    function($requestPath){
+        $requestPath->list_id = 'a31gbd...';
+        return $requestPath;
+    }
+);
 
-        $subscriber->subscriber_firstname = 'Sample Modified First Name';
-        $subscriber->subscriber_lastname = 'Sample Modified Last Name';
-        $subscriber->subscriber_birthday = '06/16';
+// Array
+$response = Lists::delete([], ['list_id' => 'a31gbd...']);
 
-        return $subscriber;
-    });
-
-    ```
-#### Campaign Management
-- Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/
-- The request body parameters of Campaign Class are also the same with the Mailchimp Structure, just convert it to php array.
-- First initialize the Campaign Class and provide the API Key.
-    ```php
-    <?php
-
-    use LordDashMe\MailChimp\Core\Campaign\Facade\Campaign;
-
-    Campaign::init(['apiKey' => $apiKey]);
-
-    ```
-- Show record.
-    ```php
-    <?php
-
-    $response = Campaign::find('3e3c1c...');
-
-    ```
-- Create record.
-    ```php
-    <?php
-    
-    $response = Campaign::create(function($campaign) {
-
-        $campaign->recipients = [
-            'list_id' => '40bd...',
-        ];
-
-        $campaign->type = 'regular';
-
-        $campaign->settings = [
-            'subject_line' => 'First Launch of MailChimp PHP Package',
-            'reply_to' => 'support_sample@email.ph',
-            'from_name' => 'MailChimp PHP Package',
-        ];
-
-        return $campaign;
-    });
-    
-    ```
-- Update record.
-    ```php
-    <?php
-    
-    $response = Campaign::update('3e3c1c...', function($campaign) {
-
-        $campaign->recipients = [
-            'list_id' => '40bd...',
-        ];
-
-        $campaign->type = 'regular';
-
-        $campaign->settings = [
-            'subject_line' => 'First Launch of MailChimp PHP Package Updated',
-            'reply_to' => 'support_sample@email.ph',
-            'from_name' => 'MailChimp PHP Package Updated',
-        ];
-
-        return $campaign;
-    });
-    
-    ```
-- Delete record.
-    ```php
-    <?php
-    
-    $response = Campaign::delete('3e3c1c...');
-    
-    ```
+```
+---
+### Support
+- If you have any question feel free to contact me:
+    - reyesjoshuaclifford@gmail.com

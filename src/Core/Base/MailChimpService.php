@@ -4,7 +4,7 @@ namespace PHPMailChimp\Core\Base;
 
 use PHPMailChimp\Supports\Mutator;
 use PHPMailChimp\Core\Utilities\MailChimpHost;
-use PHPMailChimp\Core\Utilities\MailChimpClientUrl;
+use PHPMailChimp\Core\Utilities\MailChimpHttpRequest;
 use PHPMailChimp\Contracts\Base\MailChimpService as MailChimpServiceInterface;
 
 /**
@@ -91,7 +91,7 @@ abstract class MailChimpService extends Mutator implements MailChimpServiceInter
      */
     protected function mailchimpCurl($apiKey, $endpoint, $method, $resources = null)
     {
-        return (new MailChimpClientUrl($apiKey, $endpoint, $method, $resources))->execute();
+        return (new MailChimpHttpRequest($apiKey, $endpoint, $method, $resources))->execute();
     }
 
     /**

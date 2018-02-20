@@ -2,15 +2,17 @@
 
 namespace PHPMailChimp\Core\Utilities;
 
+use PHPMailChimp\Contracts\Utilities\MailChimpHttpRequest as MailChimpHttpRequestInterface;
+
 /**
- * The MailChimp Client Url.
+ * The MailChimp Http Request.
  *
  * The class used in requestion api or webservices
  * of mailchimp using PHP curl function.
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-class MailChimpClientUrl
+class MailChimpHttpRequest implements MailChimpHttpRequestInterface
 {   
     /**
      * The maximum number of seconds to allow cURL functions to execute.
@@ -72,7 +74,7 @@ class MailChimpClientUrl
      *
      * @return void
      */
-    public function __construct($apiKey, $url, $requestMethod, $data = null)
+    public function __construct($apiKey = '', $url = '', $requestMethod = '', $data = null)
     {
         $this->setApiKey($apiKey)
              ->setUrl($url)
@@ -129,7 +131,7 @@ class MailChimpClientUrl
     }
 
     /**
-     * The setter method for request method field.
+     * The setter method for request method.
      *
      * @param  string  $requestMethod
      *
@@ -143,7 +145,7 @@ class MailChimpClientUrl
     }
 
     /**
-     * The getter method for request method field
+     * The getter method for request method.
      *
      * @return string
      */
@@ -153,7 +155,7 @@ class MailChimpClientUrl
     }
 
     /**
-     * The setter method for data field.
+     * The setter method for data.
      *
      * @param  json  $data
      *
@@ -167,7 +169,7 @@ class MailChimpClientUrl
     }
 
     /**
-     * The getter method for data field.
+     * The getter method for data.
      *
      * @return json
      */
@@ -186,7 +188,6 @@ class MailChimpClientUrl
         $curl = $this->getCurlOptions(curl_init());
         
         $responseBody = curl_exec($curl);
-        
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
@@ -199,7 +200,7 @@ class MailChimpClientUrl
      *
      * @param  curl_setopt  $curl
      *
-     * @return \curl_setopt
+     * @return curl_setopt_array
      */
     private function getCurlOptions($curl)
     {
