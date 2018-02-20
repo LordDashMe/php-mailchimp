@@ -12,6 +12,7 @@
 - The ```request body parameters``` and ```request path parameters``` are also the same as stated to the mailchimp api documentation.
 - Recommended to check the actual mailchimp api documentation.
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
+- The structure 
 ### Lists Module
 ---
 - First initialize the Lists Module Primary Class and provide the API Key.
@@ -174,5 +175,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2ODY4NTg5MjRdfQ==
+eyJoaXN0b3J5IjpbLTIwMTI3NDQzNjVdfQ==
 -->
