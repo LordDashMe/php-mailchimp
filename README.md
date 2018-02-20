@@ -118,10 +118,8 @@ $response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd..
 <?php
 
 // Closure Style
-$response = Lists::update(
+$response = Lists::delete(
 	function($requestBody) {
-		$requestBody->name = 'Lists Name';
-		...
 		return $requestBody;
 	}, 
 	function($requestPath){
@@ -131,10 +129,10 @@ $response = Lists::update(
 );
 
 // Array Style
-$response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
+$response = Lists::delete([], ['list_id' => 'a31gbd...']);
 
 
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjExNzA5MTAxM119
+eyJoaXN0b3J5IjpbMjA5ODE4NTQ3Nl19
 -->
