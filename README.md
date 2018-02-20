@@ -23,7 +23,7 @@
     Lists::init(['apiKey' => 'qwxz123...']);
 
     ```
-- After the initialization of the primary class, we can now use the default methods or action for the API, ex. 
+- After the initialization of the primary class, we can now use the default methods or action for the API, ex. CR
 - Show record.
     ```php
     <?php
@@ -160,5 +160,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk5NjA5NzY2NF19
+eyJoaXN0b3J5IjpbLTEyNzYwMTYyMDddfQ==
 -->
