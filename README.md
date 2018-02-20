@@ -29,9 +29,13 @@
 ### Show record
 ```php
 <?php
-$response = Subscriber::find('sample@email.ph');
 
-    ```
+// Cl
+
+// Array Style
+$response = Lists::find([], ['list_id' => 'a31gbd...']);
+
+```
 - Create record.
     ```php
     <?php
@@ -161,5 +165,5 @@ $response = Subscriber::find('sample@email.ph');
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgwOTAxMjM4M119
+eyJoaXN0b3J5IjpbLTg0NTg1NTQxOF19
 -->
