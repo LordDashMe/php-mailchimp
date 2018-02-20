@@ -7,7 +7,9 @@
 
 ### Quick Usage:
 - The PHP MailChimp usage are generic to all supported modules, meaning the example below will apply also to the other modules.
-#### Subscriber or Member Management
+- The request body parameters and request path parameters are also
+
+##### Lists Module
 - Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 - The request body parameters of the Subscriber Class are also the same with the Mailchimp Structure, just convert it to php array.
 - First initialize the Subscriber Class and provide the API Key and List ID.
@@ -155,5 +157,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEzMzQ4Njc2N119
+eyJoaXN0b3J5IjpbNTU1NDMwODA2XX0=
 -->
