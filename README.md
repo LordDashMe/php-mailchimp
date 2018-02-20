@@ -17,7 +17,7 @@
 <?php
 
 Module::init(['apiKey' => 'abcde1234...', ...]);
-$response = Module::create(Req);
+$response = Module::create();
 
 
 ```
@@ -184,5 +184,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTg2NTQ0Mzc2XX0=
+eyJoaXN0b3J5IjpbMTQ4NDQwMzE5Ml19
 -->
