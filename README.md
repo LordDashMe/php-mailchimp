@@ -11,17 +11,14 @@
 - Recommended to check the actual mailchimp api documentation.
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
 ##### Lists Module
-
-
-- Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 - The request body parameters of the Subscriber Class are also the same with the Mailchimp Structure, just convert it to php array.
 - First initialize the Subscriber Class and provide the API Key and List ID.
     ```php
     <?php
 
-    use LordDashMe\MailChimp\Core\Subscriber\Facade\Subscriber;
+    use PHPMailChimp\Core\Modules\Lists\Facade\Lists;
 
-    Subscriber::init(['apiKey' => 'qwxz123...', 'listId' => '40bd...']);
+    Lists::init(['apiKey' => 'qwxz123...']);
 
     ```
 - Show record.
@@ -160,5 +157,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNDUyNjY4MjldfQ==
+eyJoaXN0b3J5IjpbLTYwMzE0NTMzNF19
 -->
