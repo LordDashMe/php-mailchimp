@@ -12,12 +12,12 @@
 - The ```request body parameters``` and ```request path parameters``` are also the same as stated to the mailchimp api documentation.
 - Recommended to check the actual mailchimp api documentation.
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
-- The module primary class structure consist only of ```request body parameters``` and ```request path parameters```, see example below:
+- The module primary class structure consist only of ```request body``` and ```request path```, see example below:
 ```php
 <?php
 
 Module::init(['apiKey' => 'abcde1234...', ...]);
-$response = Module::create(Request body);
+$response = Module::create(Request Body, Request Path);
 
 
 ```
@@ -184,5 +184,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU5Mzk0MDMxMF19
+eyJoaXN0b3J5IjpbLTE2MzQzNDkyODZdfQ==
 -->
