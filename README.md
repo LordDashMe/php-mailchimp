@@ -16,7 +16,11 @@
 ```php
 <?php
 
+// Initialize Module
 Module::init(['apiKey' => 'abcde1234...', ...]);
+
+// Use the default module action
+// Request Body and Request Path 
 $response = Module::create(Request Body, Request Path);
 
 
@@ -184,5 +188,5 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MzQzNDkyODZdfQ==
+eyJoaXN0b3J5IjpbMTc4NDIyNDU4MV19
 -->
