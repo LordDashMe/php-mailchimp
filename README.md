@@ -135,8 +135,8 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 ```
 ---
 ### Support
-Feel free to cont
+Feel free to contact me
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3ODMxODg2ODBdfQ==
+eyJoaXN0b3J5IjpbLTQzMTUyNDcxOF19
 -->
