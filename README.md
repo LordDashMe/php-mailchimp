@@ -6,13 +6,14 @@
 	- Main Class Namespace: ```PHPMailChimp\Core\Modules\Lists\Facade\Lists```
 2. Members
 	- Main Class Namespace: ```PHPMailChimp\Core\Modules\Members\Facade\Members```
-
+---
 ### Quick Usage:
 - The PHP MailChimp usage are generic to all supported modules, meaning the example below will apply also to the other modules.
 - The ```request body parameters``` and ```request path parameters``` are also the same as stated to the mailchimp api documentation.
 - Recommended to check the actual mailchimp api documentation.
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
-##### Lists Module
+### Lists Module
+---
 - First initialize the Lists Module Primary Class and provide the API Key.
 	- API Key can get in the Mailchimp Account Settings > Extras.
     ```php
@@ -25,9 +26,10 @@
     ```
 - After the initialization of the primary class, we can now use the default methods or action for the API.
 
-##### Show record
-    ```php
-    <?php
+### Show record
+```php
+   
+ <?php
 
     $response = Subscriber::find('sample@email.ph');
 
@@ -161,5 +163,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEwMjMxOTA5MV19
+eyJoaXN0b3J5IjpbLTEwNjUzODY2ODNdfQ==
 -->
