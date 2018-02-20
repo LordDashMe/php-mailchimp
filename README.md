@@ -149,3 +149,6 @@
     $response = Campaign::delete('3e3c1c...');
     
     ```
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTEwMDA3ODEwNTVdfQ==
+-->
