@@ -3,6 +3,7 @@
 
 ### Modules Supported:
 1. Lists
+	- Main Class Namespace: 
 2. Members
 
 ### Quick Usage:
@@ -11,8 +12,7 @@
 - Recommended to check the actual mailchimp api documentation.
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
 ##### Lists Module
-- The request body parameters of the Subscriber Class are also the same with the Mailchimp Structure, just convert it to php array.
-- First initialize the Subscriber Class and provide the API Key and List ID.
+- First initialize the Lists Module Primary Class and provide the API Key and List ID.
     ```php
     <?php
 
@@ -157,5 +157,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYwMzE0NTMzNF19
+eyJoaXN0b3J5IjpbLTE5MTU1Mjk3MjddfQ==
 -->
