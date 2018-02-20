@@ -58,7 +58,7 @@ Lists::init(['apiKey' => 'qwxz123...']);
 ```php
 <?php
 
-// Closure Style
+// Closure
 $response = Lists::find(
     function($requestBody) {
         return $requestBody;
@@ -69,7 +69,7 @@ $response = Lists::find(
     }
 );
 
-// Array Style
+// Array
 $response = Lists::find([], ['list_id' => 'a31gbd...']);
 
 ```
@@ -77,7 +77,7 @@ $response = Lists::find([], ['list_id' => 'a31gbd...']);
 ```php
 <?php
 
-// Closure Style
+// Closure
 $response = Lists::create(
     function($requestBody) {
         $requestBody->name = 'Lists Name';
@@ -89,7 +89,7 @@ $response = Lists::create(
     }
 );
 
-// Array Style
+// Array
 $response = Lists::create(['name' => 'Lists Name', ...], []);
 
 ```
@@ -97,7 +97,7 @@ $response = Lists::create(['name' => 'Lists Name', ...], []);
 ```php
 <?php
 
-// Closure Style
+// Closure
 $response = Lists::update(
     function($requestBody) {
         $requestBody->name = 'Lists Name';
@@ -110,7 +110,7 @@ $response = Lists::update(
     }
 );
 
-// Array Style
+// Array
 $response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
 
 ```
@@ -118,7 +118,7 @@ $response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd..
 ```php
 <?php
 
-// Closure Style
+// Closure
 $response = Lists::delete(
     function($requestBody) {
         return $requestBody;
@@ -129,7 +129,7 @@ $response = Lists::delete(
     }
 );
 
-// Array Style
+// Array
 $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 
 ```
@@ -139,5 +139,5 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 	- reyesjoshuaclifford@gmail.com
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTg0MDk5MjkwXX0=
+eyJoaXN0b3J5IjpbLTQyNjM3NTIwMl19
 -->
