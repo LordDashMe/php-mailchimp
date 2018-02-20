@@ -1,4 +1,4 @@
-# Package PHP MailChimp
+# PHP P MailChimp
 - A straight forward php package for Mailchimp API v3.0
 
 ### Modules Supported:
@@ -155,5 +155,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc5NzEyMzM1MV19
+eyJoaXN0b3J5IjpbMTA2MzQ4ODEwOV19
 -->
