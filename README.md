@@ -1,5 +1,5 @@
 
-# PHP MailChimp [![Build Status](https://travis-ci.org/lorddashme-php-packages/php-mailchimp.svg?branch=master)](https://travis-ci.org/lorddashme-php-packages/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/lorddashme-php-packages/php-mailchimp/badge.svg?branch=master)](https://coveralls.io/github/lorddashme-php-packages/php-mailchimp?branch=master)
+# PHP MailChimp [![Build Status](https://travis-ci.org/lorddashme-php-packages/php-mailchimp.svg?branch=v2.0.0)](https://travis-ci.org/lorddashme-php-packages/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/lorddashme-php-packages/php-mailchimp/badge.svg?branch=v2.0.0)](https://coveralls.io/github/lorddashme-php-packages/php-mailchimp?branch=v2.0.0)
 - A straight forward php package for Mailchimp API v3.0
 
 ### Modules Supported:
