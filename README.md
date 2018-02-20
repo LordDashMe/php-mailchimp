@@ -2,10 +2,11 @@
 - A straight forward php package for Mailchimp API v3.0
 
 ### Modules Supported:
-1. 
+1. Lists
+2. Members
 
 ### Quick Usage:
-
+- The 
 #### Subscriber or Member Management
 - Reference: http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 - The request body parameters of the Subscriber Class are also the same with the Mailchimp Structure, just convert it to php array.
@@ -154,5 +155,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NDE5NjE0OTddfQ==
+eyJoaXN0b3J5IjpbMTc5NzEyMzM1MV19
 -->
