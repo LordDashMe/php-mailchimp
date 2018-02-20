@@ -14,7 +14,7 @@
 	- http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
 ##### Lists Module
 - First initialize the Lists Module Primary Class and provide the API Key.
-	- API Key can get in the mailchimp account
+	- API Key can get in the mailchimp account settings > E
     ```php
     <?php
 
@@ -159,5 +159,5 @@
     
     ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYxNjYwMjc0NV19
+eyJoaXN0b3J5IjpbLTE1NjU2OTQ3NDldfQ==
 -->
