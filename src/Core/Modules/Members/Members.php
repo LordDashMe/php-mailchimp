@@ -16,7 +16,7 @@ class Members extends MailChimpManager
     /**
      * {@inheritdoc}
      */
-    protected function registerModule()
+    public function registerModule()
     {
         return static::bindings(new MembersService);
     }

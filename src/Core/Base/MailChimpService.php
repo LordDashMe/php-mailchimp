@@ -61,8 +61,6 @@ abstract class MailChimpService extends Mutator implements MailChimpServiceInter
     {
         $endpoint = $this->baseHost() . $this->baseEndpoint() . $this->baseResouceId();
 
-        // var_dump($endpoint);exit;
-
         return $this->mailchimpCurl($this->baseApiKey(), $endpoint, 'PATCH', $this->baseResources());
     }
 

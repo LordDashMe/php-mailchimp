@@ -66,7 +66,7 @@ abstract class MailChimpManager
      * 
      * @return mixed
      */
-    protected function registerModule() 
+    public function registerModule() 
     {
         throw MailChimpException::cannotResolveRegisterModuleMethod();
     }
@@ -119,7 +119,7 @@ abstract class MailChimpManager
      *
      * @return void
      */
-    protected function validateHeaders($headers)
+    public function validateHeaders($headers)
     {
         if (! isset($headers['apiKey'])) {
             throw MailChimpException::cannotResolveHeadersResources();
@@ -255,7 +255,7 @@ abstract class MailChimpManager
      *
      * @return mixed
      */
-    protected function validateRequestBodyParameters($service) 
+    public function validateRequestBodyParameters($service) 
     { 
         return $service; 
     }
@@ -269,7 +269,7 @@ abstract class MailChimpManager
      * 
      * @return mixed
      */
-    protected function modifyRequestBodyParameters($service) 
+    public function modifyRequestBodyParameters($service) 
     { 
         return $service; 
     }
@@ -283,7 +283,7 @@ abstract class MailChimpManager
      *
      * @return mixed
      */
-    protected function removeRequestBodyParameters($service) 
+    public function removeRequestBodyParameters($service) 
     { 
         return $service; 
     }
@@ -307,7 +307,7 @@ abstract class MailChimpManager
      *
      * @return mixed
      */
-    protected function validateRequestPathParameters($service)
+    public function validateRequestPathParameters($service)
     {
         return $service;
     }
