@@ -141,7 +141,10 @@ abstract class MailChimpManager
         $this->requestBaseProcess(...$args);
         
         try {
-            return ($this->requestActionProcess($method))->{$method}();
+
+            $service = $this->requestActionProcess($method);
+            return $service->{$method}();
+
         } catch (MailChimpException $e) {
             exit($e->getMessage());
         }  
