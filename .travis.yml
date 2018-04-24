@@ -13,8 +13,8 @@ before_script:
 # Commands you want to run that will verify your build.
 script: 
   - composer install --no-dev
-  - composer require mockery/mockery:1.0.* --no-dev
-  - composer require php-coveralls/php-coveralls --no-dev
+  - composer require mockery/mockery:1.0.* --update-no-dev
+  - composer require php-coveralls/php-coveralls --update-no-dev
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then composer require phpunit/phpunit:5.* --update-no-dev; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then composer require phpunit/phpunit:6.* --update-no-dev; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then composer require phpunit/phpunit:7.* --update-no-dev; fi
