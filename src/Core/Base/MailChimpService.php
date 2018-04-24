@@ -97,7 +97,7 @@ abstract class MailChimpService extends Mutator implements MailChimpServiceInter
      *
      * @return string
      */
-    protected function baseApiKey()
+    public function baseApiKey()
     {
         return $this->mutatorBag['request_headers']['apiKey'];
     }
@@ -107,7 +107,7 @@ abstract class MailChimpService extends Mutator implements MailChimpServiceInter
      * 
      * @return string
      */
-    protected function baseHost()
+    public function baseHost()
     {
         return MailChimpHost::resolve($this->baseApiKey()) . '/';
     }
@@ -119,7 +119,7 @@ abstract class MailChimpService extends Mutator implements MailChimpServiceInter
      *
      * @return string
      */
-    protected function baseEndpoint() 
+    public function baseEndpoint() 
     {
         return '';
     }
@@ -131,7 +131,7 @@ abstract class MailChimpService extends Mutator implements MailChimpServiceInter
      *
      * @return string
      */
-    protected function baseResouceId() 
+    public function baseResouceId() 
     {
         return '';
     }
@@ -144,7 +144,7 @@ abstract class MailChimpService extends Mutator implements MailChimpServiceInter
      *
      * @return json
      */
-    protected function baseResources() 
+    public function baseResources() 
     {
         return json_encode(array());
     }

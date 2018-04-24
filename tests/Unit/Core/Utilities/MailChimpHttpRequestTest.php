@@ -22,9 +22,9 @@ class MailChimpHttpRequestTest extends TestCase
         $http = $this->getMockBuilder(MailChimpHttpRequestInterface::class)->getMock();
         $http->expects($this->any())
              ->method('execute')
-             ->will($this->returnValue(json_encode([])));
+             ->will($this->returnValue(json_encode(array())));
 
-        $this->assertEquals(json_encode([]), $http->execute());
+        $this->assertEquals(json_encode(array()), $http->execute());
     }
 
     /**
@@ -36,7 +36,7 @@ class MailChimpHttpRequestTest extends TestCase
             'sandbox-api-us16',
             'https://sandbox-us16.api.mailchimp.com/',
             'POST',
-            json_encode([])
+            json_encode(array())
         ]);
 
         $this->assertJsonStringEqualsJsonString(json_encode([
