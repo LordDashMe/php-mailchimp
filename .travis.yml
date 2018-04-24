@@ -10,7 +10,6 @@ php:
 # Commands to be run before your environment runs.
 before_script:
   - composer install --no-dev
-  - composer require mockery/mockery:1.0.*
   - composer require php-coveralls/php-coveralls
 
 # Commands you want to run that will verify your build.
