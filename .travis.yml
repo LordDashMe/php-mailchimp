@@ -13,7 +13,7 @@ before_script:
 # Commands you want to run that will verify your build.
 script: 
   - composer install
-  - composer require php-coveralls/php-coveralls --update-no-dev
+  - composer require php-coveralls/php-coveralls
   - mkdir -p build/logs
   - vendor/bin/phpunit
 
