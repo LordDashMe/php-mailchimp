@@ -1,5 +1,5 @@
 
-# PHP MailChimp [![Build Status](https://travis-ci.org/lorddashme/php-mailchimp.svg?branch=master)](https://travis-ci.org/lorddashme/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/lorddashme/php-mailchimp/badge.svg)](https://coveralls.io/github/lorddashme/php-mailchimp)
+# PHP MailChimp [![Build Status](https://travis-ci.org/LordDashMe/php-mailchimp.svg?branch=master)](https://travis-ci.org/LordDashMe/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/LordDashMe/php-mailchimp/badge.svg)](https://coveralls.io/github/LordDashMe/php-mailchimp)
 - A Mailchimp APIs extender package for PHP.
 - Currently supporting the Mailchimp API v3.0.
 
