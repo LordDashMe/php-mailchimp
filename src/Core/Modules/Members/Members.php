@@ -1,10 +1,18 @@
 <?php
 
+/*
+ * This file is part of the PHP MailChimp.
+ *
+ * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace PHPMailChimp\Core\Modules\Members;
 
 use PHPMailChimp\Core\Base\MailChimpManager;
 use PHPMailChimp\Core\Modules\Members\MembersService;
-use PHPMailChimp\Contracts\Modules\Members\MembersService as MembersServiceInterface;
 
 /**
  * The Members Class.
@@ -18,18 +26,6 @@ class Members extends MailChimpManager
      */
     public function registerModule()
     {
-        return static::bindings(new MembersService);
-    }
-
-    /**
-     * The contract between the manager and service for the module.
-     *
-     * @param  PHPMailChimp\Contracts\Modules\Members\MembersService $service
-     *
-     * @return mixed
-     */
-    public function bindings(MembersServiceInterface $service)
-    {
-        return $service;
+        return new MembersService();
     }
 }

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PHP MailChimp.
+ *
+ * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace PHPMailChimp\Core\Base;
 
 use PHPMailChimp\Core\Exceptions\MailChimpException;
@@ -10,7 +19,7 @@ use PHPMailChimp\Contracts\Base\MailChimpService as MailChimpServiceInterface;
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-abstract class MailChimpManager
+class MailChimpManager
 {
     /**
      * The service that manage the interaction to the mailchimp api.
@@ -139,15 +148,10 @@ abstract class MailChimpManager
     public function __call($method, $args)
     {
         $this->requestBaseProcess(...$args);
-        
-        try {
 
-            $service = $this->requestActionProcess($method);
-            return $service->{$method}();
+        $service = $this->requestActionProcess($method);
 
-        } catch (MailChimpException $e) {
-            exit($e->getMessage());
-        }  
+        return $service->{$method}();
     }
 
     /**
@@ -183,6 +187,7 @@ abstract class MailChimpManager
                 return $this->viewRequestProcess(); 
             case 'create':
             case 'update':
+            default:
                 return $this->manipulationRequestProcess();
         }
     }

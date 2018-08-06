@@ -1,11 +1,12 @@
 
 # PHP MailChimp [![Build Status](https://travis-ci.org/lorddashme-php-packages/php-mailchimp.svg?branch=master)](https://travis-ci.org/lorddashme-php-packages/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/lorddashme-php-packages/php-mailchimp/badge.svg)](https://coveralls.io/github/lorddashme-php-packages/php-mailchimp)
-- A straight forward php package for Mailchimp API v3.0
+- A Mailchimp APIs extender package for PHP.
+- Currently supporting the Mailchimp API v3.0.
 
 ### Install
 Use the composer command below:
 ```
-composer require lorddashme-php-packages/php-mailchimp:v2.0.0
+composer require lorddashme/php-mailchimp:v2.1.0
 ```
 
 ### Modules Supported:
@@ -144,5 +145,5 @@ $response = Lists::delete([], ['list_id' => 'a31gbd...']);
 ```
 ---
 ### Support
-- If you have any question feel free to contact me:
-    - reyesjoshuaclifford@gmail.com
+- If you have any question feel free to contact me: reyesjoshuaclifford@gmail.com
+- or you may open an issue to this repository.

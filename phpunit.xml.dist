@@ -14,20 +14,19 @@
     stopOnError="false"
     stopOnFailure="false"
     syntaxCheck="true"
-    verbose="true">
+    verbose="true"
+>
     <php>
         <ini name="error_reporting" value="E_ALL" />
     </php>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
             <exclude>
                 <directory suffix=".php">src/Contracts</directory>
                 <directory suffix=".php">src/Supports</directory>
-                <!-- <directory suffix=".php">src/Core/Modules</directory> -->
-                <directory>tests</directory>
-                <directory>vendor</directory>
+                <directory suffix=".php">src/Core/Modules</directory>
             </exclude>
-            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
     <testsuites>

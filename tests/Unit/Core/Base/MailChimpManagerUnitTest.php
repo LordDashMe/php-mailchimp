@@ -1,17 +1,17 @@
 <?php
 
+use Mockery as PHPMockery;
 use PHPUnit\Framework\TestCase;
 use PHPMailChimp\Core\Base\MailChimpManager;
 
-class MailChimpManagerTest extends TestCase
+class MailChimpManagerUnitTest extends TestCase
 {
     /**
      * @test
      */
     public function it_should_return_a_null_if_no_headers_pass_in_the_init_method()
     {
-        $manager = $this->getMockBuilder(MailChimpManager::class)
-            ->getMockForAbstractClass();
+        $manager = new MailChimpManager();
 
         $this->assertEquals(null, $manager->init());
     }
@@ -23,8 +23,7 @@ class MailChimpManagerTest extends TestCase
      */
     public function it_should_throw_cannot_resolve_register_module_method_exception()
     {
-        $manager = $this->getMockBuilder(MailChimpManager::class)
-            ->getMockForAbstractClass();
+        $manager = new MailChimpManager();
 
         $manager->init(['apiKey' => '...']);
     }
@@ -36,15 +35,13 @@ class MailChimpManagerTest extends TestCase
      */
     public function it_should_throw_cannot_resolve_module_headers_exception()
     {   
-        $manager = $this->getMockBuilder(MailChimpManager::class)
-            ->setMethods(['registerModule'])
-            ->getMockForAbstractClass();
+        $managerMocked = PHPMockery::mock(MailChimpManager::class)
+            ->makePartial();
 
-        $manager->expects($this->any())
-            ->method('registerModule')
-            ->will($this->returnValue(true));
+        $managerMocked->shouldReceive('registerModule')
+            ->andReturn(true);
 
-        $manager->init('test');
+        $managerMocked->init('test');
     }
 
     /**
@@ -54,14 +51,26 @@ class MailChimpManagerTest extends TestCase
      */
     public function it_should_throw_cannot_resolve_headers_resources_exception()
     {   
-        $manager = $this->getMockBuilder(MailChimpManager::class)
-            ->setMethods(['registerModule'])
-            ->getMockForAbstractClass();
+        $managerMocked = PHPMockery::mock(MailChimpManager::class)
+            ->makePartial();
 
-        $manager->expects($this->any())
-            ->method('registerModule')
-            ->will($this->returnValue(true));
+        $managerMocked->shouldReceive('registerModule')
+            ->andReturn(true);
 
-        $manager->init(['key' => '...']);
+        $managerMocked->init(['key' => '...']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_init_header_and_service_with_proper_value()
+    {
+        $managerMocked = PHPMockery::mock(MailChimpManager::class)
+            ->makePartial();
+
+        $managerMocked->shouldReceive('registerModule')
+            ->andReturn(true);
+
+        $managerMocked->init(['apiKey' => 'qwerty']);   
     }
 }

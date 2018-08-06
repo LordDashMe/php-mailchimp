@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use PHPMailChimp\Core\Utilities\MailChimpHost;
 
-class MailChimpHostTest extends TestCase
+class MailChimpHostUnitTest extends TestCase
 {
     /**
      * @test

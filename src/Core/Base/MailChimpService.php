@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PHP MailChimp.
+ *
+ * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace PHPMailChimp\Core\Base;
 
 use PHPMailChimp\Supports\Mutator;
@@ -12,7 +21,7 @@ use PHPMailChimp\Contracts\Base\MailChimpService as MailChimpServiceInterface;
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-abstract class MailChimpService extends Mutator implements MailChimpServiceInterface
+class MailChimpService extends Mutator implements MailChimpServiceInterface
 {
     /**
      * Execute get method in the given url, this will show all the records.

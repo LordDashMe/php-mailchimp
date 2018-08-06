@@ -1,10 +1,18 @@
 <?php
 
+/*
+ * This file is part of the PHP MailChimp.
+ *
+ * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace PHPMailChimp\Core\Modules\Lists;
 
 use PHPMailChimp\Core\Base\MailChimpManager;
 use PHPMailChimp\Core\Modules\Lists\ListsService;
-use PHPMailChimp\Contracts\Modules\Lists\ListsService as ListsServiceInterface;
 
 /**
  * The Lists Class.
@@ -18,18 +26,6 @@ class Lists extends MailChimpManager
      */
     public function registerModule()
     {
-        return static::bindings(new ListsService);
-    }
-
-    /**
-     * The contract between the manager and service for the module.
-     *
-     * @param  PHPMailChimp\Contracts\Modules\Lists\ListsService $service
-     *
-     * @return mixed
-     */
-    public function bindings(ListsServiceInterface $service)
-    {
-        return $service;
+        return new ListsService();
     }
 }

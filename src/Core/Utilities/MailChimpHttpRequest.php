@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PHP MailChimp.
+ *
+ * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace PHPMailChimp\Core\Utilities;
 
 use PHPMailChimp\Contracts\Utilities\MailChimpHttpRequest as MailChimpHttpRequestInterface;
@@ -19,7 +28,7 @@ class MailChimpHttpRequest implements MailChimpHttpRequestInterface
      *
      * @var int
      */
-    const OPT_TIMEOUT = 16;
+    const OPT_TIMEOUT = 120;
 
     /**
      * Set "true" to return the transfer as a string of the return value of curl_exec() 
@@ -34,7 +43,7 @@ class MailChimpHttpRequest implements MailChimpHttpRequestInterface
      *
      * @var boolean
      */
-    const OPT_SSL_VERIFYPEER = false;
+    const OPT_SSL_VERIFYPEER = true;
 
     /**
      * The url field.

@@ -1,16 +1,24 @@
 <?php
 
+/*
+ * This file is part of the PHP MailChimp.
+ *
+ * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace PHPMailChimp\Core\Modules\Lists;
 
 use PHPMailChimp\Core\Base\MailChimpService;
-use PHPMailChimp\Contracts\Modules\Lists\ListsService as ListsServiceInterface;
 
 /**
  * The Lists Service Class.
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-class ListsService extends MailChimpService implements ListsServiceInterface
+class ListsService extends MailChimpService
 {
     /**
      * {@inheritdoc}
