@@ -13,7 +13,7 @@ A PHP package wrapper for MailChimp API.
 - It is advice to install the package via Composer. Use the command below to install the package:
 
 ```txt
-composer require lorddashme/php-simple-captcha
+composer require lorddashme/php-mailchimp
 ```
 
 ## Usage
