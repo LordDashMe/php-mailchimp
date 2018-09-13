@@ -1,7 +1,13 @@
 {
     "name": "lorddashme/php-mailchimp",
-    "description": "A Mailchimp APIs extender package for PHP.",
-    "keywords": ["mailchimp", "github", "mail", "extender"],
+    "description": "A PHP package wrapper for MailChimp API.",
+    "keywords": [
+        "mailchimp", 
+        "marketing", 
+        "subscriber", 
+        "php",
+        "api"
+    ],
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/lorddashme/php-mailchimp",
@@ -9,20 +15,20 @@
         {
             "name": "Joshua Clifford Reyes",
             "email": "reyesjoshuaclifford@gmail.com",
-            "homepage": "https://lorddashme.github.io/",
-            "role": "Developer"
+            "homepage": "https://lorddashme.github.io/"
         }
     ],
     "require": {
-        "php": ">=5.6 || >=7.0 || >=7.1"
+        "php": ">=5.6 || >=7.0 || >=7.1 || >=7.2",
+        "lorddashme/php-static-class-interface": "1.*"
     },
     "require-dev": {
-        "mockery/mockery": "1.0.*",
+        "mockery/mockery": "1.*",
         "phpunit/phpunit": "5.* || 6.* || 7.*"
     },
     "autoload": {
         "psr-4": { 
-            "PHPMailChimp\\": "src/" 
+            "LordDashMe\\MailChimp\\": "src/" 
         }
     }
 }

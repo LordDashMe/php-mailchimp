@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the PHP MailChimp.
+ * This file is part of the MailChimp.
  *
  * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  *
@@ -9,23 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPMailChimp\Core\Modules\Members;
+namespace LordDashMe\MailChimp\Facade;
 
-use PHPMailChimp\Core\Base\MailChimpManager;
-use PHPMailChimp\Core\Modules\Members\MembersService;
+use LordDashMe\StaticClassInterface\Facade;
 
 /**
- * The Members Class.
+ * MailChimp Facade Class.
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-class Members extends MailChimpManager
+class MailChimp extends Facade
 {
     /**
      * {@inheritdoc}
      */
-    public function registerModule()
+    protected static function getStaticClassAccessor()
     {
-        return new MembersService();
+        return 'LordDashMe\MailChimp\MailChimp';
     }
 }

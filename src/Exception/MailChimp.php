@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the PHP MailChimp.
+ * This file is part of the MailChimp.
  *
  * (c) Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPMailChimp\Contracts\Utilities;
+namespace LordDashMe\MailChimp\Exception;
+
+use Exception;
 
 /**
- * The MailChimp Http Request Interface.
+ * MailChimp Exception Class.
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-interface MailChimpHttpRequest
-{
-    public function execute();
-}
+
+class MailChimp extends Exception {}

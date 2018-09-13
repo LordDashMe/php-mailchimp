@@ -1,149 +1,83 @@
+# PHP MailChimp
 
-# PHP MailChimp [![Build Status](https://travis-ci.org/LordDashMe/php-mailchimp.svg?branch=master)](https://travis-ci.org/LordDashMe/php-mailchimp) [![Coverage Status](https://coveralls.io/repos/github/LordDashMe/php-mailchimp/badge.svg)](https://coveralls.io/github/LordDashMe/php-mailchimp)
-- A Mailchimp APIs extender package for PHP.
-- Currently supporting the Mailchimp API v3.0.
+A PHP package wrapper for MailChimp API.
 
-### Install
-Use the composer command below:
+[![Latest Stable Version](https://img.shields.io/packagist/v/LordDashMe/php-mailchimp.svg?style=flat-square)](https://packagist.org/packages/LordDashMe/php-mailchimp) [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://php.net/) [![Build Status](https://img.shields.io/travis/LordDashMe/php-mailchimp/master.svg?style=flat-square)](https://travis-ci.org/LordDashMe/php-mailchimp) [![Coverage Status](https://img.shields.io/coveralls/LordDashMe/php-mailchimp/master.svg?style=flat-square)](https://coveralls.io/github/LordDashMe/php-mailchimp?branch=master)
+
+## Requirement(s)
+
+- PHP version from 5.6.* up to latest.
+
+## Install
+
+- It is advice to install the package via Composer. Use the command below to install the package:
+
+```txt
+composer require lorddashme/php-simple-captcha
 ```
-composer require lorddashme/php-mailchimp:v2.1.0
-```
 
-### Modules Supported:
-1. Lists
-    - Main Class Namespace: ```PHPMailChimp\Core\Modules\Lists\Facade\Lists```
-2. Members
-    - Main Class Namespace: ```PHPMailChimp\Core\Modules\Members\Facade\Members```
----
-### Quick Usage:
-- The ```PHP MailChimp``` usage are generic to all supported modules, meaning the example below will apply also to the other modules.
-- The ```request body parameters``` and ```request path parameters```  structure are also the same to the mailchimp api documentation.
-- Recommended to check the actual mailchimp api documentation.
-    - http://developer.mailchimp.com/documentation/mailchimp/reference/overview/
-- The module primary class structure consist only of ```request body``` and ```request path```, see example below:
+## Usage
+
+- Below are the available functions:
+
+| Function | Description |
+| -------- | ----------- |
+| <img width=200/>  |<img width=200/> |
+| ```post(route, body);``` | To request in the MailChimp API service using POST method. |
+| ```get(route);``` | To request in the MailChimp API service using GET method. |
+| ```patch(route, body);``` | To request in the MailChimp API service using PATCH method. |
+| ```delete(route);``` | To request in the MailChimp API service using DELETE method. |
+| ```action(route);``` | To request in the MailChimp API service using the custom ACTION. |
+| ```getRequest();``` | To check the current request details. Can be use for debugging purposes. |
+| ```getRespose();``` | To get the current response from the MailChimp API service. <br> Response: ```{"response_body": {...}", "header": {"response_http_code": ...}}``` |
+
+- The basic usage of the package:
+
 ```php
 <?php
 
-// Load the module class
-use PHPMailChimp\Core\Modules\<Module>\Facade\<Module>;
+include __DIR__  . '/vendor/autoload.php';
 
-// Initialize module class
-Module::init(['apiKey' => 'abcde1234...', ...]);
+use LordDashMe\MailChimp\MailChimp;
 
-// Use the default module action.
-// Request Body and Request Path can be declare in two ways
-// by using Closure or Array
-$response = Module::create(Request Body, Request Path);
+$mailchimp = new MailChimp('abcde12345...');
 
-// Closure
-$response = Module::create(
-    function($requestBody) {
-        return $requestBody;
-    }, 
-    function($requestPath){
-        return $requestPath;
-    }
-);
+$mailchimp->post("list/{$listId}/members", function ($requestBody) {
+    $requestBody->email_address = 'sample_email@mailchimp.com';
+    return $requestBody;
+});
 
-// Array
-$response = Module::create([...], [...]);
+// To investigate the curren request details..
+$mailchimp->getRequest();
 
+// To get the response from the MailChimp API service.
+// Sample Response: {"response_body": {...}", "header": {"response_http_code": ...}}
+$response = $mailchimp->getResponse();
 ```
 
-### Lists Module
----
-- First initialize the Lists Module Primary Class and provide the API Key.
-    - API Key can get in the Mailchimp Account > Extras > API Keys.
+- Also can be done by the below implementation:
+
 ```php
 <?php
 
-use PHPMailChimp\Core\Modules\Lists\Facade\Lists;
+include __DIR__  . '/vendor/autoload.php';
 
-Lists::init(['apiKey' => 'qwxz123...']);
+use LordDashMe\MailChimp\Facade\MailChimp;
 
+MailChimp::init('abcde12345...');
+
+MailChimp::post("list/{$listId}/members", array(
+    'email_address' => 'sample_email@mailchimp.com'
+));
+
+// To investigate the curren request details..
+MailChimp::getRequest();
+
+// To get the response from the MailChimp API service.
+// Sample Response: {"response_body": {...}", "header": {"response_http_code": ...}}
+$response = MailChimp::getResponse();
 ```
-- After the initialization of the primary class, we can now use the default methods or action for the API.
 
-##### Show Record
-```php
-<?php
+## License
 
-// Closure
-$response = Lists::find(
-    function($requestBody) {
-        return $requestBody;
-    }, 
-    function($requestPath){
-        $requestPath->list_id = 'a31gbd...';
-        return $requestPath;
-    }
-);
-
-// Array
-$response = Lists::find([], ['list_id' => 'a31gbd...']);
-
-```
-##### Create Record
-```php
-<?php
-
-// Closure
-$response = Lists::create(
-    function($requestBody) {
-        $requestBody->name = 'Lists Name';
-        ...
-        return $requestBody;
-    }, 
-    function($requestPath){
-        return $requestPath;
-    }
-);
-
-// Array
-$response = Lists::create(['name' => 'Lists Name', ...], []);
-
-```
-##### Update Record
-```php
-<?php
-
-// Closure
-$response = Lists::update(
-    function($requestBody) {
-        $requestBody->name = 'Lists Name';
-        ...
-        return $requestBody;
-    }, 
-    function($requestPath){
-        $requestPath->list_id = 'a31gbd...';
-        return $requestPath;
-    }
-);
-
-// Array
-$response = Lists::update(['name' => 'Lists Name', ...], ['list_id' => 'a31gbd...']);
-
-```
-##### Delete Record
-```php
-<?php
-
-// Closure
-$response = Lists::delete(
-    function($requestBody) {
-        return $requestBody;
-    }, 
-    function($requestPath){
-        $requestPath->list_id = 'a31gbd...';
-        return $requestPath;
-    }
-);
-
-// Array
-$response = Lists::delete([], ['list_id' => 'a31gbd...']);
-
-```
----
-### Support
-- If you have any question feel free to contact me: reyesjoshuaclifford@gmail.com
-- or you may open an issue to this repository.
+This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

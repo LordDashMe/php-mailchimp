@@ -1,10 +1,9 @@
 <?php
 
-define('PHP_MAILCHIMP_TESTS_ROOT_DIR', __DIR__ . '/');
+$dir = __DIR__;
 
-define('COMPOSER_AUTOLOAD_ROOT_DIR', __DIR__.'/../vendor/autoload.php');
+define('TESTS_DIR', "{$dir}/");
 
-require COMPOSER_AUTOLOAD_ROOT_DIR;
+define('COMPOSER_AUTOLOAD_FILE_PATH', "{$dir}/../vendor/autoload.php");
 
-// $apiKey = '436efacaca308f34da871cc93eff3559-us16';
-// $listID = '40bd239d57';
+require COMPOSER_AUTOLOAD_FILE_PATH;
