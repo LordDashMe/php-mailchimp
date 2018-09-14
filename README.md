@@ -47,7 +47,7 @@ $mailchimp->post("list/{$listId}/members", function ($requestBody) {
     return $requestBody;
 });
 
-// To investigate the curren request details..
+// To investigate the current request details..
 $mailchimp->getRequest();
 
 // To get the response from the MailChimp API service.
@@ -70,7 +70,7 @@ MailChimp::post("list/{$listId}/members", array(
     'email_address' => 'sample_email@mailchimp.com'
 ));
 
-// To investigate the curren request details..
+// To investigate the current request details..
 MailChimp::getRequest();
 
 // To get the response from the MailChimp API service.
