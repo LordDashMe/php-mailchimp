@@ -42,6 +42,7 @@ use LordDashMe\MailChimp\MailChimp;
 
 $mailchimp = new MailChimp('abcde12345...');
 
+$listId = 'qwerty12345...';
 $mailchimp->post("list/{$listId}/members", function ($requestBody) {
     $requestBody->email_address = 'sample_email@mailchimp.com';
     return $requestBody;
@@ -66,6 +67,7 @@ use LordDashMe\MailChimp\Facade\MailChimp;
 
 MailChimp::init('abcde12345...');
 
+$listId = 'qwerty12345...';
 MailChimp::post("list/{$listId}/members", array(
     'email_address' => 'sample_email@mailchimp.com'
 ));
