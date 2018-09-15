@@ -22,7 +22,7 @@ composer require lorddashme/php-mailchimp
 
 | Function | Description |
 | -------- | ----------- |
-| <img width=200/>  |<img width=200/> |
+| <img width=300/>  |<img width=200/> |
 | ```post(route, body);``` | To request in the MailChimp API service using POST method. The body parameter accepts Cloure or Array type. |
 | ```get(route);``` | To request in the MailChimp API service using GET method. |
 | ```patch(route, body);``` | To request in the MailChimp API service using PATCH method. The body parameter accepts Cloure or Array type. |
