@@ -50,7 +50,7 @@ $mailchimp->post("list/{$listId}/members", function ($requestBody) {
     return $requestBody;
 });
 
-// If you want to investigate the current request details..
+// If you want to investigate the current request details.
 $mailchimp->getRequest();
 
 // To get the response from the MailChimp API service.
