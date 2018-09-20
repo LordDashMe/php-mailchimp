@@ -31,7 +31,7 @@ composer require lorddashme/php-mailchimp
 | ```delete('route');``` | To request in the MailChimp API service using DELETE method. |
 | ```action('route');``` | To request in the MailChimp API service using the custom ACTION. |
 | ```getRequest();``` | To check the current request details. Can be use for debugging purposes. |
-| ```getRespose();``` | To get the current response from the MailChimp API service. <br> Response: <br> ```{"response_body": {...}", "header": {"response_http_code": ...}}``` |
+| ```getRespose();``` | To get the current response from the MailChimp API service. <br> Response Format: <br> ```{"response_body": {...}", "header": {"response_http_code": ...}}``` |
 
 - The basic usage of the package:
 
