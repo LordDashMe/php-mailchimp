@@ -24,14 +24,14 @@ composer require lorddashme/php-mailchimp
 
 | Function | Description |
 | -------- | ----------- |
-| <img width=400/>  |<img width=200/> |
+| <img width=420/>  |<img width=200/> |
 | ```post('route', closure or array);``` | To request in the MailChimp API service using POST method. The body parameter accepts Cloure or Array type. |
 | ```get('route');``` | To request in the MailChimp API service using GET method. |
 | ```patch('route', closure or array);``` | To request in the MailChimp API service using PATCH method. The body parameter accepts Cloure or Array type. |
 | ```delete('route');``` | To request in the MailChimp API service using DELETE method. |
 | ```action('route');``` | To request in the MailChimp API service using the custom ACTION. |
 | ```getRequest();``` | To check the current request details. Can be use for debugging purposes. |
-| ```getRespose();``` | To get the current response from the MailChimp API service. <br> Response: ```{"response_body": {...}", "header": {"response_http_code": ...}}``` |
+| ```getRespose();``` | To get the current response from the MailChimp API service. <br> Response: <br> ```{"response_body": {...}", "header": {"response_http_code": ...}}``` |
 
 - The basic usage of the package:
 
