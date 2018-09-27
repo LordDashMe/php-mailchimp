@@ -19,4 +19,4 @@ use Exception;
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
 
-class MailChimp extends Exception {}
+class MailChimpException extends Exception {}

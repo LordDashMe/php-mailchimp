@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "lorddashme/php-static-class-interface",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LordDashMe/php-static-class-interface.git",
-                "reference": "df9b62643ddde81a812bfe331a6be264c55fac68"
+                "reference": "2310db22da2351bd6e85294b0c7990b9af86acee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LordDashMe/php-static-class-interface/zipball/df9b62643ddde81a812bfe331a6be264c55fac68",
-                "reference": "df9b62643ddde81a812bfe331a6be264c55fac68",
+                "url": "https://api.github.com/repos/LordDashMe/php-static-class-interface/zipball/2310db22da2351bd6e85294b0c7990b9af86acee",
+                "reference": "2310db22da2351bd6e85294b0c7990b9af86acee",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "static",
                 "static-interface"
             ],
-            "time": "2018-09-12T03:28:09+00:00"
+            "time": "2018-09-27T09:01:23+00:00"
         }
     ],
     "packages-dev": [

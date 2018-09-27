@@ -18,22 +18,24 @@ class MailChimpTest extends TestCase
 
     /**
      * @test
-     * @expectedException LordDashMe\MailChimp\Exception\InvalidAPIKey
-     * @expectedExceptionCode 100
      */
     public function it_should_throw_exception_if_no_mailchimp_api_key_set_in_the_initialization()
     {
+        $this->expectException(\LordDashMe\MailChimp\Exception\InvalidAPIKey::class);
+        $this->expectExceptionCode(1);
+
         $mailchimp = new MailChimp();
         $mailchimp->get('');
     }
 
     /**
      * @test
-     * @expectedException LordDashMe\MailChimp\Exception\InvalidArgumentPassed
-     * @expectedExceptionCode 100
      */
     public function it_should_throw_exception_if_the_given_request_body_argument_not_an_array_or_closure_type()
     {
+        $this->expectException(\LordDashMe\MailChimp\Exception\InvalidArgumentPassed::class);
+        $this->expectExceptionCode(1);
+
         $listId = 'abcde12345';
         $mailchimp = new MailChimp('abcde12345...');
         $mailchimp->post("list/{$listId}/members", 'invalid');   

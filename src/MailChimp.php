@@ -12,8 +12,8 @@
 namespace LordDashMe\MailChimp;
 
 use LordDashMe\MailChimp\MailChimpCurl;
-use LordDashMe\MailChimp\Exception\InvalidAPIKey;
-use LordDashMe\MailChimp\Exception\InvalidArgumentPassed;
+use LordDashMe\MailChimp\Exception\InvalidAPIKey as InvalidAPIKeyException;
+use LordDashMe\MailChimp\Exception\InvalidArgumentPassed as InvalidArgumentPassedException;
 
 /**
  * MailChimp Class.
@@ -173,7 +173,7 @@ class MailChimp
     protected function prepareHeaders()
     {
         if (empty($this->apiKey)) {
-            throw InvalidAPIKey::isEmpty();
+            throw InvalidAPIKeyException::isEmpty();
         }
     }
 
@@ -230,7 +230,7 @@ class MailChimp
     protected function processCallbackParameter($callback)
     {
         if (! \is_array($callback) && ! ($callback instanceof \Closure)) {
-            throw InvalidArgumentPassed::isNotArrayOrClosure();    
+            throw InvalidArgumentPassedException::isNotArrayOrClosure();    
         }
         
         if ($callback instanceof \Closure) {

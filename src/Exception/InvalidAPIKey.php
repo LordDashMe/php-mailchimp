@@ -11,21 +11,22 @@
 
 namespace LordDashMe\MailChimp\Exception;
 
-use LordDashMe\MailChimp\Exception\MailChimp;
+use LordDashMe\MailChimp\Exception\MailChimpException;
 
 /**
  * Invalid API Key Exception Class.
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-class InvalidAPIKey extends MailChimp
+class InvalidAPIKey extends MailChimpException
 {
-    const ERROR_CODE_UNRESOLVED_IS_EMPTY = 100;
+    const IS_EMPTY = 1;
 
-    public static function isEmpty($message = '', $code = null, $previous = null)
-    {
-        $message = 'The api key header is empty. Please provide the api key in the class initialization process.';
-
-        return new static($message, self::ERROR_CODE_UNRESOLVED_IS_EMPTY, $previous);
+    public static function isEmpty(
+        $message = 'The api key header is empty. Please provide the api key in the class initialization process.', 
+        $code = self::IS_EMPTY, 
+        $previous = null
+    ) {
+        return new static($message, $code, $previous);
     }
 }

@@ -11,21 +11,22 @@
 
 namespace LordDashMe\MailChimp\Exception;
 
-use LordDashMe\MailChimp\Exception\MailChimp;
+use LordDashMe\MailChimp\Exception\MailChimpException;
 
 /**
  * Invalid Argument Passed Exception Class.
  * 
  * @author Joshua Clifford Reyes <reyesjoshuaclifford@gmail.com>
  */
-class InvalidArgumentPassed extends MailChimp
+class InvalidArgumentPassed extends MailChimpException
 {
-    const ERROR_CODE_UNRESOLVED_IS_NOT_ARRAY_OR_CLOSURE_TYPE = 100;
+    const IS_NOT_ARRAY_OR_CLOSURE = 1;
 
-    public static function isNotArrayOrClosure($message = '', $code = null, $previous = null)
-    {
-        $message = 'The given argument not match the required array or closure type.';
-
-        return new static($message, self::ERROR_CODE_UNRESOLVED_IS_NOT_ARRAY_OR_CLOSURE_TYPE, $previous);
+    public static function isNotArrayOrClosure(
+        $message = 'The given argument not match the required array or closure type.', 
+        $code = self::IS_NOT_ARRAY_OR_CLOSURE, 
+        $previous = null
+    ) {
+        return new static($message, $code, $previous);
     }
 }
