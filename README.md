@@ -42,9 +42,12 @@ include __DIR__  . '/vendor/autoload.php';
 
 use LordDashMe\MailChimp\MailChimp;
 
-$mailchimp = new MailChimp('abcde12345...');
+$apiKey = 'abcde12345...';
+
+$mailchimp = new MailChimp($apiKey);
 
 $listId = 'qwerty12345...';
+
 $mailchimp->post("list/{$listId}/members", function ($requestBody) {
     $requestBody->email_address = 'sample_email@mailchimp.com';
     return $requestBody;
@@ -67,9 +70,12 @@ include __DIR__  . '/vendor/autoload.php';
 
 use LordDashMe\MailChimp\Facade\MailChimp;
 
-MailChimp::init('abcde12345...');
+$apiKey = 'abcde12345...';
+
+MailChimp::init($apiKey);
 
 $listId = 'qwerty12345...';
+
 MailChimp::post("list/{$listId}/members", array(
     'email_address' => 'sample_email@mailchimp.com'
 ));
