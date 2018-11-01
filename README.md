@@ -61,7 +61,7 @@ $mailchimp->getRequest();
 $response = $mailchimp->getResponse();
 ```
 
-- Also can be done by the below implementation:
+- Also can be done by using the below code:
 
 ```php
 <?php
