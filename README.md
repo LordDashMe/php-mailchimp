@@ -33,7 +33,7 @@ composer require lorddashme/php-mailchimp
 | ```getRequest();``` | To check the current request details. Can be use for debugging purposes. |
 | ```getRespose();``` | To get the current response from the MailChimp API service. <br> Response Format: <br> ```{"response_body": {...}", "header": {"response_http_code": ...}}``` |
 
-- The basic usage of the package:
+- Basic usage:
 
 ```php
 <?php
