@@ -4,7 +4,7 @@ A PHP package wrapper for MailChimp API.
 
 This package support only the version 3 of Mailchimp API.
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/LordDashMe/php-mailchimp.svg?style=flat-square)](https://packagist.org/packages/LordDashMe/php-mailchimp) [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://php.net/) [![Build Status](https://img.shields.io/travis/LordDashMe/php-mailchimp/master.svg?style=flat-square)](https://travis-ci.org/LordDashMe/php-mailchimp) [![Coverage Status](https://img.shields.io/coveralls/LordDashMe/php-mailchimp/master.svg?style=flat-square)](https://coveralls.io/github/LordDashMe/php-mailchimp?branch=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/LordDashMe/php-mailchimp.svg?style=flat-square)](https://packagist.org/packages/LordDashMe/php-mailchimp) [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://php.net/) [![Coverage Status](https://img.shields.io/coveralls/LordDashMe/php-mailchimp/master.svg?style=flat-square)](https://coveralls.io/github/LordDashMe/php-mailchimp?branch=master)
 
 ## Requirement(s)
 
